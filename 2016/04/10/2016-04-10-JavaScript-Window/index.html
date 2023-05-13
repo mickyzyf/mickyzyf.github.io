@@ -1,0 +1,721 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Window对象在客户端的JavaScript中扮演核心角色：它是客户端JavaScript程序的全局对象。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Window对象">
+<meta property="og:url" content="http://example.com/2016/04/10/2016-04-10-JavaScript-Window/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="Window对象在客户端的JavaScript中扮演核心角色：它是客户端JavaScript程序的全局对象。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-04-10T15:11:54.000Z">
+<meta property="article:modified_time" content="2023-05-13T16:42:57.765Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Window对象 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Window对象"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2016-04-10 23:11" pubdate>
+          2016年4月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          44 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Window对象</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Window对象"><a href="#Window对象" class="headerlink" title="Window对象"></a>Window对象</h1><p>Window对象在客户端的JavaScript中扮演核心角色：它是客户端JavaScript程序的全局对象。</p>
+<h2 id="计时器"><a href="#计时器" class="headerlink" title="计时器"></a>计时器</h2><p>setTimeout()和setInterval()可以用来注册在指定的时间之后单次或重复调用的函数。<br>因为它们都是客户端JavaScript中的重要全局函数，所以定义为Window对象的方法，但作为通用函数，其实不会对窗口做什么事情。</p>
+<p>Window对象的setTimeout()方法用来实现一个函数在指定的毫秒数之后运行。</p>
+<p>setTimeout()返回一个值，这个值可以传递给clearTimeout()用于取消这个函数的执行。</p>
+<p>setInterval()和setTimeout()一样，只不过这个函数会在指定毫秒数的间隔里重复调用：</p>
+<p> setInterval(udpateClock,6000);&#x2F;&#x2F;每60秒调用一次updateClock()</p>
+<h2 id="浏览器定位和导航"><a href="#浏览器定位和导航" class="headerlink" title="浏览器定位和导航"></a>浏览器定位和导航</h2><p>Window对象的location属性引用的是Location对象，它表示该窗口中当前显示的文档的URL，并定义了方法来使窗口载入新的文档。</p>
+<p>Document对象的location属性也引用到Location对象：</p>
+<p> window.location &#x3D;&#x3D;&#x3D; document.location &#x2F;&#x2F;true</p>
+<p>Document对象也有一个URL属性，是文档首次载入后保存该文档的URL的静态字符串。</p>
+<h3 id="解析URL"><a href="#解析URL" class="headerlink" title="解析URL"></a>解析URL</h3><p>Window对象的location属性引用的是Location对象，它表示该窗口中当前显示的文档的URL。Location对象的href属性是一个字符串，后者包含URL的完整文本。Location对象的toString()方法返回href属性的值，因此在会隐式调用toString()的情况下，可以使用location代替location.href。</p>
+<p>这个对象的其他属性——protocol，host，hostname，port，partname和search。分别表示URL的各个部分。这些是“URL分解”属性。</p>
+<p>Location对象的hash和search属性比较有趣。如果有的话，hash属性返回URL中的”片段标识符”部分。search属性也类似，它返回的是问号之后的URL，这部分通常是某种类型的查询符串。一般来说，这部分内容是用来参数化URL并在其中嵌入参数的。</p>
+<h3 id="载入新的文档"><a href="#载入新的文档" class="headerlink" title="载入新的文档"></a>载入新的文档</h3><p>Location对象的assign()可以使窗口载入并显示你指定的URL中的文档。replace()方法也类似，但它在载入新文档之前会从浏览历史中把当前文档删除。如果脚本无条件地载入一个新文档，replace()方法可能是比assgin()方法更好的选择。</p>
+<p> &#x2F;&#x2F;如果浏览器不支持XMLHttpRequest对象<br> &#x2F;&#x2F;则将其重定向到一个不需要Ajax的静态页面<br> if (!XMLHttpRequest) location.replace(“staticpage.html”);</p>
+<p>这个例子中传入replace()的一个相对URL。相对URL是相当于当前页面所在目录来解析的，就像将它们用于一个超链接中。除了assgin()和replace()方法，Loading对象还定义了reload()方法，后者可以让浏览器重新载入当前文档。</p>
+<p>使用浏览器跳转到新页面的一种更新传统的方法是直接把新的URL赋给location属性：</p>
+<p> location &#x3D; “<a target="_blank" rel="noopener" href="http://www.oreilly.com&quot;;//%E5%9C%A8%E6%AD%A4%E7%BD%91%E7%AB%99">http://www.oreilly.com&quot;;//在此网站</a><br> location &#x3D; “page2.html”；&#x2F;&#x2F;载入下一个页面</p>
+<p> location &#x3D; “#top”; &#x2F;&#x2F;跳转到文档的顶部</p>
+<p> location.search &#x3D; “?page&#x3D;” + (pagenum+1);&#x2F;&#x2F;载入下一个页面</p>
+<h3 id="浏览历史"><a href="#浏览历史" class="headerlink" title="浏览历史"></a>浏览历史</h3><p>Window对象的history属性引用的是该窗口的History对象。History对象是用来把窗口的浏览历史用文档和文档状态列表的形式表示。History对象的length属性表示浏览历史列表中的元素数量。</p>
+<p> history.go(-2); &#x2F;&#x2F;后退两个历史记录，相当于单击”后退”按钮两次</p>
+<h2 id="浏览器和屏幕信息"><a href="#浏览器和屏幕信息" class="headerlink" title="浏览器和屏幕信息"></a>浏览器和屏幕信息</h2><p>脚本有时候需要获取和它们所在的Web浏览器或浏览器所在的桌面相关的信息。<br>比如Window对象的navigator和screen属性。它们分别引用的是Navigator和Screen对象。</p>
+<h3 id="Navigator对象"><a href="#Navigator对象" class="headerlink" title="Navigator对象"></a>Navigator对象</h3><p>Window对象的navigator属性引用的是包含浏览器厂商版本信息的Navigator对象。<br>Navigator对象的命名是为了纪念Netscape之后Navigator浏览器，不过所有其他浏览器也支持它。</p>
+<ul>
+<li>appName</li>
+</ul>
+<p> Web浏览器的全称。IE中，这就是”Microsoft Internet Explorer”。在Firefox中，该属性就是”Netscape”。为了兼容现存的浏览器嗅探代码，其他浏览器通常也取值为”Netscape”。</p>
+<ul>
+<li>appVersion</li>
+</ul>
+<p> 此属性通常以数字开始，并跟着包含浏览器厂商和版本信息的详细字符串。字符串前面的数字通常是4.0或5.0，表示第4或第5带兼容的浏览器。appVersion字符串没有标准的格式，所以，没有办法直接用它来判断浏览器的类型。</p>
+<ul>
+<li>userAgent</li>
+</ul>
+<p> 浏览器在它的USER-AGENT HTTP头部中发送的字符串。这个属性通常包含appVersion中的所有信息没并且常常也可能包含其他的细节。</p>
+<ul>
+<li>platform</li>
+</ul>
+<p> 在其上运行浏览器的操作系统(并且可能是硬件)的字符串。</p>
+<h3 id="Screen对象"><a href="#Screen对象" class="headerlink" title="Screen对象"></a>Screen对象</h3><p>Window对象的screen属性引用的是Screen对象。它提供有关窗口显示的大小和可用的颜色数量的信息。属性withd和height指定的是以像素为单位的窗口大小。</p>
+<p>属性availWidth和availHeight指定的是实际可用的显示大小，它们排除了像桌面任务栏这样的特性所占用的空间。属性colorDepth指定的是显示的BPP值。</p>
+<p>window.screen属性和它引用的Screen对象都是非标准但广泛实现的。</p>
+<h2 id="对话框"><a href="#对话框" class="headerlink" title="对话框"></a>对话框</h2><p>Window对象提供了3个方法来向用户显示简单的对话框。</p>
+<p>alert()向用户显示一条消息并等待用户关闭对话框。</p>
+<p>comfirm()也是显示一条消息，要求用户单击”确定”或”取消”按钮，并返回一个布尔值。</p>
+<p>prompt()同样也显示一条消息，等待用户输入字符串，并返回那个字符串。</p>
+<p>尽管alert()、confirm()和prompt()方法都很容易使用，但是良好的设计还是需要有节制地使用它们。<br>除了这三个以外，还要一个更复杂的方法showModalDialog()。显示一个包含HTML格式的”模态对话框”，可以给它传入参数。以及从对话框里面返回值。</p>
+<h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p>Window对象的onerror属性是一个事件处理程序，当未捕获的异常传播到调用栈上时就会调用它，并把错误消息输出到浏览器的JavaScript控制台上。如果给这个属性赋一个函数，那么只要这个窗口中发生了JavaScript错误，就会调用该函数，即它成了窗口的错误程序。</p>
+<p> &#x2F;在一个对话框中弹出错误消息，但不超过三次<br> window.onerror &#x3D; function(msg,url,line){<br>  if(onerror.num++ &lt; onerror.max){<br>   alert(“ERROR:” + msg + “\n” + url + “:” + line);<br>   return true;<br>  }<br> }<br> onerror.max &#x3D; 3;<br> onerror.num &#x3D; 0;</p>
+<h2 id="作为Window对象属性的文档元素"><a href="#作为Window对象属性的文档元素" class="headerlink" title="作为Window对象属性的文档元素"></a>作为Window对象属性的文档元素</h2><p>如果在HTML文档中用id属性来为元素命名，并且如果Window对象没有此名字的属性，Window对象会赋予一个属性，它的名字是id属性的值，而它们的值指向表示文档元素的HTMLElement对象。</p>
+<p>Window对象是全局对象的形式存在于作用域链的最上层，这就意味着在HTML文档中使用的id属性会成为可以被脚本访问的全局变量。如果文档包含一个&lt;button id&#x3D;”okay” &gt;元素，可以通过全局变量okay来引用元素。</p>
+<p>但是，如果是已经具有此名字的属性，就不会发生如id是”history”、”location”或”navigator”的元素，就不会以全局变量的形式出现。</p>
+<h2 id="多窗口和窗体"><a href="#多窗口和窗体" class="headerlink" title="多窗口和窗体"></a>多窗口和窗体</h2><p>一个Web浏览器窗口可能在桌面上包含多个标签页，每一个标签页都是独立的”浏览上下文”，每一个上下文都有独立的Window对象，而且相互之间互不干扰。</p>
+<h3 id="打开和关闭窗口"><a href="#打开和关闭窗口" class="headerlink" title="打开和关闭窗口"></a>打开和关闭窗口</h3><p>使用Window对象的open()方法可以打开一个新的浏览器窗口(或标签页，这通常和浏览器的配置选项有关)。Window.open()载入指定的URL到新的或已经存在的窗口中，并返回代表那个窗口的Window对象。</p>
+<p>open()的第一个参数是在新文档中显示文档的URL，如果这个参数省略了，或是空字符串，那么就会使用空白页的URL about:blank。</p>
+<p>open()第二个参数是重新打开窗口的名字。如果指定的是一个已经存在的窗口的名字(并且脚本允许跳转到那个窗口)会直接使用已经存在的窗口。否则会打开新的窗口，并将这个指定的名字赋值给它。如果此参数省略，会使用指定的名字”_blank”打开一个新的、未命名的窗口。</p>
+<p>open()第三个可选参数是一个以逗号分隔的列表，包含大小和各种属性，用以表明新窗口是如何打开的。如果省略这个参数，那么新窗口就会用一个默认的大小，而且带有一整组标准的UI组件，即菜单栏、状态栏、工具栏等。</p>
+<p> var w &#x3D; window.open(“Smallwin.html”,”smallwin”,”width&#x3D;400,height&#x3D;350,status&#x3D;yes,resizable&#x3D;yes”);</p>
+<p>open()第四个参数只在第二个参数命名的是一个已经存在的窗口中才有用，它是一个布尔值，声明了由第一个参数指定的URL是应用替换掉窗口浏览历史的当前条目(true),还是应该在窗口浏览历史中创建一个新的条目(false),后者是默认值。</p>
+<p> var w &#x3D; window.open();   &#x2F;&#x2F;打开一个新的空白窗口<br> w.alert(“About to visit htp:&#x2F;&#x2F;example.com”);&#x2F;&#x2F;调用alert()方法<br> w.location &#x3D; “<a href="http://example.com/">http://example.com</a>“; &#x2F;&#x2F;设置它的location属性。</p>
+<p>关闭窗口</p>
+<p>就像方法open()打开一个新窗口一样，方法close()将关闭一个窗口。如果已经创建了window对象w，可以直接使用</p>
+<p> w.close() &#x2F;&#x2F;将w关闭</p>
+<h3 id="窗体之间的关系"><a href="#窗体之间的关系" class="headerlink" title="窗体之间的关系"></a>窗体之间的关系</h3><p>我们已经知道Window对象的方法open()返回代表新建的窗口的Window对象。而且这个新窗口具有opener属性，该属性可以打开它的原始窗口。这样，两个窗口就可以相互引用，彼此都可以读取对方的属性或调用对方的方法。窗体也是这样的。</p>
+<p>任何窗口或窗体中的JavaScript代码都可以将自己的窗口和窗体引用为window或self。窗体可以用parent属性引用包含它的窗口或窗体的Window对象:</p>
+<p> parent.histor.back();<br>如果一个窗口是顶级窗口或标签，而不是窗体，呢么其parent属性引用的就是这个窗口本身：</p>
+<p> parent &#x3D;&#x3D; self;&#x2F;&#x2F;只有顶级窗口才会返回true</p>
+<h3 id="交互窗口中的JavaScript"><a href="#交互窗口中的JavaScript" class="headerlink" title="交互窗口中的JavaScript"></a>交互窗口中的JavaScript</h3><p>每个窗口和窗体都是它自身的JavaScript执行上下文，以Windwo作为全局对象。但是如果一个窗口或窗体中的代码可以应用到其他窗口或窗体，那么一个窗体或脚本就可以和其他窗口或窗体中的脚本进行交互。</p>
+<p>设想一个Web页面里有两个iframe元素，分别叫A和B，并假设这些窗体包含的文档来自同一个服务器，并且包含交互脚本。窗体A里面脚本定义了一个变量i:</p>
+<p> var i &#x3D; 3;<br>这个变量只是全局对象的一个属性，也是Window对象的一个属性。窗体A中的代码可以用标识符i来引用变量，或者用window对象显式地引用这个变量：</p>
+<p> window.i<br>由于B窗体中的脚本可以引用窗体A的Window的对象，因此它也可以引用那个Window对象的属性：</p>
+<p> parent.A.i &#x3D; 4;&#x2F;&#x2F;改变窗体A中的变量i值。</p>
+<p> parent.B.f()&#x2F;&#x2F;调用B窗体中定义的一个函数</p>
+<p> var f &#x3D; parent.B.f;&#x2F;&#x2F;A窗体中使用B窗体的函数f</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JavaScript/" class="category-chain-item">JavaScript</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaScript/">#JavaScript</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Window对象</div>
+      <div>http://example.com/2016/04/10/2016-04-10-JavaScript-Window/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2016年4月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2016/04/11/2016-04-11-JavaScript-DOM/" title="脚本化文档">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">脚本化文档</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2016/04/08/2016-04-08-JavaScriptbrowser/" title="客户端的JavaScript(浏览器中的JavaScript)">
+                        <span class="hidden-mobile">客户端的JavaScript(浏览器中的JavaScript)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

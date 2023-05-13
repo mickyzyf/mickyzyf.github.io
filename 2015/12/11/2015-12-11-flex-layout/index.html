@@ -1,0 +1,787 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Flex意为“弹性布局”，英文flexible box的缩写，flex布局使css盒模型变得更加强大和灵活，flex布局主要用在webapp和移动端中使用，移动端flex布局，将使的布局变得异常简单。任何一个容器都可以指定为flex布局；行内元素也可以使用flex布局">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flex布局的用法">
+<meta property="og:url" content="http://example.com/2015/12/11/2015-12-11-flex-layout/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="Flex意为“弹性布局”，英文flexible box的缩写，flex布局使css盒模型变得更加强大和灵活，flex布局主要用在webapp和移动端中使用，移动端flex布局，将使的布局变得异常简单。任何一个容器都可以指定为flex布局；行内元素也可以使用flex布局">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-12-11T07:14:54.000Z">
+<meta property="article:modified_time" content="2023-05-13T16:41:58.845Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="CSS3">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>flex布局的用法 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="flex布局的用法"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2015-12-11 15:14" pubdate>
+          2015年12月11日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">flex布局的用法</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Css3的flex布局用法"><a href="#Css3的flex布局用法" class="headerlink" title="Css3的flex布局用法"></a>Css3的flex布局用法</h2><p>Flex意为“弹性布局”，英文flexible box的缩写，flex布局使css盒模型变得更加强大和灵活，flex布局主要用在webapp和移动端中使用，移动端flex布局，将使的布局变得异常简单。<br> 任何一个容器都可以指定为flex布局；<br>行内元素也可以使用flex布局。</p>
+<p> .box{<br>  display:inline-flex;<br> }</p>
+<p>Webkit内核的浏览器，必须加上-webkit前缀</p>
+<p> .box{<br>  display:-webkit;&#x2F;<em>Safari</em>&#x2F;display:flex;<br> }</p>
+<p>设为flex布局后，子元素的float、clear、和vertical-align属性将失效。</p>
+<h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h3><p>采用css3 flex布局的元素,称为flex容器，它的所有子元素自动称为容器成员，称为(flex item)<br>容器默认存在两根轴:水平的主轴(main axis)和垂直的交叉轴(cross axis)。主轴的开始位置(与边框的交叉点)叫main start,结束位置叫做 main end；交叉抽的开始位置叫做cross start,结束位置叫做cross end;</p>
+<h3 id="容器的6个属性"><a href="#容器的6个属性" class="headerlink" title="容器的6个属性"></a>容器的6个属性</h3><ol>
+<li>flex-direction:</li>
+</ol>
+<p> 决定主轴的方向（即项目排列的方向）  </p>
+<p> 用法：</p>
+<p>  .box{<br>    flex-direction:row|row-reverse|column|column-reverse<br>  }  </p>
+<p> 值：</p>
+<p>  row:默认值 水平从左向右<br>  row-reverse:水平从右向左<br>  column:竖直从上往下<br>  column-reverse：竖直从下往上  </p>
+<ol start="2">
+<li>flex-wrap:</li>
+</ol>
+<p> 默认情况下项目都排在一条（轴线）线上,flex-warp属性定义，如果一条轴线排不下，如何换行。  </p>
+<p> 用法：</p>
+<p>  .box{<br>   flex- wrap:nowrap| wrap | wrap -reverse;<br>  }  </p>
+<p> 值:</p>
+<p>  nowrap:默认不换行<br>  wrap：换行，第一行在上<br>  wrap -reverse：换行，第一行在下方  </p>
+<ol start="3">
+<li>flex-flow:</li>
+</ol>
+<p> flex-flow属性是flex-direction属性和flex- wrap属性的简写形式，默认值是row no wrap。  </p>
+<p> 用法:</p>
+<p>  .box{<br>    flex-flow:<flex-direction> || <flex-wrap><br>  }</p>
+<ol start="4">
+<li>justify-content:</li>
+</ol>
+<p> 定义了项目在主轴的对齐方式  </p>
+<p> 用法：</p>
+<p>  .box{<br>   justify-content:flex-start | flex-end | center | space-between | space-around;<br>  }<br>  值：</p>
+<p>  flex-start:左对齐<br>  flex-end:右对齐<br>  center:居中<br>  space-between:两端对齐，项目之间的间隔都相等<br>  space-around: 每个项目两侧的间隔相等，所以，项目之间的间隔比项目与边框的间隔大一倍  </p>
+<ol start="5">
+<li>align-items:</li>
+</ol>
+<p> 定义项目在交叉轴上如何对齐  </p>
+<p> 用法：</p>
+<p>  . box{<br>   align-items:flex-satrt |flex-end|center|baseline|stretch<br>  }  </p>
+<p> 它可能取5个值，具体的对齐方式与交叉轴的方向有关，下面假设交叉轴从上到下  </p>
+<p>  flex-start:交叉轴的起点对齐  </p>
+<p>  flex-end:交叉轴的终点对齐  </p>
+<p>  center:交叉轴中点对齐  </p>
+<p>  baseline:项目中第一行文字的基线对齐  </p>
+<p>  stretch（默认值）：如果项目未设置高度或者为auto，将占满整个容器的高度  </p>
+<ol start="6">
+<li>align-content</li>
+</ol>
+<p> 定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。  </p>
+<p> 用法：</p>
+<p>  .box{<br>   align-content:flex-start 或 flex-end 或 center 或 space-between 或 space-around 或 stretch<br>  }<br> 值:</p>
+<p>  flex-start:与交叉轴起点对齐<br>  flex-end:与交叉轴终点对齐<br>  center：与交叉轴中点对齐<br>  space-between:与交叉轴两端对齐，轴线之间的间隔平均分布<br>  space-around:每根轴线两侧的间隔都相等，所以，轴线之间的间隔与边框的间隔大一倍<br>  stretch(默认):轴线占满整个交叉轴  </p>
+<h3 id="项目的6个属性"><a href="#项目的6个属性" class="headerlink" title="项目的6个属性"></a>项目的6个属性</h3><ol>
+<li>order:</li>
+</ol>
+<p> 定义项目的排列顺序，数值越小，排列越靠前，默认为0  </p>
+<p> 用法:</p>
+<p>  .item{<br>   order:interger;<br>  }  </p>
+<ol start="2">
+<li>flex-grow</li>
+</ol>
+<p> 定义项目的放大比例，默认为0，如果存在剩余空间，也不放大  </p>
+<p>  用法 ：</p>
+<p>  .item{<br>    flex-grow:<number>&#x2F;<em>default 0</em>&#x2F;<br>  }  </p>
+<ol start="3">
+<li>flex-shrink</li>
+</ol>
+<p> 定义了项目的缩小比例，默认为1，即如果控件不足，该项目将缩小  </p>
+<p> 用法：</p>
+<p>  .item{<br>   flex-shrink:number;&#x2F;<em>default 1</em>&#x2F;<br>  }  </p>
+<ol start="4">
+<li>flex-basis</li>
+</ol>
+<p> 定义了在分配多余控件之前，项目占据的主轴控件(main size)浏览器根据这个属性,计算主轴是否有多余控件,它的默认值是auto,即项目的本来大小.  </p>
+<p> 用法：</p>
+<p>  .item{<br>   flex-basis:length 或 auto;&#x2F;<em>default auto</em>&#x2F;<br>  }  </p>
+<p> 它可以设为跟width或height属性一样的值(比如350px)，则项目将占据固定控件  </p>
+<ol start="5">
+<li>flex</li>
+</ol>
+<p> 属性是flex-grow,flex-shrink和flex-basis的简写，默认值为 0 1 auto;后两个属性可选  </p>
+<p> 用法：</p>
+<p>  .item{<br>   flex:none | flew-grow | flex-shrink | flex-basis<br>  }  </p>
+<p> 该属性有两个快捷值： auto(1 1 auto)和none(0 0 auto)  </p>
+<p> 建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值  </p>
+<ol start="6">
+<li>align-self:</li>
+</ol>
+<p>  允许单个项目与其他项目不一样的对齐方式，可覆盖align-items属性，默认值是auto，表示继承父类元素的align-items属性，如果没有父元素，则等同于stretch。  </p>
+<p> 用法:</p>
+<p> .item{<br>  align-self:auto 或 flex-start 或 flex-end 或 center 或 baseline 或 stretch<br> }</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2> <!DOCTYPE html>
+ <html>
+ <head>
+ <meta charset="utf-8">
+ <title>flex Box</title>
+ <style>
+ .flex-container {
+     /*给容器设置布局为flex布局*/
+     display: -webkit-flex;/*Safari*/
+     display: flex;
+
+<pre><code class="hljs"> /*1.flex-direction: 参数有row|row-reverse|column|column-reverse*/
+ /*flex-direction:row;*/
+
+ /*2.flex-wrap:参数有nowrap|wrap|wrap-reverse;*/
+ /*flex-wrap:wrap;*/
+
+ /*3.flex-flow是flex-direction和flex-wrap的集合*/
+ flex-flow:row wrap;
+
+ /*4.justify-content: 参数有 flex-start|flex-end|center|space-between|space-around*/
+ /*justify-content:space-around;*/
+
+ /*5.align-items：参数有 flex-start|flex-end|center|baseline|stretch*/
+ /*align-items:flex-end;*/
+
+ /*6.align-content:参数有 flex-start|flex-end|center|space-between|space-around|stretch;*/
+ align-content:space-around;
+
+ height:400px;
+ /*background-color: lightgrey;*/
+</code></pre>
+<p> }</p>
+<p> .flex-item {<br>     background-color: cornflowerblue;<br>     width: 200px;<br>     height: 100px;<br>     margin: 5px;<br> }</p>
+<p> .flex-item1{<br>   order: 3;<br>   flexs-shrink:0;<br> }<br> .flex-item3{<br>   order: 4;<br>   &#x2F;<em>flex-grow:1.5;</em>&#x2F;<br> }<br> .flex-item4{<br>   &#x2F;<em>flex-basis:600px;</em>&#x2F;<br> }<br> .flex-item5{<br>   &#x2F;<em>flex属性是flex-grow,flex-shrink和flex-basis 的简写，默认值是0 1 auto 后两个属性可选</em>&#x2F;<br>   &#x2F;<em>flex:0 1 auto;</em>&#x2F;<br>   flex:auto;  &#x2F;<em>1 1 auto</em>&#x2F;<br> }<br> .flex-item6{<br>   &#x2F;<em>align-self:参数有 auto(默认)|flex-start|flex-end|center|baseline|stretch|</em>&#x2F;<br>   &#x2F;<em>align-self:center;</em>&#x2F;<br> }</p>
+<p> </style><br> </head><br> <body></p>
+ <div class="flex-container">
+   <div class="flex-item flex-item1">flex item 1</div>
+   <div class="flex-item flex-item2">flex item 2</div>
+   <div class="flex-item flex-item3">flex item 3</div>
+   <div class="flex-item flex-item4">flex item 4 </div>  
+   <div class="flex-item flex-item5">flex item 5 </div>  
+   <div class="flex-item flex-item6">flex item 6</div>
+
+ </div>
+
+ </body>
+ </html>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CSS3/" class="category-chain-item">CSS3</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CSS3/">#CSS3</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>flex布局的用法</div>
+      <div>http://example.com/2015/12/11/2015-12-11-flex-layout/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2015年12月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2015/12/13/2015-12-14-gradual-change/" title="渐变">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">渐变</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2015/12/10/2015-12-10-border-and-background/" title="边框和背景">
+                        <span class="hidden-mobile">边框和背景</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

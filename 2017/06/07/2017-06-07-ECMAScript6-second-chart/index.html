@@ -1,0 +1,765 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="es6新增let命令，用来声明变量。它的用法类似于var，但是所声明的变量,只有在let命令所在的代码块内有效,同时也新增了Const，用于声明常量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6第二章 let和const">
+<meta property="og:url" content="http://example.com/2017/06/07/2017-06-07-ECMAScript6-second-chart/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="es6新增let命令，用来声明变量。它的用法类似于var，但是所声明的变量,只有在let命令所在的代码块内有效,同时也新增了Const，用于声明常量">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-06-07T15:40:54.000Z">
+<meta property="article:modified_time" content="2023-05-13T16:43:04.265Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="ES6">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ES6第二章 let和const - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ES6第二章 let和const"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2017-06-07 23:40" pubdate>
+          2017年6月7日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          61 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ES6第二章 let和const</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="let命令"><a href="#let命令" class="headerlink" title="let命令"></a>let命令</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>es6新增let命令，用来声明变量。它的用法类似于var，但是所声明的变量,只有在let命令所在的代码块内有效</p>
+<p> {<br>  let a &#x3D; 10;<br>  var b &#x3D; 1;<br> }</p>
+<p> a &#x2F;&#x2F;ReferenceError:a is not defined<br> b &#x2F;&#x2F;1</p>
+<p>解释:分别用let和var声明了两个变量。然后在代码块外面调用这个两个变量，结果let声明的变量报错，var 申明的变量返回了正确的值。这表明，let声明的变量只在它所在的代码块中有效</p>
+<p><strong>for循环的计数器，就很适合使用let命令</strong></p>
+<p> for(let i &#x3D;0;i&lt;arr.length;i++){<br>  console.log(i);<br> }<br> console.log(i);</p>
+<p>上面代码的计数器i，只在for循环中有效<br>下面的代码如果使用var，最后输出的是10</p>
+<p> var a &#x3D;[];<br> for (var i &#x3D;0;i&lt;10;i++){<br>  a[i] &#x3D;function(){<br>   console.log(i);<br>  };<br> }<br> a<a href="">6</a>;&#x2F;&#x2F;10</p>
+<p>分析:变量i是var声明的，在全局范围内有效，所有每一次循环，新的i值都会覆盖旧值，导致最后输出的是最后一轮的i值</p>
+<p>如果用let，声明，声明的变量仅在块级作用域中有效，最后输出的是6.如下：</p>
+<p> var a &#x3D;[];<br> for (let i &#x3D;0;i&lt;10;i++){<br>  a[i] &#x3D;function(){<br>   console.log(i);<br>  };<br> }<br> a<a href="">6</a>;&#x2F;&#x2F;6</p>
+<h3 id="不存在变量提升"><a href="#不存在变量提升" class="headerlink" title="不存在变量提升"></a>不存在变量提升</h3><p>let不像var那样会发生”变量提升”现象，所以变量一定要在声明后使用，否则报错</p>
+<p> console.log(foo);&#x2F;&#x2F;undefined<br> console.log(bar);&#x2F;&#x2F;ReferenceError</p>
+<p> var foo &#x3D; 2;<br> let bar &#x3D; 2;</p>
+<p>解释：变量foo用var命令声明，会发生变量提升，即脚本开始运行时，变量foo已经存在了，但是<br>没有值，所以会输出undefined。变量bar用let命令声明，不会发生变量提升。这表示在声明它之前<br>变量bar是不存在的，这时如果用到它就会抛出一个错误。</p>
+<h3 id="暂时性死区"><a href="#暂时性死区" class="headerlink" title="暂时性死区"></a>暂时性死区</h3><p>只要块级作用域内存在命令，它所声明的变量就”绑定”(binding)这个区域，不再受外部的影响。</p>
+<p> var temp &#x3D; 123;</p>
+<p> if(true){<br>  temp &#x3D;”abc”;&#x2F;&#x2F;ReferenceError<br>  let temp;<br> }</p>
+<p>上面代码中，存在全局变量temp,但是块级作用域内let又声明了一个局部变量temp，导致后者绑定这个<br>块级作用域，所以在let声明变量前，对temp赋值会报错。</p>
+<p>ES6 明确规定，如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就形成了<br>封闭作用域。凡是在声明之前使用这些变量，就会报错</p>
+<p><strong>定义：</strong>在代码块内，使用let命令声明变量之前，该变量是不可用的，这在语法上，称为”<strong>暂时性死区</strong>“</p>
+<p> if(true){</p>
+<p>  tmp &#x3D; “abc”;<br>  console.log(tmp);</p>
+<p>  let tmp;<br>  console.log(tmp);</p>
+<p>  tmp &#x3D; “123”;<br>  console.log(tmp);<br> }</p>
+<p>上面代码中let命令声明变量tmp之前，都属于tmp的“死区”<br>“暂时性死区”也意味着typeof不再是一个百分百安全的操作。</p>
+<p> typeof x;<br> let x;</p>
+<p>上面代码中，变量x使用let命令声明，所有在声明之前都属于x的“死区”<br>只要用到该变量就会报错，因此，typeof运行时就会抛出一个ReferemceError</p>
+<p>作为比较，如果一个变量根本没有白声明，使用typeof反而不会报错</p>
+<p> typeof undecleared_variable &#x2F;&#x2F;“undefined”</p>
+<p>上面代码中，undeclared_variable是一个不存在的变量名，结果返回”undefined”。所以，在<br>没有let之前，typeof运算符是百分之百安全的，永远不会报错。现在这点不成立了。这样设计是<br>为了让大家养成良好的编程习惯，变量一定要在声明之后使用，否则报错。</p>
+<p>有些“死区”比较隐藏，不太容易发现。</p>
+<p> function bar(x&#x3D;y,y&#x3D;2){<br>  return [x,y];<br> }<br> bar();&#x2F;&#x2F;报错</p>
+<p>解释：调用bar函数之所以报错(某些实现可能不报错)，是因为参数x默认值等一另一个参数<br>y，而此时y还没有声明，属于“死区”。如果y的默认值是x，就不会报错，因为此时x已经声明了。</p>
+<p> function bar(x&#x3D;2,y&#x3D;x){<br>  return [x,y];<br> }<br> bar();&#x2F;&#x2F;[2,2]</p>
+<p>ES6规定暂时性死区和let、const语句不出现变量提升，主要是为了减少运行时错误，防止变量在声明<br>之前就使用这个变量，从而导致意料之外的行为。这样的错误在ES5是很常见的，现在有了这样的规定<br>避免此错误就容易很多。</p>
+<p>暂时性死区的本质就是，只要已进入当前作用域，所要使用的变量就已经存在了，但是不可获取，<br>只有等到声明变量的哪一行代码出现，才可以获取和使用该变量。</p>
+<h3 id="不允许重复声明"><a href="#不允许重复声明" class="headerlink" title="不允许重复声明"></a>不允许重复声明</h3><p>let不允许在相同的作用域内，重复声明一个变量</p>
+<p> &#x2F;&#x2F;报错<br> function(){<br>  let a &#x3D; 10;<br>  var a &#x3D;1;<br> }<br> &#x2F;&#x2F;报错<br> function(){<br>  let a &#x3D; 10;<br>  let a &#x3D;1;<br> }</p>
+<p>因此，不能在函数内部重新声明参数</p>
+<p> function func(arg){<br>  let arg;&#x2F;&#x2F;报错<br> }<br> function func(arg){<br>  {<br>   let arg;<br>  }<br> }</p>
+<h2 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h2><h3 id="为什么需要块级作用域？"><a href="#为什么需要块级作用域？" class="headerlink" title="为什么需要块级作用域？"></a>为什么需要块级作用域？</h3><p>ES5只有全局作用域和函数作用域，没有块级作用域，这带来很多不合理的长江。</p>
+<p>第一种场景，内层变量可能会覆盖外层变量。</p>
+<p> var tmp &#x3D; new Date();</p>
+<p> function f(){<br>  console.log(tmp);<br>  if(false){<br>   var tmp &#x3D; “hello world”;<br>  }<br> }</p>
+<p> f();&#x2F;&#x2F;undefined</p>
+<p>上面代码中，函数f执行后，输出结果为undefined,原因在于变量提升，导致内层的tmp变量<br>覆盖了外层的tmp变量。</p>
+<p>第二种场景，用来计数的循环变量泄露为全局变量</p>
+<p> var s &#x3D; ‘hello’;</p>
+<p> for(var i &#x3D; 0;i &lt;s.legnth;i++){<br>  console.log(s[i]);<br> }<br> console.log(i);&#x2F;&#x2F;5</p>
+<p>上面代码中，变量i只用来控制循环，但循环结束之后，它并没有消失，泄露成了全局变量</p>
+<h3 id="ES6的块级作用域"><a href="#ES6的块级作用域" class="headerlink" title="ES6的块级作用域"></a>ES6的块级作用域</h3><p>let实际上为JavaScript新增了块级作用域</p>
+<p> function f1(){<br>  let n &#x3D; 5;<br>  if (true){<br>   let n &#x3D; 10;<br>  }<br>  console.log(n);&#x2F;&#x2F;5</p>
+<p> }</p>
+<p>上面的函数中有两个代码块，都声明了变量n，运行后输出5，则表示，外层代码块不受内层代码块的<br>影响。如果使用var定义变量n，最后输出的值就是10；</p>
+<p>ES6允许块级作用域的任意嵌套</p>
+<p>块级作用域的出现，实际上使得获得广泛应用的立即执行匿名函数(IIFE)不在必要了。</p>
+<p> &#x2F;&#x2F;IIFE写法<br> (function(){<br>  var tmp &#x3D; …;<br>  …<br> }());</p>
+<p> &#x2F;&#x2F;块级作用域的写法<br> {<br>  let temp &#x3D; …;<br>  …<br> }</p>
+<h3 id="块级作用域与函数声明"><a href="#块级作用域与函数声明" class="headerlink" title="块级作用域与函数声明"></a>块级作用域与函数声明</h3><p>函数能不能在块级作用域之中声明，是一个相当令人混淆的问题。<br>ES5规定，函数只能在顶层作用域和函数作用域之中声明，不能在块级作用域声明。</p>
+<p> &#x2F;&#x2F;情况一<br> if(true){<br>  function f(){}<br> }</p>
+<p> &#x2F;&#x2F;情况二<br> try{<br>  function f(){}<br> }catch(e){<br>  }</p>
+<p>这两种函数声明，根据ES5的规定都是非法的。<br>但是，浏览器没有遵守这个规定，还是支持在块级作用域之中声明函数，因此，上面两种情况实际<br>都能运用，不会报错，不过，“严格模式下”还是会报错</p>
+<p> &#x2F;&#x2F;ES5严格模式<br> ‘use strict’;<br> if(true){<br>  function f(){}<br> }<br> &#x2F;&#x2F;报错<br> ES6引入了块级作用域，明确允许在块级作用与之中声明函数。<br> &#x2F;&#x2F;ES6严格模式<br> if(true){<br>  function f(){}<br> }<br> &#x2F;&#x2F;不报错</p>
+<p>并且ES6规定，块级作用域之中，函数声明语句的行为类似于let，在块级作用域之外不可引用。</p>
+<p> function f(){ console.log(‘I am outside!’);}</p>
+<p> (function(){<br>  if(false){<br>   &#x2F;&#x2F;重复声明一次函数f<br>   function f(){console.log(‘I am inside!’);}</p>
+<p>  }<br>  f();<br> }())</p>
+<p>上面代码在ES5中运行，会得到”I am inside!”,因为在if内声明的函数f会被提升到函数头部，实际运行的<br>代码如下。</p>
+<p> &#x2F;&#x2F;ES5版本<br> function f(){console.log(‘I am outside!’);}<br> (function (){<br>  function f(){console.log(‘I am inside!’);}<br>   if(false){<br>   }<br>  f();<br> }());</p>
+<p>ES6运行结果就完全不一样了，会得到”I am outside!”因为块级作用域内声明的函数类似以let<br>，对作用域之外没有影响，实际运行的代码如下。</p>
+<p> &#x2F;&#x2F;ES6版本<br> function f(){console.log(‘I am outside!’)}<br> (function (){<br>  f();<br> }())</p>
+<p>很显然，这种行为差异会对老代码产生很大影响。为了减轻因此产生的不兼容问题，ES6在附录B<br>中规定，浏览器实现可以不遵守上面的规定，有自己的行为方式。</p>
+<ul>
+<li>允许在块级作用域内声明函数</li>
+<li>函数声明类似于var，即会提升到全局作用域或函数作用域的头部</li>
+<li>同时，函数声明还会提升到所在块级作用域的头部</li>
+</ul>
+<p>注意，上面三条规则只对ES6的浏览器实现有效，其他环境啊的实现不用遵守，还是将块级作用的函数声明当let处理，<br>前面那段代码，在Chrome环境下运行会报错。</p>
+<p> &#x2F;&#x2F;ES6的浏览器环境<br> function f(){console.log(‘I am outside!’);}<br> (function(){<br>  if(false){<br>  &#x2F;&#x2F;重复声明一次函数f<br>  function f(){console.log(‘I am inside!’);}<br>  }<br>  f();<br> }())<br> &#x2F;&#x2F;Uncaught TypeError: f is not a function</p>
+<p>上面的代码报错，是因为实际运行的是下面的代码</p>
+<p> &#x2F;&#x2F;ES6的浏览器环境<br> function f(){console.log(‘I am outside!’);}<br> (function (){<br>  var f &#x3D; undefined;<br>  if(false){<br>   function f(){console.log(‘I am inside!’);}<br>  }<br>  f();<br> }());<br> &#x2F;&#x2F;Uncaught TypeError: f is not a function</p>
+<p>考虑到环境导致的行为差异太大，应该避免在块级作用域内声明函数。如果确实需要，也应该写成函数表达式，而不是<br>函数声明语句</p>
+<p> &#x2F;&#x2F;函数声明语句<br> {<br>  let a &#x3D; ‘secret’;<br>  function f(){<br>   return a;<br>  }</p>
+<p> }</p>
+<p> &#x2F;&#x2F;函数表达式<br> {<br>  let a &#x3D; ‘secret’;<br>  let f &#x3D; function(){<br>   return a;<br>  }<br> }</p>
+<p>另外，还有一个需要注意的地方。ES6的块级作用域允许声明函数的规则，只在使用大括号的情况下成立<br>如果没有使用大括号，就会报错</p>
+<p> &#x2F;&#x2F;不报错<br> ‘use strict’;<br> if(true){<br>  function f(){}<br> }</p>
+<p> &#x2F;&#x2F;报错<br> ‘use strict’;<br> if(true)<br>  function f(){}</p>
+<h2 id="const命令"><a href="#const命令" class="headerlink" title="const命令"></a>const命令</h2><p>const 声明一个只读的常量。一旦声明，常量的值就不能改变</p>
+<p> const PI &#x3D; 3.1415;</p>
+<p> PI &#x3D; 3 ;<br> &#x2F;&#x2F;TypeError：Assignment to constant varoiable.</p>
+<p><strong>改变常量的值会报错。</strong></p>
+<p>const声明的变量不得改变值，这意味着，const一旦声明变量，就必须立即初始化，不能留到最后赋值</p>
+<p> const foo;<br> &#x2F;&#x2F;SyntaxtError: Missing initializer in const declaration</p>
+<p>上面代码表示，对于const来说，只声明不赋值，就会报错</p>
+<p>const作用域与let命令相同：只在声明所在的块级作用域内有效。</p>
+<p> if(true){<br>  const MAX &#x3D; 5;<br> }<br> MAX&#x2F;&#x2F;Unctught ReferenceError:MAX is no defined</p>
+<p>const 命令声明的常量也是不提升的，同样存在暂时性死区，只能在声明的位置后面使用。</p>
+<p> if(true){<br>  console.log(MAX);&#x2F;&#x2F;ReferenceError<br>  const MAX &#x3D; 5;<br> }</p>
+<p>上面代码在常量MAX声明之前就调用，结果报错。<br>const声明的常量，也与let一样不可重复声明。</p>
+<p> var message &#x3D; ‘hello!’;<br> let age &#x3D; 25;</p>
+<p> &#x2F;&#x2F;一下两行都会报错<br> const message &#x3D; “Goodbye!”;<br> const age &#x3D; 30;</p>
+<p>对于复合类型的变量，变量名不指向数据，而是指向数据所在的地址。const命令只是保证变量<br>名指向的地址不变，并不保证改地址的数据不变，所以讲一个对象声明为常量必须非常小心</p>
+<p> consy foo &#x3D; {};<br> foo.prop &#x3D; 123;</p>
+<p> foo.prop<br> &#x2F;&#x2F;123<br> foo &#x3D; {}&#x2F;&#x2F;TypeError:”foo” is read-only</p>
+<p>上面的代码中，常量foo存储的是一个地址，这个地址指向一个对象，不可变的只是这个地址，即<br>不能把foo指向另一个地址，但对象本身是可变的，所以一依然可以为其添加新的属性</p>
+<p>下面是另一个例子。</p>
+<p> const a &#x3D; [];<br> a.push(‘hello’);&#x2F;&#x2F;可执行<br> a.length &#x3D; 0;&#x2F;&#x2F;可执行<br> a &#x3D; [“Dave”];</p>
+<p>常量a是一个数组，这个数组本身手机可写的，但是如果将另一个数组赋值给a，就会报错。<br>如果真的想将对象冻结，应该使用object.freeze方法。</p>
+<p> const foo &#x3D; object.freeze({});<br> &#x2F;&#x2F;常规模式下，下面一行不起作用<br> &#x2F;&#x2F;严格模式时，该运行会报错<br> foo.prop &#x3D; 123;<br>常量foo指向一个冻结的对象，所以添加的属性不起作用，严格模式时还会报错。<br>除了将对象本身冻结，对象的属性也应该冻结。下面是一个将对象彻底冻结的函数</p>
+<p> var constize &#x3D; (obj) &#x3D;&gt;{<br>  object.freeze(obj);<br>  object.keys(obj).forEach((key,value)&#x3D;&gt;{<br>   if(typeof obj[key] &#x3D;&#x3D;&#x3D; ‘object’){<br>    constantize(obj[key]);<br>   }<br>  });<br> };</p>
+<p>ES5只有两种声明变量的方法：var命令和function命令。ES6除了添加let和const命令，后面章节<br>还会提到另外两种声明变量的方法：import命令和class命令。所以，ES6一共6种声明变量的方法。</p>
+<h3 id="全局对象的属性"><a href="#全局对象的属性" class="headerlink" title="全局对象的属性"></a>全局对象的属性</h3><p>全局对象是最顶层的对象，在浏览器环境指的是window对象，在Node.js指的是global对象。ES5之中，<br>全局对象的属性与全局变量是等价的</p>
+<p> window.a &#x3D; 1;<br> a&#x2F;&#x2F;1<br> a &#x3D; 2;<br> window.a&#x2F;&#x2F;2</p>
+<p>全局对象的属性赋值与全局变量的赋值，是同一件事。（对NODE来说，这一条只对REPL环境适用，<br>模块环境之中，全局变量必须显示声明成global对象的属性。）</p>
+<p>未声明的全局变量，自动成为全局对象window的属性，这被认为是JavaScript语言最大的设计败笔之一。这样的设计带来了<br>很大的问题，首先是没法在编译时就报出变量未声明的错误，只有运行时才知道，其次程序员很容易不知不觉就创建<br>了全局变量（比如打错字）。另一方面，从语义上讲，语言的顶层对象是一个实体含义的对象，也是不合适的。<br>ES6为了改变这一点，一方面规定，为了保持兼容性，var命令和function命令声明的全局变量，依旧是全局对象属性；另一方面<br>另一方面规定，let命令、const命令、class命令声明的全局便令，不属于全局对象的属性。也就是说，从ES6开始，全局<br>变量将逐步与全局对象属性脱钩。</p>
+<p> var a &#x3D; 1;<br> &#x2F;&#x2F;如果在Node的REPL环境，可以写成global.a<br> &#x2F;&#x2F;或者采用通用方法，写成this.a<br> window.a&#x2F;&#x2F;1<br> let b &#x3D; 1;<br> window.b &#x2F;&#x2F;undefined</p>
+<p>全局变量a由bar命令声明，所以它是全局对象的属性；全局变量a由let命令声明，所以它不是全局对象的属性<br>返回undefined。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ES6/" class="category-chain-item">ES6</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ES6/">#ES6</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ES6第二章 let和const</div>
+      <div>http://example.com/2017/06/07/2017-06-07-ECMAScript6-second-chart/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2017年6月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2017/06/08/2017-06-08-ECMAScript6-thrid-chart/" title="ES6第三章 变量的解构赋值 ">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ES6第三章 变量的解构赋值 </span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2017/06/06/2017-06-06-ECMAScript6-first-chart/" title="ES6第一章 ES6简介和Babel转码">
+                        <span class="hidden-mobile">ES6第一章 ES6简介和Babel转码</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

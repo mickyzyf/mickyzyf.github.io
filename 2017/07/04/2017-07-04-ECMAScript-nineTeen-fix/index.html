@@ -1,0 +1,785 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="修饰器（Decorator）是一个函数，用来修改类的行为。这是ES7的一个提案，目前Babel转码器已经支持。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6 第十九章 修饰器">
+<meta property="og:url" content="http://example.com/2017/07/04/2017-07-04-ECMAScript-nineTeen-fix/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="修饰器（Decorator）是一个函数，用来修改类的行为。这是ES7的一个提案，目前Babel转码器已经支持。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2017-07-04T15:22:54.000Z">
+<meta property="article:modified_time" content="2023-05-13T16:42:52.113Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="ES6">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ES6 第十九章 修饰器 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ES6 第十九章 修饰器"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2017-07-04 23:22" pubdate>
+          2017年7月4日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          91 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ES6 第十九章 修饰器</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第十九章-修饰器"><a href="#第十九章-修饰器" class="headerlink" title="第十九章 修饰器"></a>第十九章 修饰器</h1><h2 id="类的修饰"><a href="#类的修饰" class="headerlink" title="类的修饰"></a>类的修饰</h2><p>修饰器（Decorator）是一个函数，用来修改类的行为。这是ES7的一个提案，目前Babel转码器已经支持。</p>
+<p>修饰器对类的行为的改变，是代码编译时发生的，而不是在运行时。这意味着，修饰器能在编译阶段运行代码。</p>
+<p> function testable(target) {<br>  target.isTestable &#x3D; true;<br> }<br> @testable<br> class MyTestableClass {}<br> console.log(MyTestableClass.isTestable) &#x2F;&#x2F; true</p>
+<p>上面代码中，@testable就是一个修饰器。它修改了MyTestableClass这个类的行为，为它加上了静态属性isTestable。</p>
+<p>基本上，修饰器的行为就是下面这样。</p>
+<p> @decorator<br> class A {}<br> &#x2F;&#x2F; 等同于<br> class A {}<br> A &#x3D; decorator(A) || A;<br>也就是说，修饰器本质就是编译时执行的函数。修饰器函数的第一个参数，就是所要修饰的目标类。</p>
+<p> function testable(target) {<br>  &#x2F;&#x2F; …<br> }</p>
+<p>上面代码中，testable函数的参数target，就是会被修饰的类。</p>
+<p>如果觉得一个参数不够用，可以在修饰器外面再封装一层函数。</p>
+<p> function testable(isTestable) {<br>  return function(target) {<br>   target.isTestable &#x3D; isTestable;<br>  }<br> }<br> @testable(true)<br> class MyTestableClass {}<br> MyTestableClass.isTestable &#x2F;&#x2F; true<br> @testable(false)<br> class MyClass {}<br> MyClass.isTestable &#x2F;&#x2F; false</p>
+<p>上面代码中，修饰器testable可以接受参数，这就等于可以修改修饰器的行为。</p>
+<p>前面的例子是为类添加一个静态属性，如果想添加实例属性，可以通过目标类的prototype对象操作。</p>
+<p> function testable(target) {<br>  target.prototype.isTestable &#x3D; true;<br> }<br> @testable<br> class MyTestableClass {}<br> let obj &#x3D; new MyTestableClass();<br> obj.isTestable &#x2F;&#x2F; true</p>
+<p>上面代码中，修饰器函数testable是在目标类的prototype对象上添加属性，因此就可以在实例上调用。<br>下面是另外一个例子。</p>
+<p> &#x2F;&#x2F; mixins.js<br> export function mixins(…list) {<br>  return function (target) {<br>   Object.assign(target.prototype, …list)<br>  }<br> }<br> &#x2F;&#x2F; main.js<br> import { mixins } from ‘.&#x2F;mixins’<br> const Foo &#x3D; {<br>  foo() { console.log(‘foo’) }<br> };<br> @mixins(Foo)<br> class MyClass {}<br> let obj &#x3D; new MyClass();<br> obj.foo() &#x2F;&#x2F; ‘foo’</p>
+<p>上面代码通过修饰器mixins，把Foo类的方法添加到了MyClass的实例上面。可以用Object.assign()模拟这个功能。</p>
+<p> const Foo &#x3D; {<br>  foo() { console.log(‘foo’) }<br> };<br> class MyClass {}<br> Object.assign(MyClass.prototype, Foo);<br> let obj &#x3D; new MyClass();<br> obj.foo() &#x2F;&#x2F; ‘foo’</p>
+<h2 id="方法的修饰"><a href="#方法的修饰" class="headerlink" title="方法的修饰"></a>方法的修饰</h2><p>修饰器不仅可以修饰类，还可以修饰类的属性。</p>
+<p> class Person {<br>  @readonly<br>  name() { return <code>$&#123;this.first&#125; $&#123;this.last&#125;</code> }<br> }</p>
+<p>上面代码中，修饰器readonly用来修饰“类”的name方法。</p>
+<p>此时，修饰器函数一共可以接受三个参数，第一个参数是所要修饰的目标对象，第二个参数是所要修饰的属性名，第三个参数是该属性的描述对象。</p>
+<p> function readonly(target, name, descriptor){<br> &#x2F;&#x2F; descriptor对象原来的值如下<br> &#x2F;&#x2F; {<br> &#x2F;&#x2F;   value: specifiedFunction,<br> &#x2F;&#x2F;   enumerable: false,<br> &#x2F;&#x2F;   configurable: true,<br> &#x2F;&#x2F;   writable: true<br> &#x2F;&#x2F; };<br> descriptor.writable &#x3D; false;<br>  return descriptor;<br> }<br> readonly(Person.prototype, ‘name’, descriptor);<br> &#x2F;&#x2F; 类似于<br> Object.defineProperty(Person.prototype, ‘name’, descriptor);</p>
+<p>上面代码说明，修饰器（readonly）会修改属性的描述对象（descriptor），然后被修改的描述对象再用来定义属性。</p>
+<p>下面是另一个例子，修改属性描述对象的enumerable属性，使得该属性不可遍历。</p>
+<p>class Person {<br>@nonenumerable<br> get kidCount() { return this.children.length; }<br>}<br>function nonenumerable(target, name, descriptor) {<br> descriptor.enumerable &#x3D; false;<br> return descriptor;<br>}</p>
+<p>下面的@log修饰器，可以起到输出日志的作用。</p>
+<p> class Math {<br>  @log<br>  add(a, b) {<br>   return a + b;<br>  }<br> }<br> function log(target, name, descriptor) {<br>  var oldValue &#x3D; descriptor.value;<br>  descriptor.value &#x3D; function() {<br>   console.log(<code>Calling &quot;$&#123;name&#125;&quot; with</code>, arguments);<br>   return oldValue.apply(null, arguments);<br>  };<br>  return descriptor;<br> }<br> const math &#x3D; new Math();<br> &#x2F;&#x2F; passed parameters should get logged now<br> math.add(2, 4);</p>
+<p>上面代码中，@log修饰器的作用就是在执行原始的操作之前，执行一次console.log，从而达到输出日志的目的。</p>
+<p>修饰器有注释的作用。</p>
+<p> @testable<br> class Person {<br>  @readonly<br>  @nonenumerable<br>  name() { return <code>$&#123;this.first&#125; $&#123;this.last&#125;</code> }<br> }<br>从上面代码中，我们一眼就能看出，Person类是可测试的，而name方法是只读和不可枚举的。</p>
+<p>如果同一个方法有多个修饰器，会像剥洋葱一样，先从外到内进入，然后由内向外执行。</p>
+<p> function dec(id){<br>  console.log(‘evaluated’, id);<br>  return (target, property, descriptor) &#x3D;&gt; console.log(‘executed’, id);<br> }<br> class Example {<br>  @dec(1)<br>  @dec(2)<br>  method(){}<br> }<br> &#x2F;&#x2F; evaluated 1<br> &#x2F;&#x2F; evaluated 2<br> &#x2F;&#x2F; executed 2<br> &#x2F;&#x2F; executed 1<br>上面代码中，外层修饰器@dec(1)先进入，但是内层修饰器@dec(2)先执行。</p>
+<p>除了注释，修饰器还能用来类型检查。所以，对于类来说，这项功能相当有用。从长期来看，它将是JavaScript代码静态分析的重要工具。</p>
+<h2 id="为什么修饰器不能用于函数？"><a href="#为什么修饰器不能用于函数？" class="headerlink" title="为什么修饰器不能用于函数？"></a>为什么修饰器不能用于函数？</h2><p>修饰器只能用于类和类的方法，不能用于函数，因为存在函数提升。</p>
+<p> var counter &#x3D; 0;<br> var add &#x3D; function () {<br>  counter++;<br> };<br> @add<br> function foo() {<br> }</p>
+<p>上面的代码，意图是执行后counter等于1，但是实际上结果是counter等于0。因为函数提升，使得实际执行的代码是下面这样。</p>
+<p> var counter;<br> var add;<br> @add<br> function foo() {<br> }<br> counter &#x3D; 0;<br> add &#x3D; function () {<br>  counter++;<br> };<br>下面是另一个例子。</p>
+<p> var readOnly &#x3D; require(“some-decorator”);<br> @readOnly<br>  function foo() {<br> }<br>上面代码也有问题，因为实际执行是下面这样。</p>
+<p> var readOnly;<br> @readOnly<br> function foo() {<br> }<br> readOnly &#x3D; require(“some-decorator”);</p>
+<p>总之，由于存在函数提升，使得修饰器不能用于函数。类是不会提升的，所以就没有这方面的问题。</p>
+<h2 id="core-decorators-js"><a href="#core-decorators-js" class="headerlink" title="core-decorators.js"></a>core-decorators.js</h2><p>core-decorators.js是一个第三方模块，提供了几个常见的修饰器，通过它可以更好地理解修饰器。</p>
+<ol>
+<li>@autobind</li>
+</ol>
+<p> autobind修饰器使得方法中的this对象，绑定原始对象。</p>
+<p>  import { autobind } from ‘core-decorators’;<br>   class Person {<br>    @autobind<br>    getPerson() {<br>     return this;<br>    }<br>   }<br>  let person &#x3D; new Person();<br>  let getPerson &#x3D; person.getPerson;<br>  getPerson() &#x3D;&#x3D;&#x3D; person;<br>  &#x2F;&#x2F; true</p>
+<ol start="2">
+<li>@readonly</li>
+</ol>
+<p> readonly修饰器使得属性或方法不可写。</p>
+<p>  import { readonly } from ‘core-decorators’;<br>  class Meal {<br>   @readonly<br>   entree &#x3D; ‘steak’;<br>  }<br>  var dinner &#x3D; new Meal();<br>  dinner.entree &#x3D; ‘salmon’;<br>  &#x2F;&#x2F; Cannot assign to read only property ‘entree’ of [object Object]</p>
+<ol start="3">
+<li>@override</li>
+</ol>
+<p> override修饰器检查子类的方法，是否正确覆盖了父类的同名方法，如果不正确会报错。</p>
+<p>  import { override } from ‘core-decorators’;</p>
+<p>  class Parent {<br>   speak(first, second) {}<br>  }</p>
+<p>  class Child extends Parent {</p>
+<p>  @override<br>  speak() {}<br>   &#x2F;&#x2F; SyntaxError: Child#speak() does not properly override Parent#speak(first, second)<br>  }</p>
+<p>  &#x2F;&#x2F; or</p>
+<p>  class Child extends Parent {</p>
+<p>   @override<br>   speaks() {}<br>   &#x2F;&#x2F; SyntaxError: No descriptor matching Child#speaks() was found on the prototype chain.<br>  &#x2F;&#x2F;<br>  &#x2F;&#x2F; Did you mean “speak”?<br>  }</p>
+<ol start="4">
+<li>@deprecate (别名@deprecated)</li>
+</ol>
+<p> deprecate或deprecated修饰器在控制台显示一条警告，表示该方法将废除。</p>
+<p>  import { deprecate } from ‘core-decorators’;</p>
+<p>  class Person {<br>   @deprecate<br>   facepalm() {}</p>
+<p>   @deprecate(‘We stopped facepalming’)<br>   facepalmHard() {}</p>
+<p>   @deprecate(‘We stopped facepalming’, { url: ‘<a target="_blank" rel="noopener" href="http://knowyourmeme.com/memes/facepalm">http://knowyourmeme.com/memes/facepalm</a>‘ })</p>
+<p>   facepalmHarder() {}<br>  }</p>
+<p>  let person &#x3D; new Person();<br>  person.facepalm();</p>
+<p>  &#x2F;&#x2F; DEPRECATION Person#facepalm: This function will be removed in future versions.<br>  person.facepalmHard();</p>
+<p>  &#x2F;&#x2F; DEPRECATION Person#facepalmHard: We stopped facepalming</p>
+<p>  person.facepalmHarder();</p>
+<p>  &#x2F;&#x2F; DEPRECATION Person#facepalmHarder: We stopped facepalming<br>  &#x2F;&#x2F;<br>  &#x2F;&#x2F; See <a target="_blank" rel="noopener" href="http://knowyourmeme.com/memes/facepalm">http://knowyourmeme.com/memes/facepalm</a> for more details.<br>  &#x2F;&#x2F;<br>5. @suppressWarnings</p>
+<p> suppressWarnings修饰器抑制decorated修饰器导致的console.warn()调用。但是，异步代码发出的调用除外。</p>
+<p>  import { suppressWarnings } from ‘core-decorators’;</p>
+<p>  class Person {<br>   @deprecated<br>   facepalm() {}</p>
+<p>   @suppressWarnings<br>   facepalmWithoutWarning() {<br>     this.facepalm();<br>   }<br>  }</p>
+<p>  let person &#x3D; new Person();<br>  person.facepalmWithoutWarning();<br>  &#x2F;&#x2F; no warning is logged</p>
+<h2 id="我们可以使用修饰器，使得对象的方法被调用时，自动发出一个事件"><a href="#我们可以使用修饰器，使得对象的方法被调用时，自动发出一个事件" class="headerlink" title="我们可以使用修饰器，使得对象的方法被调用时，自动发出一个事件"></a>我们可以使用修饰器，使得对象的方法被调用时，自动发出一个事件</h2><p> import postal from “postal&#x2F;lib&#x2F;postal.lodash”;<br> export default function publish(topic, channel) {<br>  return function(target, name, descriptor) {<br>   const fn &#x3D; descriptor.value;<br>   descriptor.value &#x3D; function() {<br>    let value &#x3D; fn.apply(this, arguments);<br>    postal.channel(channel || target.channel || “&#x2F;“).publish(topic, value);<br>   };<br>  };<br> }</p>
+<p>上面代码定义了一个名为publish的修饰器，它通过改写descriptor.value，使得原方法被调用时，会自动发出一个事件。它使用的事件“发布&#x2F;订阅”库是Postal.js。</p>
+<p>它的用法如下。</p>
+<p> import publish from “path&#x2F;to&#x2F;decorators&#x2F;publish”;</p>
+<p> class FooComponent {</p>
+<p>  @publish(“foo.some.message”, “component”)<br>   someMethod() {</p>
+<p>   return {<br>    my: “data”<br>   };<br>  }<br>  @publish(“foo.some.other”)<br>  anotherMethod() {<br>   &#x2F;&#x2F; …<br>   }<br> }<br>以后，只要调用someMethod或者anotherMethod，就会自动发出一个事件。</p>
+<p> let foo &#x3D; new FooComponent();<br> foo.someMethod() &#x2F;&#x2F; 在”component”频道发布”foo.some.message”事件，附带的数据是{ my: “data” }<br> foo.anotherMethod() &#x2F;&#x2F; 在”&#x2F;“频道发布”foo.some.other”事件，不附带数据</p>
+<h2 id="Mixin"><a href="#Mixin" class="headerlink" title="Mixin"></a>Mixin</h2><p>在修饰器的基础上，可以实现Mixin模式。所谓Mixin模式，就是对象继承的一种替代方案，中文译为“混入”（mix in），意为在一个对象之中混入另外一个对象的方法。</p>
+<p>请看下面的例子。</p>
+<p> const Foo &#x3D; {<br>  foo() { console.log(‘foo’) }<br> };<br> class MyClass {}<br> Object.assign(MyClass.prototype, Foo);<br>  let obj &#x3D; new MyClass();<br> obj.foo() &#x2F;&#x2F; ‘foo’</p>
+<p>上面代码之中，对象Foo有一个foo方法，通过Object.assign方法，可以将foo方法“混入”MyClass类，导致MyClass的实例obj对象都具有foo方法。这就是“混入”模式的一个简单实现。</p>
+<p>下面，我们部署一个通用脚本mixins.js，将mixin写成一个修饰器。</p>
+<p> export function mixins(…list) {<br>  return function (target) {<br>   Object.assign(target.prototype, …list);<br>  };<br> }</p>
+<p>然后，就可以使用上面这个修饰器，为类“混入”各种方法。</p>
+<p> import { mixins } from ‘.&#x2F;mixins’;<br> const Foo &#x3D; {<br>  foo() { console.log(‘foo’) }<br> };<br> @mixins(Foo)<br> class MyClass {}<br>  let obj &#x3D; new MyClass();<br> obj.foo() &#x2F;&#x2F; “foo”</p>
+<p>通过mixins这个修饰器，实现了在MyClass类上面“混入”Foo对象的foo方法。</p>
+<p>不过，上面的方法会改写MyClass类的prototype对象，如果不喜欢这一点，也可以通过类的继承实现mixin。</p>
+<p> class MyClass extends MyBaseClass {<br>  &#x2F;<em>…</em>&#x2F;<br> }</p>
+<p>上面代码中，MyClass继承了MyBaseClass。如果我们想在MyClass里面“混入”一个foo方法，一个办法是在MyClass和MyBaseClass之间插入一个混入类，这个类具有foo方法，并且继承了MyBaseClass的所有方法，然后MyClass再继承这个类。</p>
+<p> let MyMixin &#x3D; (superclass) &#x3D;&gt; class extends superclass {<br>  foo() {<br>   console.log(‘foo from MyMixin’);<br>  }<br> };</p>
+<p>上面代码中，MyMixin是一个混入类生成器，接受superclass作为参数，然后返回一个继承superclass的子类，该子类包含一个foo方法。</p>
+<p>接着，目标类再去继承这个混入类，就达到了“混入”foo方法的目的。</p>
+<p> class MyClass extends MyMixin(MyBaseClass) {<br>  &#x2F;<em>…</em>&#x2F;<br> }<br> let c &#x3D; new MyClass();<br> c.foo(); &#x2F;&#x2F; “foo from MyMixin”</p>
+<p>如果需要“混入”多个方法，就生成多个混入类。</p>
+<p> class MyClass extends Mixin1(Mixin2(MyBaseClass)) {<br>  &#x2F;<em>…</em>&#x2F;<br> }<br>这种写法的一个好处，是可以调用super，因此可以避免在“混入”过程中覆盖父类的同名方法。</p>
+<p> let Mixin1 &#x3D; (superclass) &#x3D;&gt; class extends superclass {<br>  foo() {<br>   console.log(‘foo from Mixin1’);<br>   if (super.foo) super.foo();<br>  }<br> };<br> let Mixin2 &#x3D; (superclass) &#x3D;&gt; class extends superclass {</p>
+<p>  foo() {<br>   console.log(‘foo from Mixin2’);<br>   if (super.foo) super.foo();<br>  }<br> };<br> class S {</p>
+<p>  foo() {<br>   console.log(‘foo from S’);<br>  }<br> }</p>
+<p> class C extends Mixin1(Mixin2(S)) {</p>
+<p>  foo() {<br>   console.log(‘foo from C’);<br>   super.foo();<br>  }<br> }</p>
+<p>上面代码中，每一次混入发生时，都调用了父类的super.foo方法，导致父类的同名方法没有被覆盖，行为被保留了下来。</p>
+<p> new C().foo()<br> &#x2F;&#x2F; foo from C<br> &#x2F;&#x2F; foo from Mixin1<br> &#x2F;&#x2F; foo from Mixin2<br> &#x2F;&#x2F; foo from S</p>
+<h2 id="Trait"><a href="#Trait" class="headerlink" title="Trait"></a>Trait</h2><p>Trait也是一种修饰器，效果与Mixin类似，但是提供更多功能，比如防止同名方法的冲突、排除混入某些方法、为混入的方法起别名等等。</p>
+<p>下面采用traits-decorator这个第三方模块作为例子。这个模块提供的traits修饰器，不仅可以接受对象，还可以接受ES6类作为参数。</p>
+<p> import { traits } from ‘traits-decorator’;<br> class TFoo {<br>  foo() { console.log(‘foo’) }<br> }<br> const TBar &#x3D; {<br>  bar() { console.log(‘bar’) }<br> };<br> @traits(TFoo, TBar)<br> class MyClass { }<br> let obj &#x3D; new MyClass();<br> obj.foo() &#x2F;&#x2F; foo<br> obj.bar() &#x2F;&#x2F; bar</p>
+<p>上面代码中，通过traits修饰器，在MyClass类上面“混入”了TFoo类的foo方法和TBar对象的bar方法。<br>Trait不允许“混入”同名方法。</p>
+<p> import { traits } from ‘traits-decorator’;<br> class TFoo {<br>  foo() { console.log(‘foo’) }<br> }<br> const TBar &#x3D; {<br>  bar() { console.log(‘bar’) },<br>  foo() { console.log(‘foo’) }<br> };<br> @traits(TFoo, TBar)<br> class MyClass { }<br> &#x2F;&#x2F; 报错<br> &#x2F;&#x2F; throw new Error(‘Method named: ‘ + methodName + ‘ is defined twice.’);<br> &#x2F;&#x2F; ^<br> &#x2F;&#x2F; Error: Method named: foo is defined twice.</p>
+<p>上面代码中，TFoo和TBar都有foo方法，结果traits修饰器报错。</p>
+<p>一种解决方法是排除TBar的foo方法。</p>
+<p> import { traits, excludes } from ‘traits-decorator’;<br> class TFoo {<br>  foo() { console.log(‘foo’) }<br> }<br> const TBar &#x3D; {<br>  bar() { console.log(‘bar’) },<br>  foo() { console.log(‘foo’) }<br> };<br> @traits(TFoo, TBar::excludes(‘foo’))<br> class MyClass { }<br> let obj &#x3D; new MyClass();<br> obj.foo() &#x2F;&#x2F; foo<br> obj.bar() &#x2F;&#x2F; bar</p>
+<p>上面代码使用绑定运算符（::）在TBar上排除foo方法，混入时就不会报错了。</p>
+<p>另一种方法是为TBar的foo方法起一个别名。</p>
+<p> import { traits, alias } from ‘traits-decorator’;<br> class TFoo {<br>  foo() { console.log(‘foo’) }<br> }<br> const TBar &#x3D; {<br>  bar() { console.log(‘bar’) },<br>  foo() { console.log(‘foo’) }<br> };<br> @traits(TFoo, TBar::alias({foo: ‘aliasFoo’}))<br> class MyClass { }<br> let obj &#x3D; new MyClass();<br> obj.foo() &#x2F;&#x2F; foo<br> obj.aliasFoo() &#x2F;&#x2F; foo<br> obj.bar() &#x2F;&#x2F; bar</p>
+<p>上面代码为TBar的foo方法起了别名aliasFoo，于是MyClass也可以混入TBar的foo方法了。<br>alias和excludes方法，可以结合起来使用。</p>
+<p> @traits(TExample::excludes(‘foo’,’bar’)::alias({baz:’exampleBaz’}))<br> class MyClass {}</p>
+<p>上面代码排除了TExample的foo方法和bar方法，为baz方法起了别名exampleBaz。</p>
+<p>as方法则为上面的代码提供了另一种写法。</p>
+<p> @traits(TExample::as({excludes:[‘foo’, ‘bar’], alias: {baz: ‘exampleBaz’}}))<br> class MyClass {}</p>
+<h2 id="Babel转码器的支持"><a href="#Babel转码器的支持" class="headerlink" title="Babel转码器的支持"></a>Babel转码器的支持</h2><p>目前，Babel转码器已经支持Decorator。</p>
+<p>首先，安装babel-core和babel-plugin-transform-decorators。由于后者包括在babel-preset-stage-0之中，所以改为安装babel-preset-stage-0亦可。</p>
+<p>$ npm install babel-core babel-plugin-transform-decorators</p>
+<p>然后，设置配置文件.babelrc。</p>
+<p> {<br>  “plugins”: [“transform-decorators”]<br> }</p>
+<p>这时，Babel就可以对Decorator转码了。</p>
+<p>脚本中打开的命令如下。</p>
+<p>babel.transform(“code”, {plugins: [“transform-decorators”]})</p>
+<p>Babel的官方网站提供一个在线转码器，只要勾选Experimental，就能支持Decorator的在线转码。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ES6/" class="category-chain-item">ES6</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ES6/">#ES6</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ES6 第十九章 修饰器</div>
+      <div>http://example.com/2017/07/04/2017-07-04-ECMAScript-nineTeen-fix/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2017年7月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2017/07/05/2017-07-05-ECMAScript-twenty-Module/" title="ES6 第二十章	Module">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ES6 第二十章	Module</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2017/07/03/2017-07-03-ECAMScript-eighteen-Class/" title="ES6 第十八章	Class">
+                        <span class="hidden-mobile">ES6 第十八章	Class</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

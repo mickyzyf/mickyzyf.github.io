@@ -1,0 +1,903 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="超文本传输协议(HyperText Transfer Protocol,HTTP)规定Web浏览器如何从Web服务器获取文档和向Web服务器提交表单内容，以及Web服务器如何响应这些请求和提交。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="脚本化http">
+<meta property="og:url" content="http://example.com/2016/04/14/2016-04-14-JavaScript-http/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="超文本传输协议(HyperText Transfer Protocol,HTTP)规定Web浏览器如何从Web服务器获取文档和向Web服务器提交表单内容，以及Web服务器如何响应这些请求和提交。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-04-14T15:33:54.000Z">
+<meta property="article:modified_time" content="2023-05-13T16:42:58.063Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>脚本化http - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="脚本化http"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2016-04-14 23:33" pubdate>
+          2016年4月14日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          15k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          124 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">脚本化http</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="脚本化http"><a href="#脚本化http" class="headerlink" title="脚本化http"></a>脚本化http</h1><p>超文本传输协议(HyperText Transfer Protocol,HTTP)规定Web浏览器如何从Web服务器获取文档和向Web服务器提交表单内容，以及Web服务器如何响应这些请求和提交。</p>
+<p>Web浏览器会处理大量的HTTP，通常，HTTP并不在脚本的控制下，只是当用户单击链接、提交表单和输入URL时才发生。</p>
+<p>但是，用JavaScript代码操作HTTP是可行的。当脚本设置window对象的location属性或调用表单对象的submit()方法时，都会初始化HTTP请求。</p>
+<p>术语Ajax描述了一种主要使用脚本操作HTTP的Web应用架构。Ajax应用的主要特点是使用脚本操作HTTP和Web服务器进行数据交换，不会导致页面重载。避免页面重载的能力使Web应用更像传统的桌面应用。</p>
+<p>Comet是使用脚本操纵HTTP的Web应用架构相关术语。在某种意义上Comt和Ajax相反，在Comet中，Web服务器发起通信并异步发送数据到客户端。如果Web应用需要响应服务端发送的消息，则它会使用Ajax技术发送或请求数据。在Ajax中，客户端从服务端”拉”数据。而在Comet中，服务器端向客户端”推”数据。Comet海波阔其他名词，(“服务器推”、”Ajax推”和”HTTP流”)</p>
+<h2 id="使用XMLHttpRequest"><a href="#使用XMLHttpRequest" class="headerlink" title="使用XMLHttpRequest"></a>使用XMLHttpRequest</h2><p>浏览器在XMLHttpRequest类上定义了它们的HTTP API。这个类的每个实例都表示一个独立的请求&#x2F;响应对，并且这个对象的属性和方法允许指定请求细节和摄取响应数据。</p>
+<p>当然，使用这个HTTP API必须要做的第一件事就是实例化XMLHttpRequest对象：</p>
+<p> var request &#x3D; new XMLHttpRequest();</p>
+<p>一个HTTP请求由4个部分组成：</p>
+<ol>
+<li>HTTP请求方法或”动作”(verb)</li>
+<li>正式请求的URL</li>
+<li>一个可选的请求头集合，其中可能包括身份验证信息</li>
+<li>一个可选的请求体</li>
+</ol>
+<p>服务器返回的HTTP响应包含3部分:</p>
+<ol>
+<li>一个数字和文字组成的状态码，用来显示请求的成功和失败</li>
+<li>一个响应头集合</li>
+<li>响应主体</li>
+</ol>
+<p>HTTP的基础请求&#x2F;响应架构非常简单并且易于使用。但在实践中会有各种各样随之而来的复杂问题:客户端和服务区交换cookie，服务区重定向浏览器到其他服务器，缓存某些资源而剩下的不缓存，某些客户端通过代理通过代理服务器发送所有的请求等。<br>XMLHttpRequest不是协议级的HTTP API而是浏览器级的API。浏览器需要考虑cookie、重定向、缓存和代理，但代码只需要担心请求和响应。</p>
+<h3 id="指定请求"><a href="#指定请求" class="headerlink" title="指定请求"></a>指定请求</h3><ol>
+<li>创建XMLHttpRequest对象之后，发起HTTP请求的下一步是调用XMLHttpRequest对象的open()方法去指定这个请求的两个必需部分:方法和URL。</li>
+</ol>
+<p>  request.open(“GET”,&#x2F;&#x2F;开始一个HTTP GET请求<br>   “data.csv”);&#x2F;&#x2F;URL的内容</p>
+<ul>
+<li><p>open()的第一个参数指定HTTP方法或动作。这个字符串不区分大小写，但通常大家用大写字母来匹配HTTP协议。</p>
+<p>“GET”和”POST”方法得到了广泛的支持。</p>
+<p>“GET”用于常规请求，它适用于当URL完全指定请求资源，当请求对服务器没有任何副作用以及当服务器的响应是可缓存时。</p>
+<p>“POST”方法常用于HTML表单。它在请求主体中包含额外数据(表单数据)，且这些数据常存储在服务器数据库中(副作用)。</p>
+<p>除了这两个之外，XMLHttpRequest的规范还允许把”DELETE”、”HEAD”、”OPTIONS”和”PUT”作为open()的第一个参数。</p>
+</li>
+<li><p>open()的第二个参数时URL，它时请求的主题。这时相对于文档的URL，这个文档包含调用open()的骄傲本。如果指定绝对URL、协议、主机和端口通常必须匹配所在文档的对应内容:跨域请求通常会报错。</p>
+</li>
+</ul>
+<ol start="2">
+<li>如果有请求头的话，请求进程的下一个步骤时设置它。例如，POST的请求需要”Content-Type”指定请求主题的MIME类型：</li>
+</ol>
+<p>  request.setRequestHeader(“Content-Type”,”text&#x2F;plain”);</p>
+<p> 你不能自己指定”Content-Length”、”Date”、”Referer”或”User-Agent”头，XMLHttpRequest将自动添加这些头防止伪造它们。类似的XMLHttpRequest对象自动处理cookie、连续时间、字符集和编码判断</p>
+<ol start="3">
+<li>使用XMLHttpRequest发起请求的最后一步是指定可选的请求猪蹄并向服务器发送它。使用send()方法实现<br>  request.send(null);</li>
+</ol>
+<p>GET请求绝对没有主体，所以应该传递null或省略这个参数。POST的请求通常拥有主体，同时它应该匹配使用setRequestHeader()指定的”Content-Type”头。</p>
+<p><strong>顺序问题</strong></p>
+<p>HTTP请求的各部分有指定顺序：</p>
+<ul>
+<li>请求方法和URL首先到达</li>
+<li>然后请求头</li>
+<li>最后是请求主体</li>
+</ul>
+<p>XMLHttpRequest实现通常直到调用send()方法才开始启动网络。但XMLHttpRequest API设计似乎使每个方法都将写入网络流。这意味着调用XMLHttpRequest方法的顺序必须撇陪HTTP请求的架构。例如setRequestHeader()必须调用在必须在open()之后，send()之前</p>
+<p>例子:POST方法发送纯文本给服务器</p>
+<p> function postMessage(msg){</p>
+<p>  var request &#x3D; new XMLHttpRequest();&#x2F;&#x2F;新请求<br>  request.open(“POST”,”&#x2F;log.php”);&#x2F;&#x2F;用POST向服务器端发送脚本<br>  &#x2F;&#x2F;用请求主体发送纯文本消息<br>  request.setRequestHeader(“Content-Type”,&#x2F;&#x2F;请求主体是纯文本<br>       “text&#x2F;plain;charset&#x3D;UTF-8”);<br>  request.send(msg);&#x2F;&#x2F;把msg作为请求主体发送<br>  &#x2F;&#x2F;请求完成，我们将忽略任何响应和任何错误<br> }</p>
+<h3 id="取得响应"><a href="#取得响应" class="headerlink" title="取得响应"></a>取得响应</h3><p>一个完整的HTTP响应由状态码、响应头集合和响应主体组成。这些都可以通过XMLHttpRequest对象的属性和方法使用：</p>
+<ul>
+<li><p>status和statusText属性以数字和文本的形式返回HTTP状态码。这些属性保存标准的HTTP值，像200和”OK”表示成功请求，404和”Not Found”表示URL不能匹配服务器上的任何资源。</p>
+</li>
+<li><p>使用getResponseHeader()和getAllResponseHeader()能查询响应头。XMLHttpRequest会自动处理cookie：它会从getAllResponseHeaders()头返回集合中过滤掉cookie头，而去过给getResponseHeader()传递”Set-Cookie”和”Set-Cookie2”则返回null。</p>
+</li>
+<li><p>响应主体可以从responseText属性中得到文本形式的，从responseXML属性中得到Document形式。</p>
+</li>
+</ul>
+<p>XMLHttpRequest对象通常异步使用:发送请求后,send()方法立即返回，知道响应返回，前面列出的响应方法和属性才有效。</p>
+<p>为了在响应准备就绪时得到通知，必须监听XMLHttpRequest对象上的readystatechange事件。</p>
+<p>readyState是一个整数，它指定了HTTP请求的状态，第一列的符号时XMLHttpRequest构造函数定义的常量。</p>
+<p>XMLHttpRequest的readyState值</p>
+<p> 常量     值   含义</p>
+<p> UNSENT    0  open()尚未调用<br> OPENED    1  open()已经调用<br> HEADERS_RECEIVED 2  接受到头信息<br> LOADING    3  接收到响应主体<br> DONE    4  响应完成</p>
+<p>示例：定义了getText()函数来演示如何监听readystatechange事件。</p>
+<p> &#x2F;&#x2F; 发出一个HTTP GET请求以获得指定URL的内容<br> &#x2F;&#x2F; 当响应成功到达，验证它是否是纯文本<br> &#x2F;&#x2F; 如果是，把它传递给指定回调函数<br> function getText(url, callback) {<br>     var request &#x3D; new XMLHttpRequest();         &#x2F;&#x2F; 新建请求<br>     request.open(“GET”, url);                   &#x2F;&#x2F; 指定待获取的URL<br>     request.onreadystatechange &#x3D; function() {   &#x2F;&#x2F; 定义事件处理程序<br>         &#x2F;&#x2F; 如果请求完成，则它是成功的<br>         if (request.readyState &#x3D;&#x3D;&#x3D; 4 &amp;&amp; request.status &#x3D;&#x3D;&#x3D; 200) {<br>             var type &#x3D; request.getResponseHeader(“Content-Type”);<br>             if (type.match(&#x2F;^text&#x2F;))            &#x2F;&#x2F; 确保响应式文本<br>                 callback(request.responseText); &#x2F;&#x2F; 把它传递给回调函数<br>         }<br>     };<br>     request.send(null);                         &#x2F;&#x2F; 立即发送请求<br> }</p>
+<ol>
+<li>同步响应</li>
+</ol>
+<p> 由于其本身的性质，异步处理HTTP响应是最好的方式。然而，XMLHttpRequest也支持同步响应。如果把false作为第三个参数传递给open()，那么send()方法将阻塞直到请求完成。</p>
+<p>  &#x2F;&#x2F; 发出一个HTTP GET请求以获得指定URL的内容<br>  &#x2F;&#x2F; 返回响应文本，或如果请求不成功或响应不是文本就报错<br>  function getTexSynct(url) {<br>      var request &#x3D; new XMLHttpRequest();         &#x2F;&#x2F; 新建请求<br>      request.open(“GET”, url);                   &#x2F;&#x2F; 传递false实现同步<br>   request.sen(null);       &#x2F;&#x2F; 立即发送请求</p>
+<pre><code class="hljs">  // 如果请求不是200 OK，就报错
+  if (request.status === 200) throw new Error(request.statusText);
+</code></pre>
+<p>   &#x2F;&#x2F;如果类型错误，就报错<br>   var type &#x3D; request.getResponseHeader(“Content-Type”);</p>
+<p>   if(!type.match(&#x2F;^text&#x2F;))<br>    throw new Error(“Expected textual response;got:”+type);</p>
+<p>   return request.responseText;</p>
+<p>  }</p>
+<p> 同步请求是吸引人的，但应该避免使用它们，客户端JavaScript是单线程的，当send()方法阻塞时，它通常会导致整个浏览器UI冻结。如果连接到服务器响应慢，那么用户的浏览器将冻结。</p>
+<ol start="2">
+<li>响应解码</li>
+</ol>
+<p> 在前面的示例中,我们假设服务器使用像”text&#x2F;plain”、”text&#x2F;html”或”text&#x2F;css”这样的MIME类型发送文本响应，然后我们使用XMLHttpRequest对象的responseText属性得到它。</p>
+<p> 如果服务器想发送诸如对象或数组这样的结构化数据作为其响应，它应该传输JSON编码的字符串数据。当接受它时，可以把responseText属性传递给JSON.parse()。</p>
+<p> 示例解析HTTP响应</p>
+<p>  &#x2F;&#x2F; 发起HTTP GET响应以获取指定URL的内容<br>  &#x2F;&#x2F; 当响应到达时，把它以解析后的XML Document对象、解析后的JSON对象<br>  &#x2F;&#x2F; 或字符串形式传递给回调函数<br>  function get(url, callback) {<br>      var request &#x3D; new XMLHttpRequest();         &#x2F;&#x2F; 创建新请求<br>      request.open(“GET”, url);                   &#x2F;&#x2F; 指定待获取的URL<br>      request.onreadystatechange &#x3D; function() {   &#x2F;&#x2F; 定义事件监听器<br>          &#x2F;&#x2F; 如果请求完成且成功<br>          if (request.readyState &#x3D;&#x3D;&#x3D; 4 &amp;&amp; request.status &#x3D;&#x3D;&#x3D; 200) {<br>              &#x2F;&#x2F; 获取响应类型<br>              var type &#x3D; request.getResponseHeader(“Content-Type”);<br>              &#x2F;&#x2F; 检查类型，这样我们不能在将来得到HTML文档<br>              if (type.indexOf(“xml”) !&#x3D;&#x3D; -1 &amp;&amp; request.responseXML)<br>                  callback(request.responseXML);             &#x2F;&#x2F; Document对象相应<br>              else if (type &#x3D;&#x3D;&#x3D; “application&#x2F;json”)<br>                  callback(JSON.parse(request.responseText)); &#x2F;&#x2F; JSON响应<br>              else<br>                  callback(request.responseText);             &#x2F;&#x2F; 字符串响应<br>          }<br>      };<br>      request.send(null);                         &#x2F;&#x2F; 立即发送请求<br>  }</p>
+<h3 id="编码请求主体"><a href="#编码请求主体" class="headerlink" title="编码请求主体"></a>编码请求主体</h3><p>HTTP POST请求包括一个请求主体，它包含客户端传递给服务器的数据。我们通常使用HTTP请求发送的都是更复杂的数据。</p>
+<ol>
+<li>表单编码的请求</li>
+</ol>
+<p> 考虑HTML表单。当用户提交表单时，表单中的数据(每个表单元素的名字和值)编码到一个字符串中并随请求发送。像这样:</p>
+<p>  name&#x3D;minchao&amp;sex&#x3D;man<br> 表单数据编码格式是一个正式的MIME类型：</p>
+<p>  application&#x2F;x-www-form-urlencoded</p>
+<p> 当POST方法提交表单数据时，必须设置”Content-Type”请求头为这个值。这种编码并不要HTML表单。在Ajax应用中，你希望发送给服务器的很可能时一个JavaScript对象。</p>
+<p>  {<br>   name:”minchao”,<br>   sex:”man”<br>  }<br> 用于HTTP请求的编码对象</p>
+<p>  &#x2F;**</p>
+<ul>
+<li>编码对象的属性，</li>
+<li>如果它们是来自HTML表单的名&#x2F;值对，使用application&#x2F;x-wwww-form-urlencode格式<br> *&#x2F;<br>function encodeFormData(data) {<br>if (!data) return “”;    &#x2F;&#x2F; 一直返回字符串<br>var pairs &#x3D; [];          &#x2F;&#x2F; 为了保存名值对<br>for(var name in data) {                                  &#x2F;&#x2F; 遍历每个名字<br>    if (!data.hasOwnProperty(name)) continue;            &#x2F;&#x2F; 跳过继承属性<br>    if (typeof data[name] &#x3D;&#x3D;&#x3D; “function”) continue;      &#x2F;&#x2F; 跳过方法<br>    var value &#x3D; data[name].toString();                   &#x2F;&#x2F; 把值转换成字符串<br>    name &#x3D; encodeURIComponent(name.replace(“ “, “+”));   &#x2F;&#x2F; 编码名字<br>    value &#x3D; encodeURIComponent(value.replace(“ “, “+”)); &#x2F;&#x2F; 编码值<br>    pairs.push(name + “&#x3D;” + value);   &#x2F;&#x2F; 记住名&#x3D;值对<br>}<br>return pairs.join(‘&amp;’); &#x2F;&#x2F; 返回使用&amp;连接的名&#x2F;值对<br>}</li>
+</ul>
+<p> 使用表单编码数据发起一个HTTP POST请求</p>
+<p>  function postData(url, data, callback) {<br>      var request &#x3D; new XMLHttpRequest();<br>      request.open(“POST”, url);                    &#x2F;&#x2F; 对指定URL发生POST请求<br>      request.onreadystatechange &#x3D; function() {     &#x2F;&#x2F; 简单的事件处理程序<br>          if (request.readyState &#x3D;&#x3D;&#x3D; 4 &amp;&amp; callback) &#x2F;&#x2F; 当响应完成<br>              callback(request);                    &#x2F;&#x2F; 调用回调函数<br>      };<br>      request.setRequestHeader(“Content-Type”,      &#x2F;&#x2F; 设置 Content-Type<br>                               “application&#x2F;x-www-form-urlencoded”);<br>      request.send(encodeFormData(data));           &#x2F;&#x2F; 发送表单数据<br>  }</p>
+<p> 使用表单编码数据发起HTTP  GET请求</p>
+<p>  function getData(url, data, callback) {<br>     var request &#x3D; new XMLHttpRequest();<br>     request.open(“GET”, url +                     &#x2F;&#x2F; 通过添加编码数据获取指定的url<br>                  “?” + encodeFormData(data));<br>     request.onreadystatechange &#x3D; function() {     &#x2F;&#x2F; 简单事件处理程序<br>         if (request.readyState &#x3D;&#x3D;&#x3D; 4 &amp;&amp; callback) callback(request);<br>     };<br>      request.send(null);                           &#x2F;&#x2F; 发送请求<br>  }</p>
+<ol start="2">
+<li>JSON编码的请求</li>
+</ol>
+<p> 在POST请求主体中使用表单编码时常见惯例。</p>
+<p>  function postJSON(url, data, callback) {<br>      var request &#x3D; new XMLHttpRequest();<br>      request.open(“POST”, url);                    &#x2F;&#x2F; 对指定URL发送POST请求<br>      request.onreadystatechange &#x3D; function() {     &#x2F;&#x2F; 简单是事件处理程序<br>          if (request.readyState &#x3D;&#x3D;&#x3D; 4 &amp;&amp; callback) &#x2F;&#x2F; 当响应完成时<br>              callback(request);                    &#x2F;&#x2F; 调用回调函数<br>      };<br>      request.setRequestHeader(“Content-Type”, “application&#x2F;json”);<br>      request.send(JSON.stringify(data));<br>  }</p>
+<ol start="3">
+<li>XML编码的请求</li>
+</ol>
+<p> XML有时也用于数据传输的编码。JavaScript对象的用表单编码或JSON编码版本表达的。<br> 略</p>
+<ol start="4">
+<li>上传文件</li>
+</ol>
+<p> HTML表单的特性之一时当用户通过&lt; input type&#x3D;”file”&gt;元素选择文件时，表单将在它产生的POST请求主体中发送文件内容。HTNL表单始终能上传文件，但到目前为止，它还不能使用XMLHttpRequest API做相同的事。</p>
+<p> 使用HTTP POST请求上传文件</p>
+<p>  &#x2F;&#x2F;查找有data-upload属性的全部<input tyep="file">元素<br>  &#x2F;&#x2F;并注册onchange事件处理程序<br>  &#x2F;&#x2F;这样任何选择的文件都会自动通过POST方法发送到指定的”uploadto”URL<br>  &#x2F;&#x2F;服务器的响应是忽略的<br>  whenReady(function() {                        &#x2F;&#x2F; 当文档准备就绪时运行<br>      var elts &#x3D; document.getElementsByTagName(“input”); &#x2F;&#x2F; 所有的input元素<br>      for(var i &#x3D; 0; i &lt; elts.length; i++) {             &#x2F;&#x2F; 遍历它们<br>          var input &#x3D; elts[i];<br>          if (input.type !&#x3D;&#x3D; “file”) continue;  &#x2F;&#x2F; 跳过所有非文件上传元素<br>          var url &#x3D; input.getAttribute(“data-uploadto”); &#x2F;&#x2F; 获取上级URL<br>          if (!url) continue;                   &#x2F;&#x2F; 跳过任何没有URL的元素</p>
+<pre><code class="hljs">      input.addEventListener(&quot;change&quot;, function() &#123;  // 当用户选择文件时
+          var file = this.files[0];         // 假设单个文件选择
+          if (!file) return;                // 如果没有文件，不做任何事情
+          var xhr = new XMLHttpRequest();   // 创建新请求
+          xhr.open(&quot;POST&quot;, url);            // 向这个URL发送POST请求
+          xhr.send(file);                   // 把文件作为主体发送
+      &#125;, false);
+  &#125;
+</code></pre>
+<p>  });</p>
+<ol start="5">
+<li>multipart&#x2F;form-data请求</li>
+</ol>
+<p> 当HTML表单同时包含文件上传元素和其他元素时，浏览器不能使用普遍的表单编码而必须使用称为”multipart&#x2F;form-data”的特殊Content-Type来用POST方法提交表单。</p>
+<p> 使用POST方法发送multipart&#x2F;form-data请求主体</p>
+<p>  function postFormData(url, data, callback) {<br>      if (typeof FormData &#x3D;&#x3D;&#x3D; “undefined”)<br>          throw new Error(“FormData is not implemented”);</p>
+<pre><code class="hljs">  var request = new XMLHttpRequest();            // 新HTTP请求
+  request.open(&quot;POST&quot;, url);                     // 对指定URL发送POST请求
+  request.onreadystatechange = function() &#123;      // 简单的事件处理程序
+      if (request.readyState === 4 &amp;&amp; callback)  // 当响应完成时
+          callback(request);                     // 调用回调函数
+  &#125;;
+  var formdata = new FormData();
+  for(var name in data) &#123;
+      if (!data.hasOwnProperty(name)) continue;  // 跳过继承的属性
+      var value = data[name];
+      if (typeof value === &quot;function&quot;) continue; // 跳过方法
+      // 每个属性变成请求的一部分
+      // 这里允许File对象
+      formdata.append(name, value);              // 作为一部分添加名/值对
+  &#125;
+  // 在multipart/form-data请求主体中发送名值对
+</code></pre>
+<p>   &#x2F;&#x2F; 每对都是请求的一部分，注意，当传入FormData对象时<br>   &#x2F;&#x2F; sen()会自动设置Content-Type头<br>      request.send(formdata);<br>  }</p>
+<h3 id="HTTP进度事件"><a href="#HTTP进度事件" class="headerlink" title="HTTP进度事件"></a>HTTP进度事件</h3><p>在之前的示例中，使用readystatechange事件探测HTTP请求的完成。</p>
+<p>常见的progress事件处理程序一样使用upload事件处理程序，对于XMLHttpRequest对象x，设置x.onpressgress以监控响应的下载进度，并且设置x.upload.onprogress以监控请求的上传进度。</p>
+<p> &#x2F;&#x2F; 查找所有含有”fileDropTarget”类的元素<br> &#x2F;&#x2F; 并注册DnD事件处理程序使它们能响应文件的拖拽<br> &#x2F;&#x2F; 当文件放下时，上传它们到data-uploadto属性<br> whenReady(function() {<br>     var elts &#x3D; document.getElementsByClassName(“fileDropTarget”);<br>     for(var i &#x3D; 0; i &lt; elts.length; i++) {<br>         var target &#x3D; elts[i];<br>         var url &#x3D; target.getAttribute(“data-uploadto”);<br>         if (!url) continue;<br>         createFileUploadDropTarget(target, url);<br>     }</p>
+<pre><code class="hljs"> function createFileUploadDropTarget(target, url) &#123;
+     // 跟踪当前是否正在上传，因此我们能拒绝放下
+</code></pre>
+<p>   &#x2F;&#x2F; 我们可以处理多个并发上传<br>   &#x2F;&#x2F; 但对这个例子使用进度通知太困难了<br>         var uploading &#x3D; false;</p>
+<pre><code class="hljs">     console.log(target, url);
+
+     target.ondragenter = function(e) &#123;
+         console.log(&quot;dragenter&quot;);
+         if (uploading) return;  // 如果正忙，忽略拖放
+         var types = e.dataTransfer.types;
+         if (types &amp;&amp; 
+             ((types.contains &amp;&amp; types.contains(&quot;Files&quot;)) ||
+              (types.indexOf &amp;&amp; types.indexOf(&quot;Files&quot;) !== -1))) &#123;
+             target.classList.add(&quot;wantdrop&quot;);
+             return false;
+         &#125;
+     &#125;;
+     target.ondragover = function(e) &#123; if (!uploading) return false; &#125;;
+     target.ondragleave = function(e) &#123;
+         if (!uploading) target.classList.remove(&quot;wantdrop&quot;);
+     &#125;;
+     target.ondrop = function(e) &#123;
+         if (uploading) return false;
+         var files = e.dataTransfer.files;
+         if (files &amp;&amp; files.length) &#123;
+             uploading = true;
+             var message = &quot;Uploading files:&lt;ul&gt;&quot;;
+             for(var i = 0; i &lt; files.length; i++) 
+                 message += &quot;&lt;li&gt;&quot; + files[i].name + &quot;&lt;/li&gt;&quot;;
+             message += &quot;&lt;/ul&gt;&quot;;
+             
+             target.innerHTML = message;
+             target.classList.remove(&quot;wantdrop&quot;);
+             target.classList.add(&quot;uploading&quot;);
+             
+             var xhr = new XMLHttpRequest();
+             xhr.open(&quot;POST&quot;, url);
+             var body = new FormData();
+             for(var i = 0; i &lt; files.length; i++) body.append(i, files[i]);
+             xhr.upload.onprogress = function(e) &#123;
+                 if (e.lengthComputable) &#123;
+                     target.innerHTML = message +
+                         Math.round(e.loaded/e.total*100) +
+                         &quot;% Complete&quot;;
+                 &#125;
+             &#125;;
+             xhr.upload.onload = function(e) &#123;
+                 uploading = false;
+                 target.classList.remove(&quot;uploading&quot;);
+                 target.innerHTML = &quot;Drop files to upload&quot;;
+             &#125;;
+             xhr.send(body);
+
+             return false;
+         &#125;
+         target.classList.remove(&quot;wantdrop&quot;);
+     &#125;
+ &#125;
+</code></pre>
+<p> });</p>
+<h3 id="中止请求和超时"><a href="#中止请求和超时" class="headerlink" title="中止请求和超时"></a>中止请求和超时</h3><p>可以通过调用XMLHttpRequest对象的abort()方法来取消正在进行的HTTP请求。abort()方法在所有的XMLHttpRequest版本和XHR2中可用。</p>
+<p> &#x2F;&#x2F; 发起HTTP GET请求获取指定的URL的内容<br> &#x2F;&#x2F;  如果响应成功到达，传入responseText给回调函数<br> &#x2F;&#x2F; 如果响应在timeout毫秒内没有到达，中止这个请求<br> &#x2F;&#x2F;  浏览器可能在abort()后触发”readstatechange”<br> &#x2F;&#x2F;  如果时部分请求结果到达，甚至可能设置status属性<br> &#x2F;&#x2F; 所以需要设置一个标记，当部分且超时的响应到达时不会调用回调函数<br> &#x2F;&#x2F; 如果使用load事件就没有这个风险<br> function timedGetText(url, timeout, callback) {<br>     var request &#x3D; new XMLHttpRequest();         &#x2F;&#x2F; 创建新请求<br>     var timedout &#x3D; false;                       &#x2F;&#x2F; 是否超时<br>     &#x2F;&#x2F; 启动计时器，在timeout毫秒后将中止请求<br>     var timer &#x3D; setTimeout(function() {         &#x2F;&#x2F; 如果触发，启动一个计时器<br>                                timedout &#x3D; true; &#x2F;&#x2F; 如果标记<br>                                request.abort(); &#x2F;&#x2F; 然后中止请求<br>                            },<br>                            timeout);            &#x2F;&#x2F; 中止请求之前的时长<br>     request.open(“GET”, url);                   &#x2F;&#x2F; 获取指定的URL<br>     request.onreadystatechange &#x3D; function() {   &#x2F;&#x2F; 定义事件处理程序<br>         if (request.readyState !&#x3D;&#x3D; 4) return;   &#x2F;&#x2F; 忽略未完成的请求<br>         if (timedout) return;                   &#x2F;&#x2F; 忽略中止请求<br>         clearTimeout(timer);                    &#x2F;&#x2F; 取消等待的超时<br>         if (request.status &#x3D;&#x3D;&#x3D; 200)             &#x2F;&#x2F; 如果请求成功<br>             callback(request.responseText);     &#x2F;&#x2F; 把response传给回调函数<br>     };<br>     request.send(null);                         &#x2F;&#x2F; 立即发送请求<br> }</p>
+<h3 id="跨域HTTP请求"><a href="#跨域HTTP请求" class="headerlink" title="跨域HTTP请求"></a>跨域HTTP请求</h3><p>作为同源策略的一部分，XMLHttpRequest对象通常仅可以发起和文档具有相同服务器的HTTP请求。</p>
+<h2 id="借助-lt-script-gt-发送HTTP请求-JSON"><a href="#借助-lt-script-gt-发送HTTP请求-JSON" class="headerlink" title="借助&lt; script&gt;发送HTTP请求:JSON"></a>借助&lt; script&gt;发送HTTP请求:JSON</h2><p>&lt; script&gt;元素可以作为一种Ajax传输机制:只须设置&lt; script&gt;元素的src属性，然后浏览器就会发送一个HTTP请求以下载src属性所指向的URL。</p>
+<p><strong>脚本和安全性</strong></p>
+<p>为了使用&lt; script&gt;元素进行Ajax传输，必须允许Web页面可以执行远程服务器发送过来的任何JavaScript代码，这意味着对于不可信的服务器，不应该采取该技术。当与可信的服务器通信时，要提防攻击者可能进入服务器中，然后黑客会接管你的页面，运行他自己的代码，并显示任何他想要的内容。</p>
+<p>这种使用&lt; script&gt;元素作为Ajax传输的技术成为JSONP，若HTTP请求所得到的响应数据时经过JSON编码的，则适合使用该技术。</p>
+<p> &#x2F;&#x2F; 根据指定的URL发送一个JSON请求<br> &#x2F;&#x2F; 然后把解析得到的响应数据传递给回调函数<br> &#x2F;&#x2F; 在URL中添加一个名为jsonp的查询参数，用于指定该请求的回掉函数的名称<br> function getJSONP(url, callback) {<br>     &#x2F;&#x2F; 为本次请求创建一个唯一的回调函数名称<br>     var cbnum &#x3D; “cb” + getJSONP.counter++; &#x2F;&#x2F; 每次自增计数器<br>     var cbname &#x3D; “getJSONP.” + cbnum;      &#x2F;&#x2F; 作为JSONP函数的属性</p>
+<pre><code class="hljs"> // 将回调函数名称以表单编码的形式添加到URL的查询部分
+</code></pre>
+<p>  &#x2F;&#x2F; 使用jsonp作为参数名，一些支持JSONP的服务<br>  &#x2F;&#x2F; 可能使用其他的参数名，比如callback<br>     if (url.indexOf(“?”) &#x3D;&#x3D;&#x3D; -1)   &#x2F;&#x2F; URL没有查询部分<br>         url +&#x3D; “?jsonp&#x3D;” + cbname; &#x2F;&#x2F; 作为查询部分添加参数<br>     else                           &#x2F;&#x2F; 否则<br>         url +&#x3D; “&amp;jsonp&#x3D;” + cbname; &#x2F;&#x2F; 作为新的参数添加它</p>
+<pre><code class="hljs"> // 创建script元素用于发送请求
+ var script = document.createElement(&quot;script&quot;);
+
+ // 定义将被脚本执行的回调函数
+ getJSONP[cbnum] = function(response) &#123;
+     try &#123;
+         callback(response); // 处理响应数据
+     &#125;
+     finally &#123;               // 即使回调函数或响应抛出错误
+         delete getJSONP[cbnum];                // 删除该函数
+         script.parentNode.removeChild(script); // 移除script元素
+     &#125;
+ &#125;;
+
+ // 立即触发HTTP请求
+ script.src = url;                  // 设置脚本的URL
+ document.body.appendChild(script); // 把它添加到文档中
+</code></pre>
+<p> }</p>
+<p> getJSONP.counter &#x3D; 0;  &#x2F;&#x2F; 用于创建唯一回调函数名称的计数器</p>
+<h2 id="基于服务器端推送事件的Come技术"><a href="#基于服务器端推送事件的Come技术" class="headerlink" title="基于服务器端推送事件的Come技术"></a>基于服务器端推送事件的Come技术</h2><p>在服务器端推送事件的标准草案中定义了一个EventSource对象，简化了Comet应用程序的编写可以传递一个URL给EventSource()构造函数，然后在返回的实例上监听消息事件。</p>
+<p> var ticker &#x3D; new EventSource(“stockprices.php”);<br> ticker.onmessage &#x3D; function(e){<br>  var type &#x3D; e.type;<br>  var data &#x3D; e.data;<br>  &#x2F;&#x2F;现在处理事件类型和事件的字符串数据<br> }</p>
+<p>Comet架构的一个常见的应用是聊天应用，聊天客户端可以通过XMLHttpRequest向聊天室发送新的消息，也可以通过EventSource对象订阅聊天信息。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JavaScript/" class="category-chain-item">JavaScript</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaScript/">#JavaScript</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>脚本化http</div>
+      <div>http://example.com/2016/04/14/2016-04-14-JavaScript-http/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2016年4月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2016/04/16/2016-04-16-javascript-jquery/" title="jquery类库">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">jquery类库</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2016/04/13/2016-04-13-JavaScript-seventeen/" title="事件处理">
+                        <span class="hidden-mobile">事件处理</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

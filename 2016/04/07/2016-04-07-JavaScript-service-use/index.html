@@ -1,0 +1,672 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="JavaScript并不满足于只存在于浏览器端，随着Nodejs的发展，以及chromev8引擎在后台服务器端的应用，使得JavaScript逐渐活跃于服务器端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="服务器端JavaScript">
+<meta property="og:url" content="http://example.com/2016/04/07/2016-04-07-JavaScript-service-use/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="JavaScript并不满足于只存在于浏览器端，随着Nodejs的发展，以及chromev8引擎在后台服务器端的应用，使得JavaScript逐渐活跃于服务器端">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-04-07T15:56:54.000Z">
+<meta property="article:modified_time" content="2023-05-13T16:42:53.567Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>服务器端JavaScript - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="服务器端JavaScript"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2016-04-07 23:56" pubdate>
+          2016年4月7日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          34 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">服务器端JavaScript</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="服务器端JavaScript"><a href="#服务器端JavaScript" class="headerlink" title="服务器端JavaScript"></a>服务器端JavaScript</h1><h2 id="Rhino脚本话java"><a href="#Rhino脚本话java" class="headerlink" title="Rhino脚本话java"></a>Rhino脚本话java</h2><p>Rhino是一种用java编写的JavaScript解释器，其设计目标是借助强大的java平台API实现轻松编写JavaScript程序。Rhino能自动完成JavaScript原生类型的Java原生类型之间的相互转换，因此JavaScript脚本可以设置、查询java属性并调用java方法。</p>
+<p>Rhino定义了少量重要的全局函数，不过它们都不是JavaScript的核心组成部分。</p>
+<p> &#x2F;&#x2F;特定于嵌入的全局函数：输入help()获取更多的rhino提示<br> print(x);    &#x2F;&#x2F;全局输出函数，将内容输出到控制台<br> version(170);   &#x2F;&#x2F;告诉Rihno需要使用JS 1.7的语言特性<br> load(filename,…);  &#x2F;&#x2F;加载并执行1个或多个JavaScript代码文件<br> readFile(file);   &#x2F;&#x2F;读取文本文件，并以字符串形式返回内容<br> readUrl(url);   &#x2F;&#x2F;读取URL的原文内容，并以字符串的形式返回内容<br> spawn(f);      &#x2F;&#x2F;运行f()或者在一个新线程中加载执行文件f<br> runCommand(cmd,[args…]);&#x2F;&#x2F;使用o或多个命令参数来运行系统命令<br> quit()     &#x2F;&#x2F;退出Rhino</p>
+<p>Rhino会将Java包和类表示成JavaScript对象：</p>
+<p> &#x2F;&#x2F;全局变量packages是Java包层次机构的根<br> Packages.any.package.name  &#x2F;&#x2F;任何来自Java CLASSPATH的包<br> java.lang     &#x2F;&#x2F;全局变量java是Package.java的短名<br> javax.swing    &#x2F;&#x2F;javax是package.javax的短名</p>
+<p> &#x2F;&#x2F;类：能像包的属性一样存取<br> var System &#x3D; java.lang.System;<br> var JFrame &#x3D; javax.swing.JFrame;</p>
+<p>由于Rhino把包和类表示为JavaScript对象，因此可以将它们赋值给变量从而得到相应的短名。如果愿意，也可以正式导入它们：</p>
+<p> var ArrayList &#x3D; java.util.ArrayList;&#x2F;&#x2F;为类创建短名<br> importClass(java.util.HashMap);  &#x2F;&#x2F;其等同于:var HashMap &#x3D; java.util.HashMap</p>
+<p> &#x2F;&#x2F;使用importPackage()导入包(惰性地)<br> &#x2F;&#x2F;不要导入java.lang：太多的名字和JavaScript全局变量有冲突<br> importPackage(java.util);<br> importPackage(java.net);</p>
+<p> &#x2F;&#x2F;另一技术：传入任意数量的类和包给JavaImport()<br> &#x2F;&#x2F;并在with语句中使用它返回的对象</p>
+<p> var guipkgs &#x3D; JavaImporter(java.awt.event,Packages.javax.swing);<br> with(guipks){<br>  &#x2F;<em>这里定义Font、ActionListener和JFrame等类</em>&#x2F;<br> }</p>
+<p> Java类能使用new进行实例化，就像JavaScript类一样:</p>
+<p> &#x2F;&#x2F;对象：使用new实例化Java类<br> var f &#x3D; new java.io.File(“&#x2F;tmp&#x2F;test”);&#x2F;&#x2F;我们将在后面使用这些对象<br> var out &#x3D; new java.io.FileWriter(f);<br>Rhino让JavaScript的instanceof云算符能用于Java对象和类：<br> f instanceof java.io.File   &#x2F;&#x2F; &#x3D;&gt; true<br> out instanceof java.io.Reader  &#x2F;&#x2F; &#x3D;&gt; false:它是Writer而非Reader<br> out instanceof java.io.Closeable &#x2F;&#x2F; &#x3D;&gt; true:Write实现Closeable</p>
+<h2 id="用node实现异步I-x2F-O"><a href="#用node实现异步I-x2F-O" class="headerlink" title="用node实现异步I&#x2F;O"></a>用node实现异步I&#x2F;O</h2><p>Node是基于C++的高速JavaScript解释器，绑定了用于进程、文件和网络套接字等底层Unix API，还绑定了HTTP客户端和服务器API。除了一些专门命名的同步方法外，Node的绑定都是异步的，且Node程序默认绝不阻塞，这意味着它们通常具有强大的可伸缩能力并能有效地处理高负荷。由于API是异步的，因此Node依赖事件处理程序，通常使用嵌套函数和闭包来实现。</p>
+<p>我们之前从print()和load()函数开始介绍Rhino。Node也是类似函数，只是名字不同：</p>
+<p> &#x2F;&#x2F;Node定义了console.log(),可以像在浏览器中那样调试代码输出<br> console.log(“Hello Node”);&#x2F;&#x2F;调试输出到控制台</p>
+<p> &#x2F;&#x2F;使用require()替代load()<br> &#x2F;&#x2F;它加载并执行(只有一次)命名模块，返回包含其导出标示符(exported symbol)的对象<br> var fs &#x3D; require(“fs”);&#x2F;&#x2F;加载”fs”模块，并返回其API对象</p>
+<p>Node 在其全局对象实现了所有标准的ECMAScript5构造函数、属性和函数。除此之外，它也支持客户端的计时器函数集setTimeout()、setInterval()、clearTimeout()和clearInterval():</p>
+<p> &#x2F;&#x2F;1秒钟后输出”Hello World”<br> setTimeout(function(){ console.log(“Hello World”);},1000);</p>
+<p>Node在process名字空间中定义了其他重要的全局属性。这里有该对象的一些属性：</p>
+<p> process.version  &#x2F;&#x2F;Node的版本字符串信息<br> process.argv &#x2F;&#x2F;“node”命令行的数组参数，arfv[0]是”node”<br> process.env  &#x2F;&#x2F;环境变量对象。例如:process.env.PATH<br> process.pid  &#x2F;&#x2F;进程id<br> process.getuid() &#x2F;&#x2F;返回用户id<br> process.cwd() &#x2F;&#x2F;返回当前的工作目录<br> process.chdir() &#x2F;&#x2F;改变目录<br> process.exit() &#x2F;&#x2F;退出(运行shutdown命令之后)<br>由于Node的函数和方法都是异步的，因此，当它们等待运算完成时并不产生阻塞。非阻塞方法的返回值无法返回异步运算的结果给你。如果想要获取结果，或想知道完成运算的时间，当结果准备好或完成运算(或发生错误)时，就必须提供Node能调用的一个函数。</p>
+<p>Node的设计目标示高性能I&#x2F;O,因此其流API常被用到。当数据准备好时，可读流会触发事件。在下面代码中，假设s是在其他地方得到的可读流。下面我们将看到如何从文件和网络套接字中得到流对象。</p>
+<p> &#x2F;&#x2F;输入流s<br> s.on(“data”,f);  &#x2F;&#x2F;当数据可用时，把它作为参数传给f<br> s.on(“end”,f); &#x2F;&#x2F;当不再有数据到达，在文件结束(EOF)时会触发“end”事件<br> s.on(“error”,f) &#x2F;&#x2F;如果发生错误，把异常传给f()<br> s.readable  &#x2F;&#x2F;如果它是依旧打开的可读流，返回true；<br> s.pasus()  &#x2F;&#x2F;“暂停”data事件，例如，为了限制上次上传<br> s.resume();  &#x2F;&#x2F;再次恢复</p>
+<p> &#x2F;&#x2F;如果想把字符串传给”data”事件处理程序，请指定编码<br> s.setEncoding(enc);  &#x2F;&#x2F;如何对字节编码:”utf-8”、”ascii”或”base64”<br>可写流比可读流的核心事件少，使用write()方法发送数据，当所有数据写入完毕后，使用end()方法结束流。write()方法绝不会阻塞。若Node无法立即写入数据而不得不在内部缓存它，则write()方法返回false</p>
+<p> &#x2F;&#x2F;输出流s<br> s.write(buffer);  &#x2F;&#x2F;写入二进制数据<br> s.write(string,encodeing)&#x2F;&#x2F;写入字符串数据，默认编码是”utf-8’<br> s.end()     &#x2F;&#x2F;结束流<br> s.end(buffer);   &#x2F;&#x2F;写入最后的二进制数据块并结束<br> s.end(str,encoding); &#x2F;&#x2F;写入最后的字符串并结束所有流<br> s.writeable;   &#x2F;&#x2F;如果流依旧打开且可写入，返回true<br> s.on(“drain”,f)   &#x2F;&#x2F;当内部缓冲区为空，调用f()<br>如上所示，Node的流能处理二进制数据和文本数据。文本传输使用的是普通JavaScript字符串，字节使用Node特定的缓冲区来处理。Node的缓冲区是有固定长度的类数组对象，其元素数量必须在0~255之间。</p>
+<p>好了，关于JavaScript的服务端，先写这么多，感觉node是越来越火了，后续会对node进行一波学习。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JavaScript/" class="category-chain-item">JavaScript</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaScript/">#JavaScript</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>服务器端JavaScript</div>
+      <div>http://example.com/2016/04/07/2016-04-07-JavaScript-service-use/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2016年4月7日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2016/04/08/2016-04-08-JavaScriptbrowser/" title="客户端的JavaScript(浏览器中的JavaScript)">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">客户端的JavaScript(浏览器中的JavaScript)</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2016/04/06/2016-04-06-JavaScript-chidl-and-expand/" title="JS的子集和扩展">
+                        <span class="hidden-mobile">JS的子集和扩展</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,782 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="最近在项目开发过程中出现了一个问题，一个表单中途改了需求，要求能进行上传附件（格式是PDF或者图片）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="图片上传功能">
+<meta property="og:url" content="http://example.com/2015/08/10/2015-08-10-java-upload-img/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="最近在项目开发过程中出现了一个问题，一个表单中途改了需求，要求能进行上传附件（格式是PDF或者图片）">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2015-08-10T11:06:05.000Z">
+<meta property="article:modified_time" content="2023-05-13T16:41:27.432Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>图片上传功能 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="图片上传功能"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2015-08-10 19:06" pubdate>
+          2015年8月10日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          48 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">图片上传功能</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="图片上传功能"><a href="#图片上传功能" class="headerlink" title="图片上传功能"></a>图片上传功能</h1><p>最近在项目开发过程中出现了一个问题，一个表单中途改了需求，要求能进行上传附件（格式是PDF或者图片）</p>
+<p>前台代码如下，</p>
+ <form id="supplierForm" action="">
+  <div class="row form-div">
+   <p class="col-lg-12 col-md-12 col-sm-12 col-xs-12 form-title">附件信息</p>
+   <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 form-group">
+   <label for="business-licence">公司简介(营业执照/税务登记证/资质文件等)<span class="require">*</span></label>
+   <div class="upload" id="upload1">
+    <input class="file-input" type="file" id="business" onchange="handleBusiness()" >
+    <input id="businesslicence" type="text"  value="" class="form-control" readonly="readonly">
+    <a id="businessBtn" href="javascript:void(0);"
+     class="btn btn-info" onclick="uploadBusiness()">上传</a>
+   </div>
+  </div>
+ </form>
+
+ <!-- 图片的表单   -->
+ <form id="uploadForm" method="post" enctype="multipart/form-data"
+  target="hiddenIframe" style="display: none; width: 0px; height: 0px;">
+  <span id="fileContent"></span>
+  <input type="submit" onclick="uploadFormSubmit()">
+ </form>
+
+<p>js代码</p>
+<p> var businessFile &#x3D; $(“#business”);<br> var businesslicence &#x3D; $(“#businesslicence”);<br> function handleBusiness() {<br>  var of &#x3D; $(“#business”);<br>  &#x2F;&#x2F;修改属性<br>  of.attr(“id”, “uploadFile”);<br>  of.attr(“name”, “uploadFile”);<br>  $(“#fileContent”).empty();&#x2F;&#x2F;清空表单<br>  $(“#fileContent”).append(of);&#x2F;&#x2F;选中元素之后放入表单<br>  &#x2F;&#x2F;将文件移动至上传表单<br>  var file &#x3D; $(“#uploadFile”).val();<br>  function uploadFormSubmit(){<br>    var options &#x3D; {<br>      type : ‘POST’,<br>      url : “${base}&#x2F;uploaderSupplier.jspx”,<br>      complete : function(data) {<br>       $(“#businessPath”).val(data.responseJSON.fileName);<br>       of.attr(“id”, “business”);<br>       $(“#upload1”).append(of);<br>       layer.msg(“简介文件上传成功!”);<br>      }<br>     }<br>     $(“#uploadForm”).ajaxSubmit(options);<br>   }<br>   if(document.getElementById(“uploadFile”).files){<br>    var fileData &#x3D; document.getElementById(“uploadFile”).files[0];<br>   }</p>
+<p>   var ext &#x3D; file.substring(file.lastIndexOf(‘.’), file.length).toUpperCase();<br>   if (ext &#x3D;&#x3D; ‘.PNG’ || ext &#x3D;&#x3D; ‘.JPG’ || ext &#x3D;&#x3D; ‘.JPEG’ || ext &#x3D;&#x3D; ‘.GIF’ || ext &#x3D;&#x3D; ‘.PDF’) {<br>    if (fileData.size &lt;&#x3D; 4 <em>1024</em> 1024) {<br>     businesslicence.val(businessFile.val());<br>     uploadFormSubmit();<br>    } else {<br>     layer.msg(“文件最大不能超过4M!”);<br>     $(“#businesslicence”).val(“”);<br>     of.attr(“id”, “business”);<br>     $(“#upload1”).append(of);<br>    }<br>   } else {<br>    layer.msg(“只能上传图片和PDF文件”);<br>    $(“#businesslicence”).val(“”);<br>    of.attr(“id”, “business”);</p>
+<pre><code class="hljs">$(&quot;#upload1&quot;).append(of);
+return;
+</code></pre>
+<p>   }<br>  };<br>  &#x2F;&#x2F;  点击上传按钮触发文件选择框<br>  function uploadBusiness() {<br>   businessFile.click();<br>  };</p>
+<p>java后台代码:</p>
+<p> &#x2F;**<br>     * <p>功能简述:图片上传接口</p><br>     * <p>细节描述:返回图片的保存路径，图片名前拼接日期</p><br>     * @param request<br>     * @param response<br>     * @param model [参数说明]<br>     * @author minchao<br>     * @since [2017年6月30日]<br>     *&#x2F;<br>    @RequestMapping(value &#x3D; “&#x2F;uploaderSupplier.jspx”, method &#x3D; RequestMethod.POST)<br>    public void uploaderSupplier(HttpServletRequest request, HttpServletResponse response,ModelMap model) {</p>
+<pre><code class="hljs">    response.setCharacterEncoding(&quot;UTF-8&quot;);  
+    response.setHeader(&quot;Cache-Control&quot;, &quot;no-cache&quot;);  
+    response.setDateHeader(&quot;Expires&quot;, 0);    
+    String fileName = &quot;&quot;;
+    String filePath = &quot;&quot;; 
+    // 转型为MultipartHttpRequest：   
+    MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;   
+    // 获得文件：  
+    MultipartFile filedata = multipartRequest.getFile(&quot;uploadFile&quot;);   
+    System.out.print(filedata);
+    if (filedata != null &amp;&amp; !filedata.isEmpty()) &#123;   
+       // 获取图片的文件名  
+       fileName = filedata.getOriginalFilename();  
+       // 将图片上传到服务器  
+       filePath=saveFile(request, fileName, filedata);    
+       // System.out.println(&quot;上传文件 &quot;+filePath+&quot;成功&quot;);  
+    &#125;  
+    System.out.println(request);
+    JSONObject json = new JSONObject();
+    json.put(&quot;success&quot;, true);
+    json.put(&quot;status&quot;, 1);
+    json.put(&quot;fileName&quot;, filePath);
+    ResponseUtils.renderJson(response, json.toString());
+&#125;
+
+/**
+ * &lt;p&gt;功能简述:保存文件方法&lt;/p&gt;
+ * &lt;p&gt;细节描述&lt;/p&gt;
+ * @param request
+ * @param newFileName
+ * @param filedata
+ * @return [参数说明]
+ * @author minchao
+ * @since [2017年6月30日]
+ */
+@Autowired
+private KdSupplierMng kdSupplierMng;
+public String saveFile(HttpServletRequest request, String newFileName,  
+        MultipartFile filedata) &#123;  
+    String path = request.getSession().getServletContext().getRealPath(&quot;/r/cms/www/supAttachment/&quot;);
+    String saveFilePath = path; 
+    
+    Date d = new Date(); 
+    SimpleDateFormat sdf = new SimpleDateFormat(&quot;yyyy-MM-dd-HH-mm-ss&quot;);
+    String dateNowStr = sdf.format(d); 
+    String ext =  newFileName.substring(newFileName.lastIndexOf(&quot;.&quot;));
+    newFileName = dateNowStr + ext;
+    //System.out.println(&quot;文件名：&quot; + newFileName); 
+    // 构建文件目录  
+    File tempFile = new File(saveFilePath);  
+    if (!tempFile.exists()) &#123;  
+        tempFile.mkdirs();  
+    &#125;  
+    // 保存文件到服务器  
+    FileOutputStream fos;  
+    try &#123;  
+        fos = new FileOutputStream(saveFilePath + &quot;\\&quot; + newFileName);  
+        fos.write(filedata.getBytes());  
+        fos.close();  
+    &#125;catch (Exception e) &#123;  
+        e.printStackTrace();  
+    &#125;  
+    return &quot;/r/cms/www/supAttachment/&quot;+newFileName;  
+&#125; 
+</code></pre>
+<p>接口返回的存放图片的名称。</p>
+<p>实现图片上传的方法是，新写一个表单，专门用来上传图片。由上传按钮来触发文件框的弹出选择文件窗口，接着，再由文件框的onchange()方法触发新表单的ajax上传文件功能。</p>
+<p>注意，如果直接粘贴复制代码的话，需要导入jquery.form.js和layer.js文件。</p>
+<h3 id="当然，事情并不会就这样结束"><a href="#当然，事情并不会就这样结束" class="headerlink" title="当然，事情并不会就这样结束"></a>当然，事情并不会就这样结束</h3><p>ie9 有两个坑：</p>
+<p>第一个坑:<br>getElementById(“uploadFile”).files[0]会报错，因为ie9是无法读取浏览器之外的本地文件的。</p>
+<p>解决方法是：在var fileData &#x3D; document.getElementById(“uploadFile”).files[0];&#x2F;&#x2F;获取文件和var ext &#x3D; file.substring(file.lastIndexOf(‘.’), file.length).toUpperCase();&#x2F;&#x2F;判断尾缀z之间加一段判断代码</p>
+<p> if(document.getElementById(“uploadFile”).files){<br>  var fileData &#x3D; document.getElementById(“uploadFile”).files[0];<br> }else{<br>   var fileEle &#x3D; document.getElementById(“uploadFile”);<br>   var fileData &#x3D; null;<br>   &#x2F;*<br>        低版本IE由于JS安全问题，不允许JS访问本地文件,所以无法获取files, 对于低版本的IE可以使用ActiveXObject获取文件对象, 但是默认情况下<br>        ActiveXObject为不可用的, 所以要想使用此对象要先启用设置, 即:  Tools(工具) &#x2F; Internet options(选项) &#x2F; Security(安全) &#x2F; Custom level(自定义级别)<br>        找到”Initialize and script ActiveX controls not marked as safe for scripting”设置为”Enable(not secure)”即可.<br>        初始化和脚本化ActiveX控件，标记为脚本安全<br>        *&#x2F;<br>    var fso &#x3D; new ActiveXObject(“Scripting.FileSystemObject”);</p>
+<pre><code class="hljs">/*
+    1. 获取文件路径
+        出于安全性的考虑，低版本IE上传文件时屏蔽了真实的本地文件路径,
+        以C:\fakepath\**取而代之, 所以默认情况下通过fileEle.value 不能获取到
+        文件的真实路径.
+        如果想获取真实路径, 有两种方式:
+            1. 通过设置IE的安全设置, 即:
+                Tools(工具) / Internet options(选项) / Security(安全) / Custom level(自定义级别)
+                找到&quot;Include local directory path when uploading files to a server&quot;
+                设置为的&quot;Enable&quot;
+            2. 使用JS获取, 即:
+                fileEle.select().blur();
+                var filePath = document.selection.createRange().text;
+*/
+fileEle.select();
+fileEle.blur();
+var filePath = $(&quot;#uploadFile&quot;).val();
+    /*
+        FileExists:  判断 文件是否存在
+        GetFile: 获取文件对象
+    */
+    if(fso.FileExists(filePath))&#123;
+     fileData = fso.GetFile(filePath);
+    &#125;
+</code></pre>
+<p> }<br> console.log(fileData);</p>
+<p>其中还要用户配合打开ie浏览器的安全限制</p>
+<p>第二个坑:由于IE9的安全限制，会导致按钮触发文件选择框的时候会报错。JAVASCRIPT5的错误。</p>
+<p>ie10以下有这个问题，为了安全性能考虑，只允许点击file文本的时候才可以上传，因此，需要设置一个透明的 &lt;  input type&#x3D;”file”&gt;浮动到自定义按钮上，设置透明度为0，即可解决此问题</p>
+<p>这个的解决办法是将input文件框透明置顶，当点击空白处时自动触发文件选择。但这与需求相违背了。JIRA上测试始终给我报了个错，说是用户常用习惯不符，触发文件选择框都是由点击上传按钮开始触发。因此，就只能放大招将IE9屏蔽了。</p>
+<p>综上所述。</p>
+<p>后期如果我找到了好的上传插件，并且兼容IE9的。会后续补充在博客里。<br>如果您有好的上传插件或者更好的解决办法。希望您能在评论里留言告知，方便我学习。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Java/">#Java</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>图片上传功能</div>
+      <div>http://example.com/2015/08/10/2015-08-10-java-upload-img/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2015年8月10日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2015/10/10/2015-10-10-CSS3-Position-And-media/" title="定位体系和媒体查询">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">定位体系和媒体查询</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2015/05/18/2015-05-18-learn-main-path/" title="理解浏览器关键渲染路径">
+                        <span class="hidden-mobile">理解浏览器关键渲染路径</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
