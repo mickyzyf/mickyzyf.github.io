@@ -1,0 +1,748 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="HTML和CSS基础以及编码规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML, CSS基础及编码规范">
+<meta property="og:url" content="http://example.com/2020/06/20/HTML-and-CSS-Base/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="HTML和CSS基础以及编码规范">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-20T19:06:05.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.582Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="HTML5 CSS3">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>HTML, CSS基础及编码规范 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="HTML, CSS基础及编码规范"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-06-20 19:06" pubdate>
+          2020年6月20日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          38 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">HTML, CSS基础及编码规范</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="背景介绍"><a href="#背景介绍" class="headerlink" title="背景介绍"></a>背景介绍</h2><p>想要完成一个精美实用的网站，拥有稳定的后台，健壮的数据库设计，同样需要漂亮的设计以及精美的html和css实现，作为一个前端来说，需要突破这些限制因素的局限，能完美的呈现出精美的页面给用户看，并且给用一个完美的用户体验，这是前端要做的事。</p>
+<h2 id="HTML部分"><a href="#HTML部分" class="headerlink" title="HTML部分"></a>HTML部分</h2><h3 id="只有对HTML元素非常熟悉，才能知道何时应该选用何种标签"><a href="#只有对HTML元素非常熟悉，才能知道何时应该选用何种标签" class="headerlink" title="只有对HTML元素非常熟悉，才能知道何时应该选用何种标签"></a>只有对HTML元素非常熟悉，才能知道何时应该选用何种标签</h3><ol>
+<li>创建良好的标记</li>
+</ol>
+<p> 1.1 选择DOCTYPE  </p>
+<p> 在HTML的最开始部分声明DOCTYPE(Document Type(文档类型)的简写)可以让浏览器找到<br>  或者其他用户代理知道你要使用的HTML语言类型。DOCTYPE是一个健壮文档所必须的<br>  <!DOCTYPE html ></p>
+<p> 1.2 指定语言和字符集</p>
+<p> 与声明DOCTYPE同样重要的是将HTML文档指定为某一种人类的语言。<br>  <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><br> &#x2F;&#x2F;设置文档的XML语言，这里设置为英语的ISO代码en<br> <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/><br>  &#x2F;&#x2F;设置文档的字符集，这里是UTF-8</p>
+<p> 1.3 指定标题<br> 每个HTML页面都需要一个用来描述网页内容的<title>元素,在游客将访问的页面<br>  保存到收藏夹时，<title>将作为链接名被保存在访客浏览器中</p>
+<p> 1.4 选用恰当的元素</p>
+<p> 根据文档内容的结构而选择HTML元素，而不是根据HTML元素的样式。例如，<br>  用p元素包含文字段落，而不是为了换行；用blockquote包含被引用的文字，<br>  而不是为了得到缩进</p>
+<p> 1.5 避免过渡使用div和span</p>
+<p> 设计HTML时一个常见的错误就是过渡使用div和span。少量、必要的合理使用<br> 可以明显地增强文档的结构性。span不应该代替label的作用，这不意味着div<br> 和span应避免使用。</p>
+<p> 1.6尽可能少地使用标签</p>
+<p> 前面两个提示所隐藏的含义就是，HTML标签使用得越少越好。事实上也是如此,使用的HTML标签越多，则渲染的时候dom结构越复杂，dom渲染的时候会慢。</p>
+<h3 id="HTML编码规范"><a href="#HTML编码规范" class="headerlink" title="HTML编码规范"></a>HTML编码规范</h3> <!DOCTYPE html><p>–HTML5 doctype为每个 HTML 页面的第一行添加标准模式（standard mode）的声明，这样能够确保在每个浏览器中拥有一致的展现。</p>
+ <html lang="zh-CN">
+-- 强烈建议为 html 根元素指定 lang 属性，从而为文档设置正确的语言。这将有助于语音合成工具确定其所应该采用的发音，有助于翻译工具确定其翻译时所应遵守的规则等等。
+
+ <head>
+ <title></title>
+ <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+ <!-- IE 支持通过特定的 <meta> 标签来确定绘制当前页面所应该采用的 IE 版本。
+    除非有强烈的特殊需求，否则最好是设置为 edge mode，从而通知 IE 采用其所支持的最新的模式。 -->
+ <meta charset="utf-8">
+ <!-- 通过明确声明字符编码，能够确保浏览器快速并容易的判断页面内容的渲染方式。
+    这样做的好处是，可以避免在 HTML 中使用字符实体标记（character entity），
+    从而全部与文档编码一致（一般采用 UTF-8 编码）。 -->
+
+ <!-- 外部引入 CSS -->
+ <link rel="stylesheet" href="code-guide.css">
+ <!-- 外部引入 JavaScript -->
+ <script src="code-guide.js"></script>
+ </head>
+
+<p>标签要闭合，所有的html标签都要有&#x2F;的闭合标签</p>
+ <body>
+
+ <!--     
+        class
+        id, name
+        data-*
+        src, for, type, href
+        title, alt
+        aria-*, role
+    -->
+ <!-- class 用于标识高度可复用组件，因此应该排在首位。
+    id 用于标识具体组件，应当谨慎使用（例如，页面内的书签），因此排在第二位。 -->
+ </body>
+ </html>
+
+<h2 id="CSS部分"><a href="#CSS部分" class="headerlink" title="CSS部分"></a>CSS部分</h2><h3 id="CSS部分，基础内容详见《CSS夯实基础》"><a href="#CSS部分，基础内容详见《CSS夯实基础》" class="headerlink" title="CSS部分，基础内容详见《CSS夯实基础》"></a>CSS部分，基础内容详见<a target="_blank" rel="noopener" href="http://minchao.me/2015/05/18/CSS-Base/">《CSS夯实基础》</a></h3><h3 id="CSS编码规范"><a href="#CSS编码规范" class="headerlink" title="CSS编码规范"></a>CSS编码规范</h3><p>  &#x2F;*<br>     1、用两个空格来代替制表符（tab） – 这是唯一能保证在所有环境下获得一致展现的方法。<br>     2、为选择器分组时，将单独的选择器单独放在一行。<br>     3、为了代码的易读性，在每个声明块的左花括号前添加一个空格。<br>     4、声明块的右花括号应当单独成行。<br>     5、每条声明语句的 : 后应该插入一个空格。<br>     6、为了获得更准确的错误报告，每条声明都应该独占一行。<br>     7、所有声明语句都应当以分号结尾。最后一条声明语句后面的分号是可选的，但是，如果省略这个分号，你的代码可能更易出错。<br>     8、对于以逗号分隔的属性值，每个逗号后面都应该插入一个空格（例如，box-shadow）。<br>     9、不要在 rgb()、rgba()、hsl()、hsla() 或 rect() 值的内部的逗号后面插入空格。<br>         这样利于从多个属性值（既加逗号也加空格）中区分多个颜色值（只加逗号，不加空格）。<br>     10、对于属性值或颜色参数，省略小于 1 的小数前面的 0 （例如，.5 代替 0.5；-.5px 代替 -0.5px）。<br>     11、十六进制值应该全部小写，例如，#fff。在扫描文档时，小写字符易于分辨，因为他们的形式更易于区分。<br>     12、尽量使用简写形式的十六进制值，例如，用 #fff 代替 #ffffff。<br>     13、为选择器中的属性添加双引号，例如，input[type&#x3D;”text”]。只有在某些情况下是可选的，但是，为了代码的一致性，建议都加上双引号。<br>     14、避免为 0 值指定单位，例如，用 margin: 0; 代替 margin: 0px;。<br>  *&#x2F;</p>
+<p>以上是CSS的编码规范总结，参照以上标准</p>
+<p> &#x2F;<em>不好的写法 CSS</em>&#x2F;<br> .selector, .selector-secondary, .selector[type&#x3D;text] {<br>   padding:15px;<br>   margin:0px 0px 15px;<br>   background-color:rgba(0, 0, 0, 0.5);<br>   box-shadow:0px 1px 2px #CCC,inset 0 1px 0 #FFFFFF<br> }</p>
+<p> &#x2F;<em>好的写法 CSS</em>&#x2F;<br> .selector,<br> .selector-secondary,<br> .selector[type&#x3D;”text”] {<br>   padding: 15px;<br>   margin-bottom: 15px;<br>   background-color: rgba(0,0,0,.5);<br>   box-shadow: 0 1px 2px #ccc, inset 0 1px 0 #fff;<br> }</p>
+<p>比较这两种写法，你会发现，下面一种更清晰，单独的选择器单独放在一行，左括号前加一个空格，属性：前加一个空格，0值不设单位等</p>
+<p>下面，相关属性的声明，也有相关的顺序</p>
+<p> &#x2F;*声明顺序<br> 相关的属性声明应当归为一组，并按照下面的顺序排列：<br>    Positioning 定位属性声明（布局）<br>    Box model 盒子模型属性声明（大小，间距）<br>    Typographic  字排版属性（font大小）<br>    Visual  视属性（可见的颜色，背景等）<br> 由于定位（positioning）可以从正常的文档流中移除元素，<br> 并且还能覆盖盒模型（box model）相关的样式，因此排在首位。盒模型排在第二位，因为它决定了组件的尺寸和位置。<br> 其他属性只是影响组件的内部（inside）或者是不影响前两组属性，因此排在后面。<br> *&#x2F;</p>
+<p> .declaration-order {<br>   &#x2F;<em>Positioning</em>&#x2F;<br>   position: absolute;<br>   top: 0;<br>   right: 0;<br>   bottom: 0;<br>   left: 0;<br>   z-index: 100;</p>
+<p>   &#x2F;<em>Box-model</em>&#x2F;<br>   display: block;<br>   float: right;<br>   width: 100px;<br>   height: 100px;</p>
+<p>   &#x2F;<em>Typography</em>&#x2F;<br>   font: normal 13px “Helvetica Neue”, sans-serif;<br>   line-height: 1.5;<br>   color: #333;<br>   text-align: center;</p>
+<p>   &#x2F;<em>Visual</em>&#x2F;<br>   background-color: #f5f5f5;<br>   border: 1px solid #e5e5e5;<br>   border-radius: 3px;</p>
+<p>   &#x2F;<em>Misc</em>&#x2F;<br>   opacity: 1;<br> }</p>
+<p>切记不要轻易使用!important</p>
+<p> &#x2F;*不要使用 @import<br>    与 <link> 标签相比，@import 指令要慢很多，不光增加了额外的请求次数，<br>    还会导致不可预料的问题。替代办法有以下几种：</p>
+<pre><code class="hljs">使用多个 &lt;link&gt; 元素
+通过 Sass 或 Less 类似的 CSS 预处理器将多个 CSS 文件编译为一个文件
+通过 Rails、Jekyll 或其他系统中提供过 CSS 文件合并功能
+请参考 Steve Souders 的文章了解更多知识。
+</code></pre>
+<p> *&#x2F;</p>
+<p>导入文件使用link，不使用import</p>
+<p> &#x2F;<em><!-- Use link elements --></em>&#x2F;<br> <link rel="stylesheet" href="core.css"></link></p>
+<p> &#x2F;<em><!-- 避免 @imports --></em>&#x2F;<br> <style><br>   @import url(“more.css”);<br> </style></p>
+<p>媒体查询（Media query）的位置</p>
+<p> &#x2F;*<br>    将媒体查询放在尽可能相关规则的附近。不要将他们打包放在<br>    一个单一样式文件中或者放在文档底部。如果你把他们分开了，将来只会被大家遗忘。下面给出一个典型的实例<br> *&#x2F;</p>
+<p>带前缀的属性</p>
+<p> &#x2F;*<br>   当使用特定厂商的带有前缀的属性时，通过缩进的方式，让每个属性的值在垂直方向对齐，这样便于多行编辑<br> *&#x2F;</p>
+<p>单行规则声明</p>
+<p> &#x2F;*</p>
+<pre><code class="hljs">对于只包含一条声明的样式，为了易读性和便于快速编辑，
+建议将语句放在同一行。对于带有多条声明的样式，还是应当将声明分为多行。
+这样做的关键因素是为了错误检测 -- 例如，CSS 校验器指出在 183 行有语法错误。
+如果是单行单条声明，你就不会忽略这个错误；如果是单行多条声明的话，你就要仔细分析避免漏掉错误了
+</code></pre>
+<p> *&#x2F;</p>
+<p>简写形式的属性声明</p>
+<p> &#x2F;*<br> 在需要显示地设置所有值的情况下，应当尽量限制使用简写形式的属性声明。常见的滥用简写属性声明的情况如下：<br>     padding<br>     margin<br>     font<br>     background<br>     border<br>     border-radius<br>    大部分情况下，我们不需要为简写形式的属性声明指定所有值。例如，<br>    HTML 的 heading 元素只需要设置上、下边距（margin）的值，因此，<br>    在必要的时候，只需覆盖这两个值就可以。过度使用简写形式的属性声明会导致代码混乱，<br>    并且会对属性值带来不必要的覆盖从而引起意外的副作用。</p>
+<pre><code class="hljs">MDN（Mozilla Developer Network）上一片非常好的关于shorthand properties 的文章，
+对于不太熟悉简写属性声明及其行为的用户很有用。
+</code></pre>
+<p> *&#x2F;<br>好的写法与不好的写法</p>
+<p> &#x2F;<em>不好的写法</em>&#x2F;<br> .element {<br>   margin: 0 0 10px;<br>   background: red;<br>   background: url(“image.jpg”);<br>   border-radius: 3px 3px 0 0;<br> }</p>
+<p> &#x2F;<em>好的写法</em>&#x2F;<br> .element {<br>   margin-bottom: 10px;<br>   background-color: red;<br>   background-image: url(“image.jpg”);<br>   border-top-left-radius: 3px;<br>   border-top-right-radius: 3px;<br> }</p>
+<p>class 命名</p>
+<p> &#x2F;*<br>    class 名称中只能出现小写字符和破折号（dashe）（不是下划线，也不是驼峰命名法）。<br>        破折号应当用于相关 class 的命名（类似于命名空间）（例如，.btn 和 .btn-danger）。<br>    避免过度任意的简写。.btn 代表 button，但是 .s 不能表达任何意思。<br>    class 名称应当尽可能短，并且意义明确。<br>    使用有意义的名称。使用有组织的或目的明确的名称，不要使用表现形式（presentational）的名称。<br>    基于最近的父 class 或基本（base） class 作为新 class 的前缀。<br>    使用 .js-* class 来标识行为（与样式相对），并且不要将这些 class 包含到 CSS 文件中。</p>
+<pre><code class="hljs">在为 Sass 和 Less 变量命名是也可以参考上面列出的各项规范。
+</code></pre>
+<p> *&#x2F;</p>
+<p>选择器</p>
+<p> &#x2F;*<br>     对于通用元素使用 class ，这样利于渲染性能的优化。<br>     对于经常出现的组件，避免使用属性选择器（例如，[class^&#x3D;”…”]）。浏览器的性能会受到这些因素的影响。<br>     选择器要尽可能短，并且尽量限制组成选择器的元素个数，建议不要超过 3 。<br>     只有在必要的时候才将 class 限制在最近的父元素内（也就是后代选择器）<br>     （例如，不使用带前缀的 class 时 – 前缀类似于命名空间）。<br> *&#x2F;</p>
+<p>总结：<br> 这里对于常见的编写规范错误，我一般会犯的是编写css过于随意，不喜欢用缩写，对于class的命名总是用驼峰命名，希望在将来的工作学习中改掉这些坏毛病。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/HTML5-CSS3/" class="category-chain-item">HTML5 CSS3</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/HTML5-CSS3/">#HTML5 CSS3</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>HTML, CSS基础及编码规范</div>
+      <div>http://example.com/2020/06/20/HTML-and-CSS-Base/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年6月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/08/10/java-upload-img/" title="图片上传功能">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">图片上传功能</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/20/CSS3-stransition-and-animation/" title="CSS3的过渡和动画比较">
+                        <span class="hidden-mobile">CSS3的过渡和动画比较</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

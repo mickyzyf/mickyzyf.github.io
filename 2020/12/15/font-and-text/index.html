@@ -1,0 +1,753 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="css3之前的版本，网页设计师不得不使用用户计算机已经安装的字体.使用css3，网页设计师可以使用他&#x2F;她喜欢的任何字体。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字体和文本效果">
+<meta property="og:url" content="http://example.com/2020/12/15/font-and-text/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="css3之前的版本，网页设计师不得不使用用户计算机已经安装的字体.使用css3，网页设计师可以使用他&#x2F;她喜欢的任何字体。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-15T15:14:54.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.578Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="CSS3">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>字体和文本效果 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="字体和文本效果"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-12-15 15:14" pubdate>
+          2020年12月15日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">字体和文本效果</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><p>css3之前的版本，网页设计师不得不使用用户计算机已经安装的字体。  </p>
+<p>使用css3，网页设计师可以使用他&#x2F;她喜欢的任何字体<br>当你发现您要使用的字体文件时，只需要简单的将字体文件包含在网站中，它会自动下载给需要的用户。您所选择的新的css3版本有关于@font-face规则描述。  </p>
+<p>您自己的字体是在css3@font-face规则中定义的。  </p>
+ <style>
+ @font-face
+ {
+
+ font-family: myFirstFont;
+ src: url('myfont/fontawesome-webfont.ttf')
+  ,url('myfont/fontawesome-webfont.woff'); /*IE9*/
+
+ }
+ div
+ {
+
+ font-family:myFirstFont;
+
+ }
+ </style>
+
+<h3 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h3> <!DOCTYPE html>
+ <html>
+ <head>
+ <meta charset="utf-8">
+ <title>字体</title>
+ <style>
+ @font-face
+ {
+
+<p> font-family: myFirstFont;<br> src: url(‘myfont&#x2F;fontawesome-webfont.ttf’)<br>  ,url(‘myfont&#x2F;fontawesome-webfont.woff’); &#x2F;<em>IE9</em>&#x2F;</p>
+<p> }</p>
+<p> div<br> {</p>
+<p> font-family:myFirstFont;</p>
+<p> }<br> </style><br> </head><br> <body></p>
+ <p style="font-family:'Microsoft YaHei'"> 微软雅黑 Microsoft YaHei  Internet Explorer 9 只支持 .eot 格式的字体.</p>
+ <p style="font-family:'Times New Roman'"> Internet Explorer 9 只支持 .eot 格式的字体.</p>
+ <p style="font-family:'SimSun'"> 宋体  Internet Explorer 9 只支持 .eot 格式的字体.</p>
+ <p style="font-family:'SimHei'"> 黑体   Internet Explorer 9 只支持 .eot 格式的字体.</p>
+ <p style="font-family:' Microsoft JhengHei'"> 微软正黑体 Internet Explorer 9 只支持 .eot 格式的字体.</p>
+ <p style="font-family:' NSimSun'"> 新宋体 Internet Explorer 9 只支持 .eot 格式的字体.</p>
+ <p style="font-family:'PMingLiU'"> 新细明体 Internet Explorer 9 只支持 .eot 格式的字体.</p>
+ <p style="font-family:'DFKai-SB'"> 标楷体 Internet Explorer 9 只支持 .eot 格式的字体.</p>
+ <p style="font-family:'FangSong'"> 仿宋 Internet Explorer 9 只支持 .eot 格式的字体.</p>
+ <p style="font-family:'KaiTi'"> 楷体 Internet Explorer 9 只支持 .eot 格式的字体.</p>
+ <p style="font-family:'_GB2312 FangSong_GB2312'">  仿宋_ Internet Explorer 9 只支持 .eot 格式的字体.</p>
+ <p style="font-family:'_GB2312 KaiTi_GB2312'"> 楷体_ Internet Explorer 9 只支持 .eot 格式的字体.</p>
+
+ <p style="font-family:myFirstFont;">自定义字体</p>
+ <div>
+ Internet Explorer 9 只支持 .eot 格式的字体.
+ </div>
+
+ </body>
+ </html>
+
+<h2 id="文本效果"><a href="#文本效果" class="headerlink" title="文本效果"></a>文本效果</h2><h3 id="text-shadow-字体阴影"><a href="#text-shadow-字体阴影" class="headerlink" title="text-shadow:字体阴影"></a>text-shadow:字体阴影</h3><p> .text{</p>
+<p> text-shadow:5 px 5px 5px #FF0000;</p>
+<p> }</p>
+<h5 id="指定-水平阴影、垂直阴影、模糊的距离，以及阴影的颜色"><a href="#指定-水平阴影、垂直阴影、模糊的距离，以及阴影的颜色" class="headerlink" title="指定:水平阴影、垂直阴影、模糊的距离，以及阴影的颜色"></a>指定:水平阴影、垂直阴影、模糊的距离，以及阴影的颜色</h5><h3 id="box-shadow-背景阴影"><a href="#box-shadow-背景阴影" class="headerlink" title="box-shadow:背景阴影"></a>box-shadow:背景阴影</h3><p>text-overflow:<br>文字溢出</p>
+<p> .text{</p>
+<p> text-overflow:clip|ellipsis;</p>
+<p> }</p>
+<p>word-wrap:<br>剪切|…替代</p>
+<p>如果某个单词太长，不适合在一个区域内，它扩展到外面：css3中，自动切换属性允许强制文本换行-即使这意味着分裂它中间的一个字。</p>
+<p> .text{</p>
+<p> word-wrap:break-word;</p>
+<p> }</p>
+<p>word-break:规定非中日韩文本的换行规则</p>
+<p>css3单词拆分换行属性指定换行规则：</p>
+<p> .text{<br>  word-break:keep-all|break-all;<br> }</p>
+<h2 id="新文本属性"><a href="#新文本属性" class="headerlink" title="新文本属性"></a>新文本属性</h2><p>hanqing-punctuation:规定标点字符是否位于线框之外</p>
+<p>punctuation-trim:规定是否对标点字符进行修剪</p>
+<p>text-align-last：设置如何对齐最后一行或紧挨着强制换行符之前的行</p>
+<p>Text-emphasis:向元素的文本应用重点标记以及重点标记的前背景色</p>
+<p>Text-justify:规定当text-align设置为“justify”时所使用的对齐方法</p>
+<p>Text-outline:规定文本的轮廓</p>
+<h2 id="demo-1"><a href="#demo-1" class="headerlink" title="demo"></a>demo</h2> <!DOCTYPE html>
+ <html>
+ <head>
+ <meta charset="utf-8">
+ <title>文本效果</title>
+ <style>
+ h1
+ {
+
+<p> text-shadow: 10px 10px 5px #888;</p>
+<p> }<br> div.test<br> {</p>
+<p> white-space:nowrap;<br> width:12em;<br> overflow:hidden;<br> border:1px solid #000000;</p>
+<p> }</p>
+<p> </style><br> </head><br> <body></p>
+ <h1>文字阴影效果</h1>
+
+ <p>以下 div 容器内的文本无法完全显示，可以看到它被裁剪了。</p>
+
+ <p>div 使用 &quot;text-overflow:ellipsis&quot;:</p>
+ <div class="test" style="text-overflow:ellipsis;">This is some long text that will not fit in the box</div>
+
+ <p>div 使用 &quot;text-overflow:clip&quot;:</p>
+ <div class="test" style="text-overflow:clip;">This is some long text that will not fit in the box</div>
+
+ <p>div 使用自定义字符串 &quot;text-overflow: &gt;&gt;&quot;(只在 Firefox 浏览器下有效):</p>
+ <div class="test" style="text-overflow:'>>';">This is some long text that will not fit in the box</div>
+
+ <p><b>注意:</b> Internet Explorer 9 以及更早版本的浏览器不支持 text-shadow属性.</p>
+
+ </body>
+ </html>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CSS3/" class="category-chain-item">CSS3</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CSS3/">#CSS3</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>字体和文本效果</div>
+      <div>http://example.com/2020/12/15/font-and-text/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年12月15日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/01/03/Column-and-Waterfalls/" title="多列和瀑布流总结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">多列和瀑布流总结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/12/13/gradual-change/" title="渐变">
+                        <span class="hidden-mobile">渐变</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

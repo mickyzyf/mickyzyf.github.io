@@ -1,0 +1,775 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="ES6加强了对Unicode的支持，并且扩展了字符串对象。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6第四章 字符串的扩展">
+<meta property="og:url" content="http://example.com/2022/06/09/ECMAScript6-fourth-chart/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="ES6加强了对Unicode的支持，并且扩展了字符串对象。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-09T23:35:54.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.578Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="ES6">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ES6第四章 字符串的扩展 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ES6第四章 字符串的扩展"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-09 23:35" pubdate>
+          2022年6月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          73 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ES6第四章 字符串的扩展</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第四章-字符串的扩展"><a href="#第四章-字符串的扩展" class="headerlink" title="第四章 字符串的扩展"></a>第四章 字符串的扩展</h1><p>ES6加强了对Unicode的支持，并且扩展了字符串对象。</p>
+<h3 id="字符的Unicode表示法"><a href="#字符的Unicode表示法" class="headerlink" title="字符的Unicode表示法"></a>字符的Unicode表示法</h3><p>JavaScript允许采用\uxxxx形式表示一个字符串，其中“xxxx”表示字符的码点</p>
+<p> “\u0062”<br> &#x2F;&#x2F;“a”<br>但是，这种表示法只限于\u0000——\uFFFF之间的字符，超出这个范围必须用两个双字节的形式表达。</p>
+<p> “\uD842\uDFB7”<br> &#x2F;&#x2F;“吉”</p>
+<p>ES6对这点进行了改进，只要将码点放入大括号，就能正确解读该字符。</p>
+<p> “\u{20BB7}”<br> &#x2F;&#x2F;“吉”</p>
+<p> “\u{41}\u{42}\u{43}”<br> &#x2F;&#x2F;“ABC”</p>
+<p> let hello &#x3D; 123;<br> hell\u{6F} &#x2F;&#x2F;123</p>
+<p> ‘\u{1F680}’  &#x3D;&#x3D;&#x3D; ‘\uD830\uDE80’<br> &#x2F;&#x2F;true<br>综上所述：JavaScript共有6中方法可以表示一个字符。</p>
+<p> ‘\z’ &#x3D;&#x3D;&#x3D; ‘z’  &#x2F;&#x2F;true<br> ‘\172’ &#x3D;&#x3D;&#x3D; ‘z’ &#x2F;&#x2F;true<br> ‘\x7A’ &#x3D;&#x3D;&#x3D; ‘z’ &#x2F;&#x2F;true<br> ‘\uoo7A’ &#x3D;&#x3D;&#x3D; ‘z’ &#x2F;&#x2F;true<br> ‘\u{7A}’ &#x3D;&#x3D;&#x3D; ‘z’ &#x2F;&#x2F;true</p>
+<h2 id="codePointAt-方法"><a href="#codePointAt-方法" class="headerlink" title="codePointAt()方法"></a>codePointAt()方法</h2><p>JavaScript内部，字符一UTF-16的格式存储，每个字节固定为2个字节。对于那些需要4个字节存储的字符(Unicode码点大于0xFFFF的字符)，JavaScript会认为它们是两个字符。</p>
+<p> var s&#x3D;”吉”;</p>
+<p> s.length &#x2F;&#x2F;2<br> s.charAt(0) &#x2F;&#x2F;‘’<br> s.charAt(1) &#x2F;&#x2F;‘’<br> s.charCodeAt(0) &#x2F;&#x2F;55362<br> s.charCodeAt(1) &#x2F;&#x2F;57271<br>汉字“吉”的码点是0x20BB7 ,utf-16编码为0xD842 0xDFB7(十进制是55362 57271),需要四个字节存储，对于这种四个字节的字符，JavaScript不能正确处理，字符长度会误判为2，且charAt方法无法读取整个字符，charCodeAt方法只能返回前两个字节和后两个字节的值</p>
+<p>ES6提供了codePointAt方法，能够正确处理4个字节的字符，返回一个字符的码点。</p>
+<p> var s &#x3D; “吉a”;</p>
+<p> s.codePointAt(0); &#x2F;&#x2F;134071<br> s.codePointAt(1); &#x2F;&#x2F;57271</p>
+<p> s.chartCodeAt(2)&#x2F;&#x2F;97<br>codePointAt方法的参数，是字符在字符串的位置(从0开始)。上面代码中，JavaScript将”吉a”视为三个字符。codePointAt方法在第一个字符上，正确的识别了”吉”，返回了它的十进制码点134071(即16进制的20BB7)。在第一个字符(即吉的后面两个字节)和第三个字符”a”上，codePointAt方法的结构与charCodeAt方法。总之codePointAt方法会争取返回32位的UTF-16字符码点。对于那些两个字节存储的常规字符，它的返回结果和charCodeAt方法相同。codePointAt方法返回的是码点的十进制值，如果想要十六进制的值，需要使用toString方法转换一下。</p>
+<p> var s &#x3D; “吉a”;</p>
+<p> s.codePointAt(0).toString(16)  &#x2F;&#x2F;“20bb7”<br> s.charCodeAt(2).toString(16)  &#x2F;&#x2F;“61”</p>
+<p> 等价于<br> var s &#x3D; “吉a”;<br> for(let ch of s){<br>  console.log(ch.codePointAt(0).toString(16));<br> }<br> &#x2F;&#x2F;20bb7<br> &#x2F;&#x2F;61</p>
+<p>codePointAt方法最常见的用法就是用来判断一个字符是两个字节还是三个字节组成。</p>
+<p> function is32Bit(c){<br>  ruturn c.codePoint(0) &gt; 0xFFFF;<br> }<br> is32Bit(“吉”); &#x2F;&#x2F;true<br> is32Bit(“a”); &#x2F;&#x2F;false</p>
+<h2 id="String-fromCodePoint"><a href="#String-fromCodePoint" class="headerlink" title="String.fromCodePoint()"></a>String.fromCodePoint()</h2><p>ES5提供 String.fromCharCode方法，用于从码点返回对应字符，但是这个方法不能识别32位的UTF-16字符（Unicode编号大于0xFFFF）。</p>
+<p> String.fromCharCode(0x20BB7);<br> &#x2F;&#x2F;乱码<br>String.fromCharCode不能识别大于0xFFFF的码点，所有0x20BB7发生了溢出，最高位2被舍弃了，最后返回码点u+0BB7对应的字符，而不是码点u+20BB7对应的字符。</p>
+<p>ES6提供了String.fromCodePoint()方法，可以识别大于0xFFFF的字符，弥补了String.fromCharCode的方法的不足，作用上与codePointAt方法相反。</p>
+<p> String.fromCodePoint(0x20BB7);<br> &#x2F;&#x2F;“吉”<br> String.fromCode.Point(0x78,ox1f680,0x79) &#x3D;&#x3D;&#x3D; ‘x\uD830\uDE89y’;<br> &#x2F;&#x2F;true</p>
+<p><strong>注意：fromCodePoint方法定义在String对象上，codePointAt()方法定义在字符串实例对象上。</strong></p>
+<h2 id="字符串的遍历器接口"><a href="#字符串的遍历器接口" class="headerlink" title="字符串的遍历器接口"></a>字符串的遍历器接口</h2><p>ES6为字符串添加了遍历器接口，使得字符串可以被for…of循环遍历</p>
+<p> for(let codePoint of ‘foo’){<br>  console.log(codePoint);<br> }<br> &#x2F;&#x2F;“f”<br> &#x2F;&#x2F;“o”<br> &#x2F;&#x2F;“o”<br>除了遍历字符串，这个遍历器最大的优点是可以识别大于0xFFFF的码点，传统的for循环无法识别这样的码点。</p>
+<p> var text &#x3D; String.fromCodePoint(0x20BB7);</p>
+<p> for(let i &#x3D; 0; i &lt; text.length;i++){<br>  consol.log(text[i]);<br> }<br> &#x2F;&#x2F;“”<br> &#x2F;&#x2F;“”</p>
+<p> for(let i of text){<br>  console.log(i);<br> }<br> &#x2F;&#x2F;“吉”<br>for循环会为人text包含两个字符，而for…of循环会正确识别成一个字符</p>
+<h2 id="at"><a href="#at" class="headerlink" title="at()"></a>at()</h2><p>ES5对字符串对象提供chartAt方法，返回字符串给定位置的字符。该方法不能识别码点大于0xFFFF的字符。</p>
+<p> ‘abc’.charAt(0) &#x2F;&#x2F;“a”<br> ‘吉’.charAt(0)  &#x2F;&#x2F;“\uD842”<br>charAt方法，返回的是UTF-16编码的第一个字节，实际上是无法显示的，目前，提出字符串实例的at方法，可以识别Unicode编号大于0xFFFF的字符串，返回正确的字符</p>
+<p> ‘abc’.at(0) &#x2F;&#x2F;“a”<br> “吉”.at(0)  &#x2F;&#x2F;“吉”</p>
+<h2 id="normalize"><a href="#normalize" class="headerlink" title="normalize()"></a>normalize()</h2><p>许多欧洲语言有语调号和重音符。为了表示他们Unicode提供两种解决办法，第一种是直接提供重音符号的字符。另一种是提供合成符号，即原字符与重音符号的合成，这两个字符合成一个字符。</p>
+<p>ES6提供字符串实例的normalize()方法，用来将字符的不同表示方法统一为同样的形式，这称为Unicode正则化。normalize方法可接受一个参数来指定normalize的方式，参数的四个可选值如下。</p>
+<ol>
+<li>NFC,默认参数，表示“标准等价合成”，返回多个简单字符和合成字符。所谓“标准等价合成”指的是视觉和语义上的等价</li>
+<li>NFD，表示”标准等价分解”，即在标准等价的前提下，返回合成字符分解的多个简单字符。</li>
+<li>NFKC，表示”兼容等价合成”，返回合成字符，</li>
+<li>NFKD，表示”兼容等价分解”</li>
+</ol>
+<h2 id="includes-，startWith-endsWith"><a href="#includes-，startWith-endsWith" class="headerlink" title="includes()，startWith(),endsWith()"></a>includes()，startWith(),endsWith()</h2><p>传统上，JavaScript只有indexOf方法，用来确定一个字符串是否包含另一个字符串。ES6又提供了三个新方法。</p>
+<ul>
+<li>includes():返回布尔值，表示是否找到参数字符串。</li>
+<li>startsWith():返回布尔值，表示参数字符串是否在源字符串的头部</li>
+<li>endesWith():返回布尔值，表示参数字符串是否在源字符串的尾部</li>
+</ul>
+<p>这三个方法，都支持第二个参数，表示开始搜索的位置</p>
+<p> var s &#x3D; ‘Hello world!’;<br> s.startsWith(“world”,6);&#x2F;&#x2F;true<br> s.endsWith(‘hello’,5);&#x2F;&#x2F;true<br> s.includes(‘hello’,6);&#x2F;&#x2F;false</p>
+<h2 id="repeat"><a href="#repeat" class="headerlink" title="repeat()"></a>repeat()</h2><p>repeat方法返回一个新字符串，表示将元字符串重复n次</p>
+<p> ‘x’.repeat(3);&#x2F;&#x2F;“xxx”<br> ‘na’.repaet(0);&#x2F;&#x2F;“”</p>
+<p>参数如果是小数，会被向下取整，参数如果是负数或者Infinity会报错，参数如果是NaN，则等同于0</p>
+<h2 id="padStart-padEnd"><a href="#padStart-padEnd" class="headerlink" title="padStart(),padEnd()"></a>padStart(),padEnd()</h2><p>ES7推出了字符串补全长度的功能，如果某个字符串不够指定长度，会在头部或者尾部补全。padStart用于头部补全，padEnd用于尾部补全。</p>
+<p> ‘x’.padStart(5,’ab’) &#x2F;&#x2F;‘ababx’<br> ‘x’.padEnd(5,’ab’)  &#x2F;&#x2F;‘xabab’<br>如果原字符串的长度，等于或大于指定的最小长度，则返回原字符串</p>
+<p> ‘xxx’.padStart(2,’ab’); &#x2F;&#x2F;‘xxx’<br> ‘xxx’.padEnd(2,’ab’); &#x2F;&#x2F;‘xxx’<br>如果用来补全的字符串与原字符串，两者的长度之和超过了指定的最小长度，则会截取超出位数的补全字符串。</p>
+<p> ‘abc’.padStart(10,’0123456789’); &#x2F;&#x2F;‘0123145abc’<br>如果省略第二个参数，则会空出空格补全长度</p>
+<p> ‘x’.padStart(4) &#x2F;&#x2F;‘   x’<br> ‘x’.padEnd(4)  &#x2F;&#x2F;‘x   ‘<br>padStart的常见的用途是为数值补全指定位数，下面代码生成10位的数值字符串</p>
+<p> ‘1’.padStart(10,’0’) &#x2F;&#x2F;‘0000000001’</p>
+<p>另一个用途是提示字符串格式</p>
+<p> ‘12’.padStart(10,’YYYY-MM-DD’)&#x2F;&#x2F;‘YYYY-MM-12’<br> ‘09-12’.padStart(10,’YYYY-MM-DD’) &#x2F;&#x2F;‘YYYY-09-12’</p>
+<h2 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h2><p>传统的JavaScript语言，输出模板通常是这样写的</p>
+<p> $(‘#result).append(<br>  ‘There are <b>‘ + basket.count +’</b>‘+<br>  ‘items in your basket, ‘ +<br>  ‘<em>‘ + basket.onSale +<br>  ‘</em> are on sale!’<br> );<br>这样写法相当繁琐不方便，ES6引入了模板字符串解决了和这个问题</p>
+<p> $(‘#result’).append(<code>  There are &lt;b&gt;$&#123;basket.count&#125;&lt;/b&gt; items   in your basket, &lt;em&gt;$&#123;basket.onSale&#125;&lt;/em&gt;   are on sale! </code>);<br>模板字符串(template String)是增强的字符串，用反(&#96;)标识。它可以当作普通字符串使用，也可以用来定义多行字符串，或者在字符串中嵌入变量。</p>
+<p> &#x2F;&#x2F;普通字符串<br> <code>In JavaScript &#39;\n&#39; in a line-feed.</code></p>
+<p> &#x2F;&#x2F;多行字符串<br> <code> In JavaScript this is  not legal.</code></p>
+<p> console.log(<code>string text line 1  string text line 2</code>);</p>
+<p> &#x2F;&#x2F;字符串中嵌入变量<br> var name &#x3D; “Bob”,time &#x3D; “today”;<br> <code>Hello $&#123;name&#125;,how are you $&#123;today&#125;?</code></p>
+<p>如果模板字符串用反引号标识，却需要在模板字符串中引用反引号，则在前面加上反斜杠转义</p>
+<p>如果使用模板字符串表示多行字符串，所有空格和缩进都会保留在输出之中。</p>
+<p> $(‘#list’).html(<code>  &lt;ul&gt;    &lt;li&gt;first&lt;/li&gt;    &lt;li&gt;second&lt;/li&gt;   &lt;/ul&gt; </code>);</p>
+<p>如果你不想所有模板字符串的空格和换行，可以易用trim方法消除</p>
+<p> $(‘#list’).html(<code>  &lt;ul&gt;    &lt;li&gt;first&lt;/li&gt;    &lt;li&gt;second&lt;/li&gt;   &lt;/ul&gt; </code>.trim());</p>
+<p>模板字符串中嵌入变量，需要将变量名写在${}之中。<br>大括号内部可以放入任意的JavaScript表达式，可以进行运算，以及引用对象属性。同样，模板字符串中还能调用函数</p>
+<p> var x &#x3D;1;<br> var y &#x3D;2;<br> function fn(){<br>  return “Hello World!”;<br> }<br> <code>$&#123;x&#125; + $&#123;y&#125; = $&#123;x+y&#125;, $&#123;fn()&#125;</code><br> &#x2F;&#x2F;1+2&#x3D;3,Hello World</p>
+<p>如果大括号中的值不是一个字符串，将会按照一般规则转化为字符串，比如，大括号中是一个对象，将默认调用对象的toString方法。</p>
+<p>模板字符串甚至还能嵌套</p>
+<p> const templ &#x3D; addrs &#x3D;&gt;’<br>  <table><br>   ${addrs.map( addr &#x3D;&gt;’<br>    <tr><td>${addr.first}</td></tr><br>    <tr><td>${addr.last}</dt></tr><br>   ‘).join(‘’)}<br>  </table><br> ‘;<br>模板字符串的变量之中，又嵌入了另一个模板字符串。</p>
+<p> const data &#x3D; [<br>  {first:’<Jane>‘,last:’Bond’},<br>  {first:’Lars’,last:’<Croft>‘}<br> ];<br> console.log(templ(data));</p>
+<p> 结果如下:<br> &#x2F;&#x2F;<table></p>
+  <tr><td><Jane></td></tr>
+  <tr><td>Bond</td></tr>
+
+  <tr><td>Lars</td></tr>
+  <tr><td><Croft></td></tr>
+ //</table>
+
+<p>如果需要引用模板字符串本身，在需要时，执行，可以像下面这样写。</p>
+<p> &#x2F;&#x2F;写法一<br> let str &#x3D; ‘return’ + ‘<code>Hello $&#123;name&#125;!</code>‘;<br> let func &#x3D; new Function(‘name’,str);<br> func(‘Jack’) &#x2F;&#x2F;“Hello Jack!”</p>
+<p> &#x2F;&#x2F;写法二<br> let str &#x3D; ‘(name) &#x3D;&gt;<code>Hello $&#123;name&#125;!</code>‘;<br> let func &#x3D; eval.call(null,str);<br> func(‘Jack’) &#x2F;&#x2F;‘Hellp Jack!’</p>
+<h2 id="模板编译实例"><a href="#模板编译实例" class="headerlink" title="模板编译实例"></a>模板编译实例</h2><p>我们来看一个通过模板字符串，生成模板的实例</p>
+<p> var template &#x3D; <code> &lt;ul&gt;   &lt;% for(var i =0;i&lt;data.supplies.length;i++)&#123; %&gt;    &lt;li&gt; &lt;%= data.supplies[i]  %&gt;&lt;/li&gt;   &lt;% &#125; %&gt;  &lt;/ul&gt; </code>;<br>该模板中放置了一个常规模板，该模板使用&lt;%…%&gt;放置JavaScript代码，使用&lt;%&#x3D; …%&gt;输出JavaScript表达式。</p>
+<p>怎样编译这个模板字符串</p>
+<p> 一种思路是将其转换为JavaScript字符串。<br> echo(‘<ul>‘);<br> for(var i &#x3D;0;i&lt;data.supplies.length;i++){<br>  echo(‘<li>‘);<br>  echo(data.supplies[i]);<br>  echo(</li>);<br> }<br> echo(‘</ul>‘);<br>这个转换使用正则表达式就可以了</p>
+<p> var evalExpr &#x3D; &#x2F;&lt;%&#x3D;(.+?)%&gt;&#x2F;g;<br> var expr &#x3D; &#x2F;&lt;%([\s\S]+?)%&gt;&#x2F;g;</p>
+<p> template &#x3D; template<br> .replace(evalExpr,<code>&#39;); \n echo( $1 ); \n echo(</code>‘)<br> .replace(expr,<code>&#39;); \n $1 \n echo(</code>‘);</p>
+<p> template &#x3D; ‘echo(<code>&#39; + template +</code>‘);’;<br>然后，将<strong>templat</strong>e封装在一个函数里面返回，就可以了。</p>
+<p> var script &#x3D;<br> &#96;(function parse(data){<br>  var output &#x3D; “”;</p>
+<p>  function echo(html){<br>   output +&#x3D; html;<br>  }</p>
+<p>  ${template}</p>
+<p>  return output;</p>
+<p> })&#96;;</p>
+<p> return script;<br>将上面的内容拼装成一个模板编译函数compile。</p>
+<p> function compile(template){<br>var evalExpr &#x3D; &#x2F;&lt;%&#x3D;(.+?)%&gt;&#x2F;g;<br> var expr &#x3D; &#x2F;&lt;%([\s\S]+?)%&gt;&#x2F;g;</p>
+<p> template &#x3D; template<br> .replace(evalExpr,<code>&#39;); \n echo( $1 ); \n echo(</code>‘)<br> .replace(expr,<code>&#39;); \n $1 \n echo(</code>‘);</p>
+<p> template &#x3D; ‘echo(<code>&#39; + template +</code>‘);’;</p>
+<p> var script &#x3D;<br> &#96;(function parse(data){<br>  var output &#x3D; “”;</p>
+<p>  function echo(html){<br>   output +&#x3D; html;<br>  }</p>
+<p>  ${template}</p>
+<p>  return output;</p>
+<p> })&#96;;</p>
+<p> return script;</p>
+<p> }<br>compile函数的用法</p>
+<p> var parse &#x3D; eval(compile(template));<br> div.innerHTML &#x3D; parse({supplies:[“broom”,”mop”,”cleaner”]});</p>
+<p>运行结果:</p>
+<p> &#x2F;&#x2F;<ul><br> &#x2F;&#x2F; <li>broom</li><br> &#x2F;&#x2F; <li>mop</li><br> &#x2F;&#x2F; <li>cleaner</li><br> &#x2F;&#x2F;</ul></p>
+<h2 id="标签模板"><a href="#标签模板" class="headerlink" title="标签模板"></a>标签模板</h2><p>模板字符串的功能，不仅仅是上面这些，它可以紧跟在一个函数名后面，该函数被调用来处理这个模板字符串，这被称为”标签模板”功能</p>
+<p> alert<code>123</code><br>等同于</p>
+<p> &#x2F;&#x2F;alert(123);</p>
+<p>标签模板其实不是模板，是函数调用的一种特殊形式。”标签”指的是函数，紧跟在函数后面的模板字符串是函数的参数。</p>
+<p>但是，如果模板字符串里面有变量，就不是那么简单的调用了，而是会将模板字符串先处理成多个参数，再调用函数。</p>
+<p> var a &#x3D; 5;<br> var b &#x3D; 10;</p>
+<p> tag<code>Hello $&#123;a + b&#125; world $&#123;a*b&#125;</code>;<br> &#x2F;&#x2F;等同于<br> tag([‘Hello’,’world’,’’],15,50);<br>tag函数会依次接收多个参数。</p>
+<p> function tag(stringArr,value1,value2){<br>  &#x2F;&#x2F;…<br> }<br> &#x2F;&#x2F;等同于<br> function tag(stringArr,…values){<br>  &#x2F;&#x2F;…<br> }<br>“标签模板”的一个重要应用，就是过滤HTML字符串，防止用户输入恶意内容。</p>
+<h2 id="String-raw"><a href="#String-raw" class="headerlink" title="String.raw()"></a>String.raw()</h2><p>ES6还为原生的String对象，提供了一个raw方法。<br>String.raw方法，往往用来充当模板字符串的处理函数，返回一个斜杠都被转义(即斜杠前面再加一个斜杠)的字符串，对应于替换变量后的模板字符串。</p>
+<p>String.raw方法可以作为处理模板字符串的基本方法，它会将所有变量替换，而且对斜杠进行转义，方便下一步作为字符串来使用。</p>
+<p>String.raw方法也可以作为正常的函数使用。这时他的第一个参数应该是一个具有raw属性的对象，且raw属性值应该是一个数组。</p>
+<p> String.raw({raw:’test’},0,1,2);<br> &#x2F;&#x2F;‘t0e1s2t’<br> &#x2F;&#x2F;等同于<br> String.raw({raw:[‘t’,’e’,’s’,’t’]},0,1,2);</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ES6/" class="category-chain-item">ES6</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ES6/">#ES6</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ES6第四章 字符串的扩展</div>
+      <div>http://example.com/2022/06/09/ECMAScript6-fourth-chart/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年6月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/06/10/ECMAScript6-five-chart/" title="ES6第五章 正则的扩展">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ES6第五章 正则的扩展</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/08/ECMAScript6-thrid-chart/" title="ES6第三章 变量的解构赋值 ">
+                        <span class="hidden-mobile">ES6第三章 变量的解构赋值 </span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

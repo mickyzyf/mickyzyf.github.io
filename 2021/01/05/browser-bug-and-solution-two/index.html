@@ -1,0 +1,755 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="不同的浏览器有不同的版本；不同的版本有不同的兼容性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见的浏览器兼容性问题及解决办法二">
+<meta property="og:url" content="http://example.com/2021/01/05/browser-bug-and-solution-two/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="不同的浏览器有不同的版本；不同的版本有不同的兼容性">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-05T15:14:54.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.426Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="web浏览器">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>常见的浏览器兼容性问题及解决办法二 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="常见的浏览器兼容性问题及解决办法二"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-01-05 15:14" pubdate>
+          2021年1月5日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">常见的浏览器兼容性问题及解决办法二</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="浏览器的兼容性"><a href="#浏览器的兼容性" class="headerlink" title="浏览器的兼容性"></a>浏览器的兼容性</h2><p>浏览器的五大厂商：IE 火狐 谷歌 苹果 欧朋</p>
+<p>不同的浏览器有不同的版本；不同的版本有不同的兼容性</p>
+<p>IE的兼容性要求：实际工作一般要求兼容到IE8，IE6的兼容性问题特别喜欢问。</p>
+<p>IE6的兼容性处理好，面试官会认为你的工作经验丰富。</p>
+<h2 id="hack"><a href="#hack" class="headerlink" title="hack"></a>hack</h2><p>hacker：黑客的意思<br>hack的分两类</p>
+<h3 id="1-HTML-hack"><a href="#1-HTML-hack" class="headerlink" title="1. HTML hack"></a>1. HTML hack</h3><p>同一套代码为了让不同的浏览器显示相同的效果，需要加hack来处理浏览器的兼容性问题。</p>
+<p>针对不同的浏览器在同一个html文件里，去写不同的html结构。</p>
+<p>IE浏览器有很多兼容性问题，给我们提供了一些接口</p>
+  <!--[if lte IE 9]>
+            <h3>您的浏览器版本太低，请升级高版本</h3>
+        <![endif]-->
+
+<p>高级浏览器显示没有效果</p>
+<p>lte:小于或等于该版本</p>
+<p>lt:小于该版本</p>
+<p>gt：大于该版本的显示</p>
+<p>gte:大于或等于该版本</p>
+<p>html hack表示低版本浏览器会认识这个hack，会正常渲染，高版本会认为这个hack是注释</p>
+<p>针对IE6有固定的一个hack</p>
+  <!--[if IE 6]>
+            <script type="text/javascript" src="js/png.js"></script>
+        <![endif]-->
+
+<p>表示，只有IE6浏览器可以看到里面的内容，其他浏览器会认为是注释</p>
+<h3 id="2-CSS-hack"><a href="#2-CSS-hack" class="headerlink" title="2. CSS hack"></a>2. CSS hack</h3><p>css hack包括值的hack和选择器的hack</p>
+<h3 id="CSS值的hack"><a href="#CSS值的hack" class="headerlink" title="CSS值的hack"></a>CSS值的hack</h3><p> &#x2F;<em>IE 6</em>&#x2F;<br> .selector { _color: blue; }<br> .selector { -color: blue; }</p>
+<p> .box{<br>  width: 300px;<br>  height: 300px;<br>  background: pink;<br>  color:#000;<br>  -color:#fff;&#x2F;<em>这个属性只有IE6能认识</em>&#x2F;<br>  font-size: 30px;8<br> }</p>
+<p>Hack符：-、_</p>
+<p>在属性名的前面加下划线或横线。</p>
+<p>表示这个属性只有IE6认识，其他的都不认识这个属性。</p>
+<p> &#x2F;<em>IE 6&#x2F;7</em>&#x2F;<br>  Hack符：! $ &amp; * ( ) &#x3D; % + @ , . &#x2F; &#96; [ ] # ~ ? : &lt;&gt; |</p>
+<p>  .box{<br>   width: 300px;<br>   height: 300px;<br>   background: pink;<br>   color:#000;<br>   &#x2F;<em>这个属性只能IE6&#x2F;7可以正常加载</em>&#x2F;<br>   !color:#fff;<br>   font-size: 30px;9<br>  }</p>
+<p>表示这个属性只有IE6&#x2F;7认识，其他的都不认识这个属性。</p>
+<p> &#x2F;<em>IE 8&#x2F;9</em>&#x2F;<br>  .selector { color: blue\0&#x2F;; }<br>Hack符：\0&#x2F;。</p>
+<p>需要写在属性值的后面。</p>
+<p>只在IE8、9里认识。</p>
+<p> &#x2F;<em>IE 6&#x2F;7&#x2F;8&#x2F;9&#x2F;10</em>&#x2F;<br>  .selector { color: blue\9; }</p>
+<p> .box{<br>  width: 300px;<br>  height: 300px;<br>  background: pink;<br>  color:#000;<br>  font-size: 20px;<br>  &#x2F;<em>这个属性只能IE6&#x2F;7&#x2F;8&#x2F;9&#x2F;10可以正常加载</em>&#x2F;<br>  background-color:lightblue\9;9<br> }</p>
+<p>Hack符：\9.</p>
+<p>需要写在属性值的后面，分号前。</p>
+<h3 id="选择器的hack"><a href="#选择器的hack" class="headerlink" title="选择器的hack"></a>选择器的hack</h3><h4 id="低于IE-6"><a href="#低于IE-6" class="headerlink" title="低于IE 6"></a>低于IE 6</h4><p> &#x2F;* IE 6 and below *&#x2F; </p>
+<ul>
+<li>html .selector  {}</li>
+</ul>
+<p>这种选择器只在IE6里加载，其他的浏览器认为你的选择器是错的。</p>
+<p>高级浏览器认为html已经是根标签，*不是他的祖先元素。</p>
+<ul>
+<li>html .box{<br>width: 300px;<br>height: 300px;<br>background: lightblue;<br>color:#000;<br>font-size: 20px;7<br> }<br>等价写法：</li>
+</ul>
+<p> .box{<br>  -width: 300px;<br>  -height: 300px;<br>  _color:#000;<br>  _font-size: 20px;<br>  -background-color:lightblue;7<br> }</p>
+<h4 id="低于IE-7"><a href="#低于IE-7" class="headerlink" title="低于IE 7"></a>低于IE 7</h4><p> &#x2F;<em>IE 7 and below</em>&#x2F;<br>  .selector, {}</p>
+<p>这种选择器只在IE7及以下版本里加载，其他的浏览器认为你的选择器是错的。</p>
+<p> .box,{<br>  width: 300px;<br>  height: 300px;<br>  background: pink;<br>  color:#000;<br>  font-size: 20px;<br>  background-color:lightblue\9;8<br> }</p>
+<p>等价写法：</p>
+<p> .box{<br>  !width: 300px;<br>  !height: 300px;<br>  !color:#000;<br>  !font-size: 20px;<br>  !background-color:lightblue;7<br> }</p>
+<h4 id="除了IE-6"><a href="#除了IE-6" class="headerlink" title="除了IE 6"></a>除了IE 6</h4><p> &#x2F;<em>除了IE 6</em>&#x2F;<br>  html &gt; body .selector {}</p>
+<p>这个&gt;子级选择器：只选择儿子级，后代其他级别不选。</p>
+<p>IE6不认识子级选择器。</p>
+<p>除了IE6都能正常加载。</p>
+<p> html&gt;body .box{<br>  width: 300px;<br>  height: 300px;<br>  background: pink;<br>  color:#000;<br>  font-size: 20px;<br> }</p>
+<h2 id="IE6的兼容性"><a href="#IE6的兼容性" class="headerlink" title="IE6的兼容性"></a>IE6的兼容性</h2><h3 id="IE-6的选择器的兼容性"><a href="#IE-6的选择器的兼容性" class="headerlink" title="IE 6的选择器的兼容性"></a>IE 6的选择器的兼容性</h3><p>之前的7种选择器：</p>
+<p>通配符，标签选择器，类选择器，id选择器，（基本选择器）</p>
+<p>后代选择器，交集选择器（div.box），并集选择器。（高级选择器）</p>
+<p>IE6支持以上7种选择器，但是不支持交集选择器中连续类名的书写。</p>
+<p>这种写法IE6不认识；</p>
+<p> div.box.cl{<br>  color:orange;<br>  font-size: 30px;<br> }</p>
+<p>解决办法：不写连续类名的选择器</p>
+<p> div.box{}</p>
+<h3 id="盒模型的兼容问题"><a href="#盒模型的兼容问题" class="headerlink" title="盒模型的兼容问题"></a>盒模型的兼容问题</h3><ol>
+<li>DTD问题</li>
+</ol>
+<p> 如果IE不写DTD他的盒模型是内减的。</p>
+<p> 解决办法：必须DTD</p>
+<ol start="2">
+<li>最小高度</li>
+</ol>
+<p> 如果盒子高度小于默认字号，不会正常显示。高度会是最小的字号。</p>
+<p> 解决方法：</p>
+<p> 单独给IE6浏览器，强制给个很小的字号。</p>
+<p>  .box{<br>   width: 200px;<br>   height: 4px;<br>   background: pink;<br>   -font-size:0;<br>  }</p>
+<ol start="3">
+<li>浮动的盒子不会钻到底下</li>
+</ol>
+<p> 情况：一个盒子浮动，一个盒子不浮动，在IE6里，不浮动的盒子不会钻到浮动盒子的下面占领它原来的标准流位置。</p>
+<p>  .box1{<br>   width: 100px;<br>   height: 100px;<br>   background: lightblue;<br>   float: left;<br>   }<br>  .box2{<br>   width: 200px;<br>   height: 200px;<br>   background: pink;11<br>  }</p>
+<p> 解决办法：同级的元素，要么都浮动要么都不浮动。</p>
+<p> 制作压盖效果必须用定位来实现。</p>
+<ol start="4">
+<li>像素的bug</li>
+</ol>
+<p> 情况：一个浮动，一个不浮动，IE6里两个盒子之间会出现3px的间距。</p>
+<p> 解决办法：给左边的盒子加负数的margin-right</p>
+<p>  .box1{<br>   width: 100px;<br>   height: 100px;<br>   background: lightblue;<br>   float: left;<br>   margin-right:-3px;<br>  }</p>
+<ol start="5">
+<li>双倍margin问题</li>
+</ol>
+<p> 情况：一些元素浮动，有一个与浮动方向相同的方向的margin，第一个元素会出现双倍边距的问题。</p>
+<p>  .box p{<br>   float: left;<br>   margin-left: 20px;<br>   width: 100px;<br>   height: 100px;<br>   background: pink;<br>  }</p>
+<ol start="6">
+<li>overflow：hidden失效</li>
+</ol>
+<p> IE6不认识overflow：hidden；引申作用，没法帮我们清浮动，自动撑高盒子。</p>
+<p> IE浏览器加载机制：</p>
+<p> 布局：layout</p>
+<p> 有布局：盒子本身加载的时候，根据自身内容来加载，会强制检测里面的元素，通过里面的元素性质进行自身布局。</p>
+<p> 没有布局：盒子本身加载的时候，根据祖先元素来加载，不会去管内部的元素。</p>
+<p> IE里有很多属性可以触发有布局的机制。触发hasLayout机制，就可以让overflowhidden生效。</p>
+<p> 有一个属性永远触发hasLayout机制。</p>
+<p>  _zoom: 1;</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/web%E6%B5%8F%E8%A7%88%E5%99%A8/" class="category-chain-item">web浏览器</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/web%E6%B5%8F%E8%A7%88%E5%99%A8/">#web浏览器</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>常见的浏览器兼容性问题及解决办法二</div>
+      <div>http://example.com/2021/01/05/browser-bug-and-solution-two/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年1月5日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/02/12/JavaScript-normal-functions/" title="JavaScript常用的方法">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaScript常用的方法</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/04/browser-bug-and-solution/" title="常见的浏览器兼容性问题及解决办法">
+                        <span class="hidden-mobile">常见的浏览器兼容性问题及解决办法</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

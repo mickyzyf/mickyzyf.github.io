@@ -1,0 +1,761 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Array.from方法用于将两类对象转为真正的数组：类似数组的对象(array-like object)和可遍历(iterable)的对象(包括ES6新增的数据结构Set和Map)。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6第七章 数组的扩展">
+<meta property="og:url" content="http://example.com/2022/06/12/ECAMScript-seven-chart/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="Array.from方法用于将两类对象转为真正的数组：类似数组的对象(array-like object)和可遍历(iterable)的对象(包括ES6新增的数据结构Set和Map)。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-12T23:35:54.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.510Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="ES6">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ES6第七章 数组的扩展 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ES6第七章 数组的扩展"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-12 23:35" pubdate>
+          2022年6月12日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          69 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ES6第七章 数组的扩展</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="数组的扩展"><a href="#数组的扩展" class="headerlink" title="数组的扩展"></a>数组的扩展</h1><h2 id="Array-from"><a href="#Array-from" class="headerlink" title="Array.from()"></a>Array.from()</h2><p>Array.from方法用于将两类对象转为真正的数组：类似数组的对象(array-like object)和可遍历(iterable)的对象(包括ES6新增的数据结构Set和Map)。</p>
+<p>下面是一个类似数组的对象，Array.from将它转为真正的数组</p>
+<p> let arrayLike &#x3D; {<br>  ‘0’:’a’,<br>  ‘1’:’b’,<br>  ‘2’:’c’,<br>  length:3<br> };<br> &#x2F;&#x2F;ES5的写法<br> var arr1 &#x3D; [].slice.call(arrayLike);&#x2F;&#x2F;[‘a’,’b’,’c’]</p>
+<p> &#x2F;&#x2F;ES6的写法<br> let arr2 &#x3D; Array.from(arrayLike); &#x2F;&#x2F;[‘a’,’b’,’c’]<br>实际应用中，常见的类似数组的对象是DOM操作返回的NodeList集合，以及函数内部的arguments对象。Array.from都可以将它们转为真正的数组。</p>
+<p> &#x2F;&#x2F;NodeList对象<br> let ps &#x3D; document.querySelectorAll(“p”);<br> Array.from(ps).forEach(function(p){<br>  console.log(p);<br> });</p>
+<p> &#x2F;&#x2F;arguments对象<br> function foo(){<br>  var args &#x3D; Array.from(arguments);<br>  &#x2F;&#x2F;…<br> }<br>querySelectorAll()方法返回的是一个类数组对象，只有将这个对象转为真正的数组，才能使用forEach方法。<br>只要是部署了iterator接口的数据结构，Array.from都能将其转为数组。</p>
+<p> Array.from(‘hello’)<br> &#x2F;&#x2F;[‘h’,’e’,’l’,’l’,’o’]<br> let namesSet &#x3D; new set([‘a’,’b’])<br> Array.from(namesSet); &#x2F;&#x2F;[‘a’,’b’]<br>字符串和Set结构都具有Iterator接口，因此，可以被Array.from转为真正的数组。</p>
+<p>如果参数是一个真正的数组，则返回一个一模一样的数组</p>
+<p> Array.from([1,2,3])<br> &#x2F;&#x2F;[1,2,3]<br>注意：扩展运算符(…)也可以将某些数据结构转化为数组</p>
+<p> &#x2F;&#x2F;arguments对象<br> function foo(){<br>  var args &#x3D; […argumenta];<br> }</p>
+<p> &#x2F;&#x2F;NodeList对象<br> [… document.querySelectorAll(‘div’)]<br>扩展运算符背后，调用的是遍历器接口(Symbol.iterator)，如果一个对象没有部署这个接口，就无法转换。Array.from方法则是还支持类似数组的对象。所谓的类似数组的对象，本质特征只有一点，即必须有length属性。因为，任何有length属性的对象，都可以通过Array.from方法转为数组，而此时扩展运算就无法转换</p>
+<p> Array.from({length:3});<br> &#x2F;&#x2F;[undefined,undefined,unddefined ]<br>对于还没有部署改方法的浏览器，可用Array.prototype.slice方法替代。</p>
+<p> const toArray &#x3D; (()&#x3D;&gt;<br>  Array.from ?  Array.from : obj &#x3D;&gt;[].slice.call(obj)<br> )();<br>Array.from还可以接受第二个参数，作用类似于数组的map方法，用来对每个元素进行处理，将处理后的值放入返回的数组。</p>
+<p> Array.from(arrayLike,x &#x3D;&gt; x<em>x);<br> &#x2F;&#x2F;等同于<br> Array.from(arrayLike).map(x &#x3D;&gt; x</em>x);</p>
+<p> Array.from([1,2,3],(x) &#x3D;&gt; x*x);<br> &#x2F;&#x2F;[1,4,9]<br>下面是取出一组DOM节点的文本内容。</p>
+<p> let spans &#x3D; document.querySelectorAll(‘span.name’);</p>
+<p> &#x2F;&#x2F;map()<br> let names1 &#x3D; Array.prototype.map.call(spans, s &#x3D;&gt; s.textContent);</p>
+<p> &#x2F;&#x2F;Array.from()<br> let name2 &#x3D; Array.from(spans,s &#x3D;&gt; s.textContent)<br>下面是将数组中布尔值为false的成员转成0</p>
+<p> Array.from([1,,2,,3],(n) &#x3D;&gt;  n  ||0)<br> &#x2F;&#x2F;[1,0,2,0,3]</p>
+<p>这是返回各数据的类型</p>
+<p> function typeOf(){<br>  return Array.from(arguments,value &#x3D;&gt; typeof value)<br> }<br> typeOf(null,[],NaN)<br> &#x2F;&#x2F;[‘object’,’object’,’number’]<br>如果map函数里面用到了this关键字，还可以传入Array.from的第三个参数，用来绑定this。</p>
+<p>Array.from()可以将各种值转文真正的数组，并提供map功能。这实际上意味着，只要有一个原始的数据结构，你就可以先对它的值进行处理，然后转成规范的数组结构，进而就可以使用数量众多的数组方法。</p>
+<p> Array.from({length:2},() &#x3D;&gt; ‘jack’)<br> &#x2F;&#x2F;[‘jack’,’jack’]<br>Array.from()的另一个应用就是，将字符串转为数组，然后返回字符串的长度。因为它能正确处理Unicode字符，可以避免JavaScript大于\uFFFF的Unicode字符，算作两个字符的bug。</p>
+<p> function countSymbols(string){<br>  return Array.from(string).length;<br> }</p>
+<h2 id="Array-of"><a href="#Array-of" class="headerlink" title="Array.of()"></a>Array.of()</h2><p>Array.of方法用于将一组值，转换为数组。</p>
+<p> Array.of(3,11,8) &#x2F;&#x2F;[3,11,8]<br> Array.of(3) &#x2F;&#x2F;[3]<br> Array.of(3).length &#x2F;&#x2F;1<br>这个方法的主要目的，是弥补数组构造函数Array()的不足。因为参数个数的不同，会导致Array()的行为有差异。</p>
+<p> Array() &#x2F;&#x2F;[]<br> Array(3) &#x2F;&#x2F;[,,,]<br> Array(3,11,6) &#x2F;&#x2F;[3,11,8]</p>
+<p>Array方法没有参数，一个参数，三个参数时，返回的结果都不一样。只有当参数个数不小于2时，Array()才会返回由参数组成的新数组。参数个数只有一个时，实际上是指定数组的长度。</p>
+<p>Array.of基本上，可以用来替代Array()或new Array(),并且不存在由于参数不同而导致的重载，它的行为非常统一。</p>
+<p> Array.of()  &#x2F;&#x2F;[]<br> Array.of(undefined) &#x2F;&#x2F;[undefined]<br> Array.of(1) &#x2F;&#x2F;[1]<br> Array.of(1,2) &#x2F;&#x2F;[1,2]<br>Array.of方法可以用下面的代码模拟实现</p>
+<p> function Arrayof(){<br>  return [].slice.call(agruments);<br> }</p>
+<h2 id="数组实例的copyWithin"><a href="#数组实例的copyWithin" class="headerlink" title="数组实例的copyWithin()"></a>数组实例的copyWithin()</h2><p>数组实例的copyWithin方法，在当前数组内部，将指定位置的成员复制到其他位置(会覆盖原有成员)，然后返回当前数组。也就是说，使用这个方法，会修改当前数组。</p>
+<p> Array.prototype.copyWithin(target,start &#x3D; 0,end &#x3D; this.length)</p>
+<p>它接受三个参数。</p>
+<ul>
+<li>target（必需）:  从该位置开始替换数据。</li>
+<li>start (可选) ： 从该位置开始读取数据，默认为0，如果为负值，表示倒数。</li>
+<li>end （可选） : 到该位置前停止读取数据，默认等于数组长度。如果为负值，表示倒数。</li>
+</ul>
+<p>这三个参数都应该是数值，如果不是，会自动转为数值。</p>
+<p> [1,2,3,4,5].copyWithin(0,3)<br> &#x2F;&#x2F;[4,5,3,4,5]<br>将从3号位直到数组结束的成员(4和5)，复制到从0号位开始的位置，结果覆盖了原来的1和2。</p>
+<p> &#x2F;&#x2F;将3号位复制到0号位<br> [1,2,3,4,5].copyWithin(0,3,4)<br> &#x2F;&#x2F;[4,2,3,4,5]</p>
+<p> &#x2F;&#x2F;-2相当于3号位，-1相当于4号位<br> [1,2,3,4,5]&#x2F;copyWithin(0,-2,-1)<br> &#x2F;&#x2F;[4,2,3,4,5]</p>
+<p> &#x2F;&#x2F;将3号位复制到0号位<br> [].copyWithin.call({length:5,3:1},0,3)<br> &#x2F;&#x2F;{0:1,3:1,length:5}</p>
+<p> &#x2F;&#x2F;将2号位到数组结束，复制到0号位<br> var i32a &#x3D; new Int32Array([1,2,3,4,5]);<br> i32a.copyWithin(0,2);<br> &#x2F;&#x2F;Int32Array[3,4,5,4,5]</p>
+<p> &#x2F;&#x2F;对于没有部署TypedArray的copyWithin方法的平台<br> &#x2F;&#x2F;需要采用下面的写法<br> [].copyWithin.call(new Int32Array([1,2,3,4,5]),0,3,4);<br> &#x2F;&#x2F;Int32Array[4,2,3,4,5]</p>
+<h2 id="数组实例的find-和findIndex"><a href="#数组实例的find-和findIndex" class="headerlink" title="数组实例的find()和findIndex()"></a>数组实例的find()和findIndex()</h2><p>数组实例的find方法，用于找出第一个符合条件的数组成员。它的参数是一个回调函数，所有数组成员依次执行该回调函数，直到找出第一个返回值为true的成员，然后返回该成员。如果没有符合条件的成员，则返回undefined。</p>
+<p> [1,4,-5,10].find((n) &#x3D;&gt;n &lt;0)<br> &#x2F;&#x2F;-5<br>找出数组中小于0的成员</p>
+<p> [1,5,10,15].find(function(value,index,arr){<br>  return value &gt;9;</p>
+<p> })&#x2F;&#x2F;10</p>
+<p>find方法的回调函数可以接受三个参数，依次是当前值、当前的位置和原数组。</p>
+<p>数组实例的findIndex方法的用法与find方法非常类似，返回第一个符合条件的数组成员位置，如果所有成员都不符合，则安徽-1。</p>
+<p> [1,5,10,15].findIndex(function(value,index,arr){<br>  return value &gt;9;<br> })&#x2F;&#x2F;2</p>
+<p>以上两个方法都可以接受第二个参数，用来绑定回调函数this对象。<br>另外，这两个方法都可以发现NaN,弥补了数组的Indexof方法的不足。</p>
+<p> [NaN].indexOf(NaN)<br> &#x2F;&#x2F;-1</p>
+<p> [NaN].findIndex(y &#x3D;&gt; object.is(NaN,y))<br> &#x2F;&#x2F;0<br>总结，indexOf方法无法识别数组的NaN成员，但是findIndex方法可以借助Obejct.is方法做到</p>
+<h2 id="数组实例的fill"><a href="#数组实例的fill" class="headerlink" title="数组实例的fill()"></a>数组实例的fill()</h2><p>fill方法使用给定值，填充一个数组</p>
+<p> [‘a’,’b’,’c’].fill(7)<br> &#x2F;&#x2F;[7,7,7]</p>
+<p> new Array(3).fill(7)<br> &#x2F;&#x2F;[7,7,7]<br>fill方法用于空数组的初始化非常方便，数组红已有的元素会全部抹去。</p>
+<p>fill方法还可以接受第二和第三个参数，用于指定填充的起始位置和结束位置。</p>
+<p> [‘a’,’b’,’c’].fill(7,1,2)<br> &#x2F;&#x2F;[‘a’,7,’c’]</p>
+<h2 id="数组实例的entries-，key-和values"><a href="#数组实例的entries-，key-和values" class="headerlink" title="数组实例的entries()，key()和values()"></a>数组实例的entries()，key()和values()</h2><p>ES6提供三个新的方法——entries(),keys()和values()——用于遍历数组。它们都返回一个遍历器对象，可以用for…of循环进行遍历，唯一的区别是keys()是对键名的遍历、values()是对键值的遍历，entries()是对键值对的遍历。</p>
+<p> for (let index of [‘a’,’b’].keys()){<br>  console.log(index);<br> }<br> &#x2F;&#x2F;0<br> &#x2F;&#x2F;1</p>
+<p> for (let elem of [‘a’,’b’].values()){<br>  console.log(elem);<br> }<br> &#x2F;&#x2F;‘a’<br> &#x2F;&#x2F;‘b’</p>
+<p> for (let [index,elem] of [‘a’,’b’].entries()){<br>  console.log(index,elem);<br> }<br> &#x2F;&#x2F;0 “a”<br> &#x2F;&#x2F;1 “b”</p>
+<h2 id="数组实例的includes"><a href="#数组实例的includes" class="headerlink" title="数组实例的includes()"></a>数组实例的includes()</h2><p>Array.prototype.includes方法返回一个布尔值，表示某个数组是否包含给定的值，与字符串的includes方法类似。该方法属于ES7，但Babel转码器已经支持。</p>
+<p> [1,2,3].includes(2);  &#x2F;&#x2F;true<br> [1,2,3].includes(4); &#x2F;&#x2F;false<br> [1,2,NaN].includes(NaN); &#x2F;&#x2F;true<br>该方法的第二个参数表示搜索的起始位置，默认为0.如果第二个参数为负数，则表示倒数的位置，如果这时它大于数组长度(比如第二个参数为-4，但数组长度为3)，则会重置为从0开始。</p>
+<p> [1,2,3].includes(3,3);&#x2F;&#x2F; false<br> [1,2,3].includes(3,-1);&#x2F;&#x2F;true<br>没有该方法之前，我们通常使用数组的indexOf方法，检查是否包含某个值。</p>
+<p> if (arr.indexOf(el) ! &#x3D;&#x3D; -1){<br>  &#x2F;&#x2F; …<br> }<br>indexOf方法有两个缺点，一是不够语义化，它的含义是找到参数的第一个出现位置，所以要去比较是否不等于-1，表达起来不够直观。而是，它内部使用严格相当运算符(&#x3D;&#x3D;&#x3D;)进行判断，这会导致对NaN的误判。</p>
+<p> [NaN].indexOf(NaN)<br> &#x2F;&#x2F;-1<br>includes使用的是不一样的判断算法，就没有这个问题。<br> [NaN].includes(NaN)<br> &#x2F;&#x2F;true</p>
+<p>下面代码用来检查当前环境是否支持该方法，如果不支持，部署一个简易的替代版本。</p>
+<p> const contains &#x3D; (() &#x3D;&gt;<br>  Array.prototype.includes<br>  ? (arr,value) &#x3D;&gt; arr.includes(value)<br>  : (arr,value) &#x3D;&gt; arr.some(el &#x3D;&gt;el &#x3D;&#x3D;&#x3D; value)<br> )();</p>
+<p> contains([“foo”,”bar”],”baz”);&#x2F;&#x2F;false</p>
+<p>另外，Map和Set数据结构有一个has方法，需要注意与includes区分</p>
+<ul>
+<li><p>Map结构的has方法，是用来查找键名的，比如Map.prototype.has(key)、weakMap.prototype.has(key)、Reflect.has(target,propertykey)。</p>
+</li>
+<li><p>Set结构的has方法，是用来查找值的，比如Set.prototype.has(value),weakMap.prototype.has(value)</p>
+</li>
+</ul>
+<h2 id="数组的空位"><a href="#数组的空位" class="headerlink" title="数组的空位"></a>数组的空位</h2><p>数组的空位指，数组的某一位置没有任何值，比如Array构造函数返回的数组都是空位</p>
+<p> Array(3) &#x2F;&#x2F;[,,,]<br>注意，空位不是undefined，一个空位的值等于undefined，依然是有值的，空位置是没有任何值，in运算符可以说明这一点。</p>
+<p> 0 in [undefined,undefined,undefined] &#x2F;&#x2F;true<br> 0 in [,,,] &#x2F;&#x2F;false</p>
+<p>上面代码说明，第一个数组的0号位是有值的，第二个数组的0号位是没有值的</p>
+<p>ES5对空位的处理，已经很不一致了，大多数情况会忽略空位。</p>
+<ul>
+<li><p>forEach方法,filter()，every()和some()都会跳过空位。</p>
+</li>
+<li><p>map()会跳过空位，但会保留这个值</p>
+</li>
+<li><p>join()和toString()会将空位视为undefined而undefined和null会被处理成空字符串</p>
+<p>&#x2F;&#x2F;forEach方法<br>[,’a’].forEach((x,i) &#x3D;&gt; console.log(i));&#x2F;&#x2F;1</p>
+<p>&#x2F;&#x2F;filter方法<br>[‘a’,,’b’].filter(x &#x3D;&gt; true) &#x2F;&#x2F;[‘a’,’b’]</p>
+<p>&#x2F;&#x2F;every方法<br>[,’a’].every(x &#x3D;&gt; x &#x3D;&#x3D;&#x3D; ‘a’) &#x2F;&#x2F;true</p>
+<p>&#x2F;&#x2F;some方法<br>[,’a’].some(x &#x3D;&gt; x !&#x3D;&#x3D; ‘a’) &#x2F;&#x2F;false</p>
+<p>&#x2F;&#x2F;map方法<br>[,’a’,undefined,null].join(‘#’) &#x2F;&#x2F;“#a##”</p>
+<p>&#x2F;&#x2F;toString 方法<br>[,’a’,undefined,null].toString() &#x2F;&#x2F;“,a,,”</p>
+</li>
+</ul>
+<p>ES6则是明确将空位转为undefined</p>
+<p>Array.from方法会将数组的空位转为undefined，也即是说，这个方法不会忽略空位。</p>
+<p> Array.from([‘a’,,’b’])<br> &#x2F;&#x2F;[“a”,undefined,”b”]</p>
+<p>扩展运算[…]也会将空位转为undefined</p>
+<p> […[‘a’,,’b’]]<br> &#x2F;&#x2F;[“a”,undefined,”b”]</p>
+<p>copyWithin()会连空位一起拷贝</p>
+<p> [,’a’,’b’,,].copyWithin(2,0) &#x2F;&#x2F;[,”a”,,”a”]</p>
+<p>fill()会将空位视为正常数组位置。</p>
+<p> new Array(3).fill(‘a’) &#x2F;&#x2F;[“a”,”a”,”a”]<br>for … of 循环也会遍历空位。</p>
+<p> let arr &#x3D; [,,]<br> for (let i of  arr){<br>  console.log(1)<br> }<br> &#x2F;&#x2F;1<br> &#x2F;&#x2F;1</p>
+<p>entries()、key()、values()、find()和findIndex()也会将空位处理成undefined</p>
+<p> &#x2F;&#x2F;entries()<br> […[,’a’].entries()]  &#x2F;&#x2F;[[0,undefined],[1,’a’]]</p>
+<p> &#x2F;&#x2F;keys()<br> […[,’a’].keys()]  &#x2F;&#x2F;[0,1]</p>
+<p> &#x2F;&#x2F;values()<br> […[,’a’].values()] &#x2F;&#x2F;[undefined,”a”]</p>
+<p> &#x2F;&#x2F;find()<br> [,’a’].find(x &#x3D;&gt; true)  &#x2F;&#x2F;undefined</p>
+<p> &#x2F;&#x2F;findIndex()<br> [,’a’].findIndex(x &#x3D;&gt; true) &#x2F;&#x2F;0<br>由于空位的处理规则非常不统一，所以建议尽量避免出现空位</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ES6/" class="category-chain-item">ES6</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ES6/">#ES6</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ES6第七章 数组的扩展</div>
+      <div>http://example.com/2022/06/12/ECAMScript-seven-chart/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年6月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/06/13/jquery-validate/" title="Jquery.validate.js插件的使用心得">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Jquery.validate.js插件的使用心得</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/11/ECMAScript-six-chart/" title="ES6第六章 数值的扩展">
+                        <span class="hidden-mobile">ES6第六章 数值的扩展</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

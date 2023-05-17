@@ -1,0 +1,887 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="ES6允许直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6第九章 对象的扩展">
+<meta property="og:url" content="http://example.com/2022/06/14/ECAMScript-nine-chart/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="ES6允许直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-14T23:35:54.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.510Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="ES6">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ES6第九章 对象的扩展 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ES6第九章 对象的扩展"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-14 23:35" pubdate>
+          2022年6月14日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          19k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          155 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ES6第九章 对象的扩展</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="对象的扩展"><a href="#对象的扩展" class="headerlink" title="对象的扩展"></a>对象的扩展</h1><h3 id="属性的简洁表示法"><a href="#属性的简洁表示法" class="headerlink" title="属性的简洁表示法"></a>属性的简洁表示法</h3><p>ES6允许直接写入变量和函数，作为对象的属性和方法。这样的书写更加简洁。</p>
+<p> var foo &#x3D; ‘bar’;<br> var baz &#x3D; {foo};<br> baz &#x2F;&#x2F;{foo:’bar’}</p>
+<p> &#x2F;&#x2F;等同于<br> var baz &#x3D; {foo:foo};<br>说明，ES6允许在对象之中，只写属性名，不写属性值。这时，属性值等于属性名所代表的变量，下面是另一个例子。</p>
+<p> function f(x,y){<br>  return {x,y}<br> }<br> &#x2F;&#x2F;等同于</p>
+<p> function f(x,y){<br>  return {x:x,y:y};<br> }</p>
+<p> f(1,2) &#x2F;&#x2F;Object{x:1,y:2}<br>除了属性简写，方法也可以简写</p>
+<p> var 0 &#x3D;{<br>  method(){<br>   return “Hello!”;<br>  }<br> };</p>
+<p> &#x2F;&#x2F;等同于</p>
+<p> var 0 &#x3D; {<br>  method: function(){<br>   return “Hello!”;<br>  }<br> };<br>下面是一个实例的例子。</p>
+<p> var birth &#x3D; ‘2000&#x2F;01&#x2F;01’;</p>
+<p> var Person &#x3D;{<br>  name:’张三’,<br>  birth,<br>  &#x2F;&#x2F;等同于调用birth:birth,</p>
+<p>  &#x2F;&#x2F;等同于hello:function()…<br>  hello(){ console.log(‘我的名字是’,this.name);}<br> }<br>这种写法用于函数的返回值，将会非常方便。</p>
+<p> function getPoint(){<br>  var x &#x3D;1;<br>  var y &#x3D;10;<br>  return {x,y};<br> }</p>
+<p> getPoint();<br> &#x2F;&#x2F;{x:1,y:10}<br>CommonJS模块输出变量，就非常合适使用简洁写法。</p>
+<p> var ms &#x3D; {};</p>
+<p> function getItem (key){<br>  return key in ms ? ms[key] :null;<br> }</p>
+<p> function setItem (key,value){<br>  ms[key] &#x3D; value;<br> }</p>
+<p> function clear(){<br>  ms &#x3D; {};<br> }</p>
+<p> module.exports &#x3D;{<br>  getItem:getItem,<br>  setItem:setItem,<br>  clear:clear<br> };<br>属性的赋值器(setter)和取值器(getter)，都是采用这种写法</p>
+<p> var cart &#x3D;{<br>  _wheels :4,</p>
+<p>  get wheels(){<br>   return this._wheels;<br>  },</p>
+<p>  set wheels(value){<br>   if(value &lt;this._wheels){<br>    throw new Error(‘数值太小了！’);<br>   }<br>   this._wheels &#x3D; value;<br>  }<br> }</p>
+<h2 id="属性名表达式"><a href="#属性名表达式" class="headerlink" title="属性名表达式"></a>属性名表达式</h2><p>JavaScript语言定义对象的属性，有两种方法。</p>
+<p> &#x2F;&#x2F;方法一<br> obj.foo &#x3D; true;</p>
+<p> &#x2F;&#x2F;方法二<br> obj[‘a’ + ‘bc’] &#x3D; 123;<br>上面代码的方法一是直接用标识符作为属性名，方法二是用表达式作为属性名，这时要表达式放在方括号之内。<br>但是，如果使用字面量方式定义对象(使用大括号)，在ES6中只能使用方法一(标示符)定义属性</p>
+<p> var obj &#x3D; {<br>  foo:true,<br>  abc:123<br> };<br>ES6允许字面量定义对象时，用方法二(表达式)作为对象的属性名，即把对象表达式放在方括号内。</p>
+<p> let propKey &#x3D; ‘foo’;</p>
+<p> let obj &#x3D; {<br>  [propKey]:true,<br>  [‘a’ +  ‘bc’] :123<br> };</p>
+<p>下面是另一个例子。</p>
+<p> var lastWord &#x3D; ‘last word’;</p>
+<p> var a &#x3D; {<br>  ‘first word’ : ‘hello’,<br>  [lastWord] :’world’<br> };<br> a[‘first word’] &#x2F;&#x2F;“hello”<br> a[lastWord] &#x2F;&#x2F;“world”<br> a[‘last word’] &#x2F;&#x2F;“world”</p>
+<p>表达式还可以用于定义方法名。</p>
+<p> let  obj  &#x3D; {<br>  <a href="">‘h’ + ‘ello’</a>{<br>   return ‘hi’;<br>  }<br> };<br> object.hello() &#x2F;&#x2F;hi</p>
+<p>注意：属性名表达式与简洁表示法，不能同时使用，会报错</p>
+<p> &#x2F;&#x2F;报错<br> var foo &#x3D; ‘bar’;<br> var bar &#x3D; ‘abc’;<br> var baz &#x3D; {[foo]};</p>
+<p> &#x2F;&#x2F;正确<br> var foo &#x3D; ‘bar’;<br> var baz &#x3D; {[foo]:’abc’}</p>
+<h2 id="方法的anem属性"><a href="#方法的anem属性" class="headerlink" title="方法的anem属性"></a>方法的anem属性</h2><p>函数的name属性，返回函数名，对象方法也是函数，因此也有name属性</p>
+<p> var person &#x3D; {<br>  sayName(){<br>   console.log(this.name);<br>  },<br>  get firstName(){<br>   return “Nicholas”;<br>  }<br> };<br> person.sayName.name &#x2F;&#x2F; “sayName”<br> pserson.firstName.name &#x2F;&#x2F; “get firstName”<br>方法的name属性返回函数名(即方法名)，如果使用了取值函数，则会在方法名前加上get。如果是存执函数，方法名前会加上set。</p>
+<p>有两种特殊情况:bind方法创造的函数，name属性返回的”bound”加上原函数的名字：Function构造函数创造的函数，name属性返回”anonymous”。</p>
+<p> (new Function()).name &#x2F;&#x2F;“anonymous”</p>
+<p> var doSomething &#x3D; function(){<br>  &#x2F;&#x2F;…<br> };<br> doSometthing.bind().name &#x2F;&#x2F;“bound doSomething”</p>
+<p>如果对象的方法是一个Symbol值，那么name属性返回的是这个Symbol值的描述</p>
+<p> const key1 &#x3D; Symbol(‘description’);<br> const key2 &#x3D; Symbol();<br> let obj &#x3D; {<br>  <a href="">key1</a>{},<br>  <a href="">key2</a>{},<br> };<br> obj[key1].name &#x2F;&#x2F;“[description]”<br> obj[key2].name &#x2F;&#x2F;“”<br>上面代码中，key1对应的Symbol值有描述，key2没有</p>
+<h2 id="Object-is"><a href="#Object-is" class="headerlink" title="Object.is()"></a>Object.is()</h2><p>ES5比较两个值是否相等，只有两个运算符：相等运算符(&#x3D;&#x3D;)和严格相等运算符(&#x3D;&#x3D;&#x3D;)。它们都有缺点，前者会自动转换数据类型，后者的NaN不等于自身，以及+0等于-0.JavaScript缺乏一种运算，在所有环境中，只有两个值是一样的，它们就应该相等。</p>
+<p>ES6提出”Same-value equality”(同值相等)算法，用来解决这个问题。Object.is就是部署这个算法的新方法。它用来比较两个值是否严格相等，与严格比较运算符(&#x3D;&#x3D;&#x3D;)的行为基本一致。</p>
+<p> Object.is(‘foo’,’foo’)<br> &#x2F;&#x2F;true<br> Object.is({},{})<br> &#x2F;&#x2F;false<br>不同之处只有两个：一是+0不等于-0，而是NaN等于自身。</p>
+<p> +0 &#x3D;&#x3D;&#x3D; -0 &#x2F;&#x2F;true<br> NaN &#x3D;&#x3D;&#x3D; NaN&#x2F;&#x2F;false<br> Object.is(+0,-0) &#x2F;&#x2F;false<br> Object.is(NaN,NaN) &#x2F;&#x2F;true</p>
+<p>ES5可以通过下面的代码，部署Object.is。</p>
+<p> Object.defineProperty(Object,’is’,{<br>  value:function(x,y){<br>   if(x &#x3D;&#x3D;&#x3D; y){<br>    &#x2F;&#x2F;针对+0不等于-0的情况<br>    return x !&#x3D;&#x3D; 0 || 1&#x2F;x &#x3D;&#x3D;&#x3D; 1&#x2F;y;<br>   }<br>   &#x2F;&#x2F;针对NaN的情况<br>   return x !&#x3D;&#x3D; x &amp;&amp; y !&#x3D;&#x3D;y;<br>  },<br>  configurable :true,<br>  enumerable: false,<br>  writable.true<br> });</p>
+<h2 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a>Object.assign()</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>Object.assign方法用于对象的合并，将源对象(source)的所有可枚举属性，赋值到目标对象(target)。</p>
+<p> var target &#x3D; {a:1};</p>
+<p> var source1 &#x3D; {b:2};</p>
+<p> var source2 &#x3D; {c:3};</p>
+<p> Object.assign(target,source1,source2);<br> target &#x2F;&#x2F;{a:1,b:2,c:3}<br>Object.assign方法的第一个参数是目标对象，后面的参数都是源对象。</p>
+<p>注意，如果目标对象与源对象有同名属性，或多个源对象有同名属性，则后面的属性会覆盖前面的属性。</p>
+<p> var target &#x3D; {a:1,b:1};</p>
+<p> var source1 &#x3D; {b:2,c:2};<br> var source2 &#x3D; {c;3};</p>
+<p> Object.assign(target,source,sources2);<br> target &#x2F;&#x2F;{a:1,b:2,c:3}<br>如果只有一个参数，Object.assign会直接返回该参数。</p>
+<p> var obj &#x3D;{a;1};<br> Object.assign(obj) &#x3D;&#x3D;&#x3D; obj &#x2F;&#x2F;true</p>
+<p>如果该参数不是对象，则会先转成对象，然后返回</p>
+<p> typeof Object.assign(2) &#x2F;&#x2F;“object”<br>由于undefined和null无法转成对象，所以如果它们作为参数，就会报错</p>
+<p> Object.assign(undefined)&#x2F;&#x2F;报错<br> Object.assign(null)&#x2F;&#x2F;报错<br>如果非对象参数出现在源对象的位置(即非首参数),那么处理规则有所不同，首先这些参数都会转成对象，如果无法转成对象，就会跳过，这意味着，如果undefined和null不在首参数，就不会报错。</p>
+<p> let obj &#x3D; {a;1};<br> Object.assign(obj,undefined) &#x3D;&#x3D;&#x3D;obj &#x2F;&#x2F;true<br> Object.assign(obj,null) &#x3D;&#x3D;&#x3D; obj &#x2F;&#x2F;true<br>其他类型的值(即数值、字符串和布尔值)不在首参数，也不会报错。但是，除了字符串会以数组形式，拷贝入目标对象，其他值都不会产生效果。</p>
+<p> var v1 &#x3D; ‘abc’;<br> var v2 &#x3D; true;<br> var v3 &#x3D; 10;</p>
+<p> var obj &#x3D; Object.assign({},v1,v2,v3);<br> console.log(obj);  &#x2F;&#x2F;{‘0’:’a’,’1’:’b’,’2’:’c’}<br>上面代码中，v1、v2、v3分别是字符串、布尔值和数值，结果字符串合入目标对象(以字符数组的形式)，数值和布尔值都会被忽略。这是因为只有字符串的包装对象，会产生可枚举属性。</p>
+<p> Object(true) &#x2F;&#x2F;{[[PrimitiveValue]]:true}<br> Object(10)   &#x2F;&#x2F;{[[PrimitiveValue]]:10}<br> Object(‘abc’) &#x2F;&#x2F;{0:’a’,’1’:”b”,2:”c”,length:3,[[PrimitiveValue]]:”abc”}<br>布尔值、数值、字符串分别转成对应的包装对象，可以看到它们的原始值都在包装对象的内部属性[[PrimitiveValue]]上面，这个属性是不会被Object.assign拷贝的，只有字符串的包装对象，会产生可枚举的实义属性，那些属性则会被拷贝。</p>
+<p>Object.assign拷贝的属性是有限制的，只拷贝源对象的自身属性(不拷贝继承属性)，也不拷贝不可枚举的属性(enumerable:fasle)。</p>
+<p> Object.assign({b:’c’},<br>  Object.defineProperty({},’invisible’,{<br>   enumerable:false,<br>   value:’hello’<br>  })<br> )<br> &#x2F;&#x2F;{b:’c’}<br>上面代码中，Object.assign要拷贝的对象只有一个不可枚举属性invisible，这个属性并没有被拷贝进去。</p>
+<p>属性名为Symbol值的属性，也会被object.assign拷贝。</p>
+<p> Object.assign({a:’b’},{ [Symbol(‘c’)]: ‘d’ })<br> &#x2F;&#x2F;{a:’b’,Symbol(c):’d’}</p>
+<h3 id="注意点"><a href="#注意点" class="headerlink" title="注意点"></a>注意点</h3><p>Object.assign方法实行的是浅拷贝，而不是深拷贝。也就是说，如果源对象某个属性的值是对象，那么目标对象拷贝得到的是这个对象的引用。</p>
+<p> var obj1  &#x3D; {a:{b:1}};<br> var obj2 &#x3D; Object.assign({},obj1);</p>
+<p> obj1.a.b &#x3D; 2;<br> obj2.a.b &#x2F;&#x2F;2<br>上面代码中，源对象obj1的a属性的值是一个对象，Object.assign拷贝得到的是这个对象的引用。</p>
+<p>一旦遇到同名属性，Object.assign的处理方法是替换，而不是添加。</p>
+<p> var target &#x3D; {a:{b:’c’,d:’e’}}<br> var source &#x3D; {a:{b:’hello’}}<br> Object.assign(target,source)<br> &#x2F;&#x2F;{a:{b:’hello’}}<br>上面代码中，target对象的a属性被source对象的a属性整个替换掉了，而不会得到{a:{b:’hello’,d:’e’}}的结果。这通常不是开发者想要的，需要特别小心</p>
+<p>有一些函数提供object.assign的定制版本，可以解决浅拷贝的问题，得到身拷贝的合并。</p>
+<p>注意，Object.assign同样可以用来处理数组，但是是把数组看做对象来合并</p>
+<p> Object.assign([1,2,3],[4,5])<br> &#x2F;&#x2F;[4,5,3]</p>
+<h3 id="Object-assign的用途"><a href="#Object-assign的用途" class="headerlink" title="Object.assign的用途"></a>Object.assign的用途</h3><ol>
+<li>为对对象添加属性</li>
+</ol>
+<p> class Point {<br>  constructor(x,y){<br>   Object.assign(this,{x,y});<br>  }<br> }<br>通过Object.assign方法，将x属性和y属性添加到Point类对象实例。</p>
+<ol start="2">
+<li>为对象添加方法</li>
+</ol>
+<p> Object.assign(SomeClass.propertype,{<br>  someMethod(arg1,arg2){<br>   …<br>  },<br>  anotherMethod(){<br>   …<br>  }<br> });<br> &#x2F;&#x2F;等同于下面的写法<br> SomeClass.prototype.someMethod &#x3D; function (arg1,arg2){<br>  …<br> };<br> SomeClass.propertype.anotherMethod &#x3D; function (){<br>  …<br> };<br>对象属性的简洁表示法，直接将两个函数放在大括号中，再使用assign方法添加到SomeClass.prototype之中。</p>
+<ol start="3">
+<li>克隆对象</li>
+</ol>
+<p> function clone(origin){<br>  return Object.assign({},origin);<br> }<br>采用这种方法克隆，只能克隆原始对象自身的值，不能克隆它继承的值。如果想要保持继承链，可以采用下面的代码。</p>
+<p> function clone(origin){<br>  let originProto &#x3D; Object.getPrototypeOf(origin);<br>  return Object.assign(Object.create(originProto),origin);<br> }</p>
+<ol start="4">
+<li>合并多个对象<br>将多个对象合并到某个对象。</li>
+</ol>
+<p> const merge &#x3D; (target,…sources) &#x3D;&gt; Object.assign(target,…sources);<br>如果希望合并后返回一个新对象，可以改写上面函数，对一个空对象合并。</p>
+<p> const merger &#x3D; (…sources) &#x3D;&gt; Object.assign({},…sources);</p>
+<ol start="5">
+<li>为属性指定默认值</li>
+</ol>
+<p> const DEFAULTS &#x3D;{<br>  logLevel:0,<br>  outputFormat:’html’<br> };</p>
+<p> function processContent(options){<br>  let options &#x3D; Object.assign({},DEFAULTS,options);<br> }<br>上面代码中，DEFAULTS对象是默认值，options对象是用户提供的参数。Object.assign方法将DEFAULT和options合并成一个对象。否则，将导致DEFAULTS对象的该属性不起作用</p>
+<h2 id="属性的可枚举性"><a href="#属性的可枚举性" class="headerlink" title="属性的可枚举性"></a>属性的可枚举性</h2><p>对象的每个属性都有一个描述对象(Descriptor)，用来控制该属性的行为。Object.getOwnPropertyDescriptor方法可以获取该属性的描述对象。</p>
+<p>  let obj &#x3D; {foo:123};<br>  Object.getOwnPropertyDescriptor(obj,’foo’)<br>  &#x2F;&#x2F;{<br>  &#x2F;&#x2F; value:123,<br>  &#x2F;&#x2F; writable:true,<br>  &#x2F;&#x2F;  enumerable:true,<br>  &#x2F;&#x2F;  configurable:true<br>  &#x2F;&#x2F;}<br>描述对象的enumerable属性，称为”可枚举性”，如果该属性为 false，就表示某些操作会忽略当前属性。</p>
+<p>ES5有三个操作会忽略enumerable为false的属性。</p>
+<ul>
+<li><p>for … in循环：只遍历对象自身和继承的可枚举属性</p>
+</li>
+<li><p>Object.kleys():返回对象自身的所有可枚举的属性的键名</p>
+</li>
+<li><p>JSON.stringify();只串行化对象自身的可枚举属性</p>
+</li>
+<li><p>ES6新增了一个操作Object.assign()，会忽略enumerable为false的属性，只拷贝对象自身的可枚举的属性。<br>这四个操作中，只有for …in 会返回继承的属性，实际上，引入enumerable的最初目的，就是让某些属性可以规避掉for… in操作，比如对象原型的toString方法，以及数组的length属性，就通过这种手段，不会被for…in遍历到。</p>
+</li>
+</ul>
+<p> Object.getOwnPropertyDescriptor(Object.prototype,’toString’).enumerable<br> &#x2F;false</p>
+<p> Object.getOwnPropertyDescriptor([],’length’).enumerable<br> &#x2F;&#x2F;false<br>上面代码中，toString和length属性的enumerable都是false，因此for…in不会遍历到这两个继承自原型的属性。</p>
+<p>另外，ES6规定，所有Class的原型的方法都是不可枚举的。</p>
+<p> Object.getOwnPropertyDescriptor(class{foo(){}}.prototype,’foo’).enumerable<br> &#x2F;&#x2F;false<br>总的来说，操作中引入继承的属性会让问题复杂化，多数时候，我们只关心对象自身的属性。所以，尽量不要用for …in 循环，而是用Object.keys()代替。</p>
+<h2 id="属性的遍历"><a href="#属性的遍历" class="headerlink" title="属性的遍历"></a>属性的遍历</h2><p>ES6一共提供了五种遍历对象属性的方法</p>
+<ol>
+<li>for…in</li>
+</ol>
+<p> for…in循环遍历对象自身的和继承的可枚举属性(不含Symbol属性)<br>2. Object.keys(obj)</p>
+<p> Object.keys返回一个数组，包括对象自身的(不含继承的)所有可枚举属性(不含Symbol属性)</p>
+<ol start="3">
+<li>Object.getOwnPropertyNames(obj)</li>
+</ol>
+<p> Object.getOwnPropertyNames返回一个数组，包含对象自身的所有属性(不含Symbol属性，但是包括不可枚举属性)。</p>
+<ol start="4">
+<li>Object.getOwnPropertySymbols(obj)</li>
+</ol>
+<p> Object.getOwnPropertySymbols返回一个数组，包含自身的所有Symbol属性</p>
+<ol start="5">
+<li>Reflect.ownKeys(obj)</li>
+</ol>
+<p> Reflect.ownKeys返回一个数组，包含对象自身的所有属性，不管是属性名是Symbol或字符串，也不管是否可枚举。</p>
+<p>以上5种方法便来对象的属性，都遵守同样的属性遍历的次序规则。</p>
+<ul>
+<li>首先遍历所有属性名为数值的属性，按照数字排序。</li>
+<li>其次遍历所有属性名为字符串的属性，按照生成时间排序。</li>
+<li>最后遍历所有属性名为Symbol值的属性，按照生成时间排序</li>
+</ul>
+<h2 id="proto-属性，Object-setPrototypeOf-Object-getPrototypeOf"><a href="#proto-属性，Object-setPrototypeOf-Object-getPrototypeOf" class="headerlink" title="_proto_属性，Object.setPrototypeOf(),Object.getPrototypeOf()"></a>_proto_属性，Object.setPrototypeOf(),Object.getPrototypeOf()</h2><ol>
+<li>__proto__属性</li>
+</ol>
+<p> __proto__属性(前后各两个下划线),用来读取或设置当前对象的prototype对象。目前，所有浏览器(包括IE11)都部署了这个属性。</p>
+<p>  &#x2F;&#x2F;es6的写法<br>  var obj &#x3D; {<br>   method:function(){…}<br>  };<br>  obj.<strong>proto</strong> &#x3D; someOtherObje;</p>
+<p>  &#x2F;&#x2F;es5的写法<br>  var obj &#x3D; Object.create(someOtherObj);<br>  obj.method &#x3D; function(){…};<br> 该属性没有写入ES6的正文，而是写入附录，原因是__proto__前后的双下划线，说明它本质上是一个内部属性，而不是一个正式的对外的API，只是由于浏览器广泛支持，才被加入ES6。只有浏览器必须部署这个属性，其他运行环境不一定需要部署，而且新的代码最后认为这个属性是不存在的。所以，无论是从语义的角度，还是兼容性都不要使用这个属性。而是使用Object.setPropertypeOf()(写操作)、Obejct.getPrototypeOf()(读操作)、Object.create(生成操作)代替。</p>
+<ol start="2">
+<li>Object.setPrototypeOf()</li>
+</ol>
+<p> Object.setPrototypeOf方法的作用与__proto__相同，用来设置一个对象的prototype对象。它是ES6正式推荐的设置原型对象的方法。</p>
+<p>  &#x2F;&#x2F;格式<br>  Object.setPrototypeOf(object,prototype)</p>
+<p>  &#x2F;&#x2F;用法<br>  var o &#x3D; Object.setPrototypeOf({},null);<br> 该方法等同于这样的一个函数</p>
+<p>  function (obj,proto){<br>   obj.<strong>proto</strong> &#x3D; proto;<br>   return obj;<br>  }<br> 下面是一个例子</p>
+<p>  let proto &#x3D; {};<br>  let obj &#x3D; {x:10};<br>  Object.setPrototypeOf(obj,proto);</p>
+<p>  proto.y &#x3D;20;<br>  proto.z &#x3D;40;</p>
+<p>  obj.x &#x2F;&#x2F;10<br>  obj.y &#x2F;&#x2F;20<br>  obj.z &#x2F;&#x2F;40<br> 上面代码将proto对象设为obj对象的原型，所以从obj对象可以读取proto对象的属性。</p>
+<ol start="3">
+<li>Object.getPrototypeOf()</li>
+</ol>
+<p> 该方法与setPrototypeOf()方法配套，用于读取一个对象的prototype对象。</p>
+<p>  Object.getPrototypeOf(obj);<br> 例子</p>
+<p>  function Rectangle(){<br>  }<br>  var rec &#x3D; new Rectangle();</p>
+<p>  object.getPrototypeOf(rec) &#x3D;&#x3D;&#x3D; Rectangle.prototype<br>  &#x2F;&#x2F;true</p>
+<p>  Object.setPrototypeOf(rec,Object.prototype);<br>  Object.getPrototypeOf(rec) &#x3D;&#x3D;&#x3D; Rectangle.prototype<br>  &#x2F;&#x2F;false</p>
+<h2 id="Object-values-Object-entries"><a href="#Object-values-Object-entries" class="headerlink" title="Object.values(),Object.entries()"></a>Object.values(),Object.entries()</h2><h3 id="Object-keys"><a href="#Object-keys" class="headerlink" title="Object.keys()"></a>Object.keys()</h3><p>ES5引入了Object.keys方法，返回一个数组，成员是参数对象自身的(不含继承的)所有可能遍历(enumerable)属性的键名。</p>
+<p> var obj &#x3D; { foo:”bar”,baz:42};<br> Object.keys(obj)<br> &#x2F;&#x2F;[“foo”,”baz”]<br>目前ES7又有提案，就是引入Object.values()和Object.entries()和Object.keys配套</p>
+<p> let {keys,value,entries} &#x3D; object;<br> let obj &#x3D; {a:1,b:2,c:3};</p>
+<p> for (let key of keys(obj)){<br>  console.log(key) &#x2F;&#x2F;‘a’,’b’,’c’<br> }</p>
+<p> for (let value of values(obj)){<br>  console.log(value);&#x2F;&#x2F;1,2,3<br> }</p>
+<p> for (let [key,value] of entries(obj)){<br>  console.log([key,value]);&#x2F;&#x2F;[‘a’,1],[‘b’,2],[‘c’,3]<br> }</p>
+<h3 id="Object-values"><a href="#Object-values" class="headerlink" title="Object.values()"></a>Object.values()</h3><p>Object.values返回一个数组，成员是参数对象自身的(不含继承的)所有可遍历 (enumerable)属性的键值。</p>
+<p> var obj &#x3D; {foo:”bar”,baz:42 };<br> Object.values(obj)<br> &#x2F;&#x2F;[“bar”,42]</p>
+<p>返回数组的成员顺序，与本章的《属性的遍历》部分介绍排列规则一致。</p>
+<p> var obj &#x3D; {100:’a’,2:’b’,7:’c’};<br> Object.values(obj) &#x2F;&#x2F;[‘b’,’c’,’a’]<br>Object.avlue只返回对象自身可遍历的属性</p>
+<p> var obj &#x3D; object.create({},{p:{value:42}});<br> Object.values(obj) &#x2F;&#x2F;[]<br>上面，Object.create方法的第二个参数添加的对象属性(属性p),如果不显式声明，默认不可遍历的。Object.values不会返回这个属性。Object.values会过滤属性名为Symbol值的属性。</p>
+<p>Object.values会过滤属性名为Symbol值的属性。</p>
+<p> Object.values({[Symbol()]:123,foo:’abc’});<br> &#x2F;&#x2F;[‘abc’]<br>如果Object.values方法的参数是一个字符串，会返回各个字符组成的一个数组。</p>
+<p> Object.values(‘foo’)<br> &#x2F;&#x2F;[‘f’,’o’,’o’]<br>上面代码中，字符串会先转成一个类似数组的对象，字符串的每个字符，就是该对象的一个属性。因此，Object.values返回每个属性的键值，就是各个字符组成的一个数组。</p>
+<p>如果参数不是对象，object.value会先将其转为对象。由于数值和布尔值的包装对象，都不会为实例添加非继承的属性。所以，object.values会返回空数组。</p>
+<p> Object.values(42) &#x2F;&#x2F;[]<br> Object.values(true) &#x2F;&#x2F;[]</p>
+<h3 id="Object-entries"><a href="#Object-entries" class="headerlink" title="Object.entries"></a>Object.entries</h3><p>Object.entries方法返回一个数组，成员是参数对象自身的(不含继承的)所有可遍历(enumerable)属性的键值对数组。</p>
+<p> var obj &#x3D; {foo:’bar’,baz:42};<br> Object.entries(obj)<br> &#x2F;&#x2F;[[“foo”,”bar”],[“baz”,42]]<br>返回值不一样，该方法的行为与Object.values基本一致。<br>如果原对象的属性名是一个Symbol值，该属性会被省略。</p>
+<p> Object.entries({[Symbol()]:123,foo:’abc’});<br> &#x2F;&#x2F;[[‘foo’,’abc’]]<br>上面代码中，原对象有两个属性，Object.entries只输出属性名非Symbol值的属性。将来可能会有Reflect.ownEntries()方法，返回对象自身的所有属性。</p>
+<p>Object.entries的基本用途是遍历对象的属性。</p>
+<p> let obj &#x3D; {one:1,two:2};<br> for (let [k,v] of Obejct.entries(obj)){<br>  console.log(<code>$&#123;JSON.stringify(k)&#125;:$&#123;JSON.stringify(v)&#125;</code>);<br> }<br> &#x2F;&#x2F;“one”:1<br> &#x2F;&#x2F;“two”:2<br>Object.entries方法的一个用处是，将对象转为真正的Map结构。</p>
+<p> var obj &#x3D; {foo:’bar’,baz:42 };<br> var map &#x3D; new Map(Object.entries(obj));<br> map &#x2F;&#x2F;Map{foo:”bar”,baz:42}<br>自己实现Object.entries方法，非常简单</p>
+<p> &#x2F;&#x2F;Generator函数的版本<br> function* entries(obj){<br>  for (let key of Object.keys(obj)){<br>   yield [key,obj[key]];<br>  }<br> }<br> &#x2F;&#x2F;非Generator函数的版本<br> function entries(obj){<br>  let arr &#x3D;[];<br>  for (let key of Object.keys(obj)){<br>   arr.push([key,obj[key]]);<br>  }<br>  return arr;<br> }</p>
+<h2 id="对象的扩展运算符"><a href="#对象的扩展运算符" class="headerlink" title="对象的扩展运算符"></a>对象的扩展运算符</h2><p>目前，ES7有一个提案，将Rest解构赋值&#x2F;扩展运算符(…)引入对象。Babel转码器已经支持这个项功能。</p>
+<ol>
+<li>Rest解构赋值</li>
+</ol>
+<p> 对象的Rest解构赋值用于从一个对象取值，相当于将所有可遍历的、但尚未被读取的属性，分配到指定的对象上面。所有的键和它们的值，都会拷贝到新对象上。</p>
+<p>  let {x,y,…z} &#x3D; {x:1,y:2,a:3,b:4};<br>  x&#x2F;&#x2F;1<br>  y&#x2F;&#x2F;2<br>  z&#x2F;&#x2F;{a:3,b:4}<br> 上面代码中，变量z是Rest解构赋值所在的对象。它获取符号右边的所有尚未读取的键(a和b),将它们和它们的值拷贝过来。</p>
+<p> 由于Rest解构赋值要求等号右边是一个对象，所以如果等号右边是undefined或null，就会报错，因为它们无法转为对象。</p>
+<p>  let {x,y,…z} &#x3D; null;&#x2F;&#x2F;运行时报错<br>  let {x,y,…z} &#x3D; undefined;&#x2F;&#x2F;运行时报错<br> Rest解构赋值必须是最后一个参数，否则会报错。</p>
+<p>  let {…x,y,z} &#x3D; obj;&#x2F;&#x2F;句法错误<br>  let {x,…y,…z} &#x3D; obj; &#x2F;&#x2F;句法错误<br> 上面代码中，Rest解构赋值不是最后一个参数，所以会报错。</p>
+<p> 注意，Rest解构赋值的拷贝是浅拷贝，即如果一个键的值是复合类型的值(数组、对象、函数)、那么Rest解构赋值拷贝的是这个值的引用，而不是这个值的副本。</p>
+<p>  let obj &#x3D; {a:{b:1}};<br>  let {…x} &#x3D; obj;<br>  obj.a.b &#x3D; 2;<br>  x.a.b &#x2F;&#x2F;2<br> 上面 代码中，x是Rest解构赋值所在的对象，拷贝了对象obj的a属性。a属性引用了一个对象，修改这个对象的值，会影响到Rest解构赋值对它的引用。<br> 另外，Rest解构赋值不会拷贝继承自原型对象的属性。</p>
+<p>  let o1 &#x3D; {a:1};<br>  let 02 &#x3D; {b:2};<br>  o2.<strong>proto</strong> &#x3D;o1;<br>  let o3 &#x3D; {…o2};<br>  o3 &#x2F;&#x2F;{b:2}<br> 对象o3是o2的拷贝，但是只复制了o2自身的属性，没有赋值它的原型对象o1的属性。</p>
+<p> Rest解构赋值的一个用处，是扩展某个函数的参数，引入其他操作。</p>
+<p>  function baseFunction({a,b}){<br>   &#x2F;&#x2F;…<br>  }<br>  function wrapperFunction({x,y,…restConfig}){<br>   &#x2F;&#x2F;使用x和y参数进行操作<br>   &#x2F;&#x2F;其余参数传给原始函数<br>   return baseFunction(restConfig);<br>  }<br> 原始函数baseFunction结构a和b作为参数，函数wrapperFunction在baseFunction的基础上进行了扩展，能够接受多余的参数，并且保留原始函数的行为。</p>
+<ol start="2">
+<li>扩展运算符</li>
+</ol>
+<p> 扩展运算符(…)用于去除参数对象的所有可遍历属性。拷贝到当前对象之中。</p>
+<p>  let z &#x3D; {a:3,b:4};<br>  let n &#x3D; {…z};<br>  n &#x2F;&#x2F;{a:3,b:4}<br> 这等同于使用Object.assign方法。</p>
+<p>  let aClone &#x3D;{…a};<br>  &#x2F;&#x2F;等同于<br>  let aClone &#x3D; Object.assign ({},a);<br> 扩展运算符可以用于合并两个对象。</p>
+<p>  let ab &#x3D; {…a,…b};<br>  &#x2F;&#x2F;等同于<br>  let ab &#x3D; Object.assign({},a,b);<br> 如果用户自定义的属性，放在扩展运算符后面，则扩展运算符内部的同名属性会被覆盖掉。</p>
+<p>  let aWithOverRides &#x3D; {…a,x:1,y:2};<br>  &#x2F;&#x2F;等同于<br>  let aWithOverrides &#x3D; {…a,…{x:1,y:2}};<br>  &#x2F;&#x2F;等同于<br>  let x &#x3D;1,y &#x3D;  2, aWithOverrides &#x3D; {…a,x,y};<br>  &#x2F;&#x2F;等同于<br>  let aWithOverrides &#x3D; Object.assign({},a,{x:1,y:2});<br> a对象的x属性和y属性，拷贝到新对象后会被覆盖掉。者用来修改现有对象部分的部分属性就很方便了</p>
+<p>  let newVersion &#x3D; {<br>   …previousVersion,<br>   name:”New Name” &#x2F;&#x2F;Override the name property<br>  }<br> newVersion对象定义了name属性，其他属性全部复制自previousVersion对象。<br> 如果把自定义属性放在扩展运算符前面，就变成了设置新对象的默认属性值。</p>
+<p>  let aWithDefaults &#x3D; {x:1,y:2,…a};<br>  &#x2F;&#x2F;等同于<br>  let aWithDefaults &#x3D; object.assign({},{x:1,y:2},a);<br>  &#x2F;&#x2F;等同于<br>  let aWithDefaults &#x3D; Object.assign({x:1,y:2},a);<br> 扩展运算符的参数对象之中，如果有取值函数get，这个函数是会执行的。</p>
+<p>  &#x2F;&#x2F;并不会抛出错误，因为x属性只是被定义，但没有执行<br>  let aWithXGetter &#x3D; {<br>   …a,<br>   get x(){<br>    throws new Error(‘not thrown yet’);<br>   }<br>  };</p>
+<p>  &#x2F;&#x2F;会抛出错误，因为x属性被执行了<br>  let runtimeError &#x3D; {<br>   …a,<br>   …{<br>    get x(){<br>     throws new Error(‘thrown now’);<br>    }<br>   }<br>  };<br> 如果扩展运算符参数是null或者undefined，这两个值会被忽略，不会报错</p>
+<p>  let emptyObject &#x3D; {…null,…undefined};&#x2F;&#x2F;不报错</p>
+<h2 id="Object-getOwnPropertyDescriptors"><a href="#Object-getOwnPropertyDescriptors" class="headerlink" title="Object.getOwnPropertyDescriptors()"></a>Object.getOwnPropertyDescriptors()</h2><p>ES5有一个Object.getOwnPropertyDescriptor方法，返回某个对象属性的描述对象(descriptor)。</p>
+<p> var obj &#x3D; {p:’a’};</p>
+<p> Object.getOwnPropertyDescriptor(obj,’p’)<br> &#x2F;&#x2F;Object{ value :”a”,<br> &#x2F;&#x2F; writable:true,<br> &#x2F;&#x2F; enumerable:true,<br> &#x2F;&#x2F; configurable:true<br> &#x2F;&#x2F;}<br>ES7有一个提案，提出了Object.getOwnPropertyDescriptor方法，返回指定对象所有自身属性(非继承属性)的描述对象。</p>
+<p> const obj &#x3D; {<br>  foo:123,<br>  get bar() { return ‘abc’}<br> };</p>
+<p> Object.getOwnPropertyDescriptors(obj)<br> &#x2F;&#x2F;{ foo:<br> &#x2F;&#x2F;  { value:123,<br> &#x2F;&#x2F;    writable:true,<br> &#x2F;&#x2F;    enumerable:true,<br> &#x2F;&#x2F;    configurable:true},<br> &#x2F;&#x2F;<br> &#x2F;&#x2F; bar:<br> &#x2F;&#x2F;  {   get :[Function:bar],<br> &#x2F;&#x2F;   set : undefined,<br> &#x2F;&#x2F;   enumerable:true,<br> &#x2F;&#x2F;   configurable:true<br> &#x2F;&#x2F;  }<br> &#x2F;&#x2F;}<br>Object.getOwnPropertyDescriptors方法返回一个对象，所有原对象的属性名都是该对象的属性名，对应的属性值是该属性的描述对象。该方法的实现非常日容易。</p>
+<p> function getOwnPropertyDescriptors(obj){<br>  const result &#x3D; {};<br>  for (let key of Reflect.ownKeys(obj)){<br>   result[key] &#x3D; Object.getOwnPropertyDescriptor(obj,key);<br>  }<br>  return result;<br> }<br>该方法主要是为了解决Object.assign()无法正确拷贝get属性和set属性的问题。</p>
+<p> const source &#x3D; {<br>  set foo(value){<br>   console.log(value);<br>  }<br> };</p>
+<p> const target1 &#x3D; {};<br> Object.assign(target1,source);</p>
+<p> Object.getOwnPropertyDescriptor(target1,’foo’)</p>
+<p> &#x2F;&#x2F;{ valuse : undefined,<br> &#x2F;&#x2F; writable:true,<br> &#x2F;&#x2F; enumerable:true,<br> &#x2F;&#x2F; configurable:true }<br>Object.getOwnPropertyDescriptors方法返回一个对象，所有原对象的属性名都是该对象的属性名，对应的属性值就是该属性的描述对象。</p>
+<p> function getOwnPropertyDescriptors(obj){<br>  const result &#x3D;{};<br>  for (let key of Reflect.ownKeys(obj)){<br>   result[key] &#x3D; Object.getOwnPropertyDescriptor(obj,key);<br>  }<br>  return result;<br> }<br>该方法的提出是为了解决Object.assign()无法正确拷贝get属性和set属性的问题。</p>
+<p> const source &#x3D;{<br>  set foo(value){<br>   console.log(value);<br>  }<br> };<br> const target1 &#x3D; {};<br> Object.assign(target1,source);</p>
+<p> Object.getOwnPropertyDescriptor(target1,’foo’)<br> &#x2F;&#x2F;{ value:undefined,<br> &#x2F;&#x2F; writable:true,<br> &#x2F;&#x2F; enumerable:true,<br> &#x2F;&#x2F; configurable:true<br> &#x2F;&#x2F; }<br>上面的代码中，source对象的foo属性的值是一个赋值函数，Object.assign方法将这个属性拷贝给target1对象，结果该属性的值变成了undefined。这是因为Obejct.assign方法总是拷贝一个属性的值，而不会拷贝它背后的赋值方法或取值方法。</p>
+<p>这时，Object.getOwnPropertyDescriptors方法配合Object.defineProperties方法，就可以实现正常拷贝。</p>
+<p> const source &#x3D; {<br>  set foo(value){<br>   console.log(value);<br>  }<br> };</p>
+<p> const target2 &#x3D; {};<br> Object.defineProperties(target2,Object.getOwnPropertyDescriptors(source));<br> Object.getOwnPropertyDescriptor(target2,’foo’)<br> &#x2F;&#x2F;{ get: undefined,<br> &#x2F;&#x2F; set:[Function:foo],<br> &#x2F;&#x2F; enumerable:true,<br> &#x2F;&#x2F; configurable:true<br> &#x2F;&#x2F;}<br>上面代码中，将两个对象合并的逻辑提炼出来，就是下面这样。</p>
+<p> const shallowMerge &#x3D; (target,source) &#x3D;&gt; Object.defineProperties(<br>  target,<br>  Object.getOwnPropertyDescriptors(source)<br> );<br>Object.getOwnPropertyDescriptors方法的另一个用处，是配合Object.create方法，将对象属性克隆岛一个新对象。着属于浅拷贝。</p>
+<p> const clone &#x3D; Object.create(Object.getPrototupeOf(obj),<br>  Object.getOwnPropertyDescriptors(obj));<br>  &#x2F;&#x2F;或者<br>  const shallowClone &#x3D; (obj) &#x3D;&gt; Object.create(<br>   Object.getPrototypeOf(obj),<br>   Object.getOwnPropertyDescriptors(obj)<br>  );<br>上面代码会克隆对象obj。</p>
+<p>另外，Object.getOwnPropertyDescriptors方法可以实现，一个对象继承另一个对象。以前，继承另一个对象。以前，继承另一个对象，常常写成下面这样。</p>
+<p> const obj &#x3D; {<br>  <strong>proto</strong> : prot,<br>  foo:123,<br> };<br>ES6规定__proto__只有浏览器部署，其他环境不用部署，如果去除__proto__，上面代码就要改成下面这样。</p>
+<p> const obj &#x3D; Object.create(prot);<br> obj.foo &#x3D; 123 ;<br> &#x2F;&#x2F;或者<br> const obj &#x3D; Object.assign(<br>  Object.create(prot),<br>  {<br>   foo:123,<br>  }<br> );<br>有了Object.getOwnPropertyDescriptors，我们就有了另一种写法。</p>
+<p> const obj &#x3D; Object.create(<br>  prot,<br>  Object.getOwnPropertyDescriptors({<br>   foo:123,<br>  })<br> );<br>Object.getOwnPropertyDescriptors也可以用来实现Mixin(混入)模式。</p>
+<p> let min &#x3D; (object) &#x3D;&gt; ({<br>  with : (…mixins) &#x3D;&gt; mixins.reduce(<br>   (c,mixin) &#x3D;&gt; Object.create(<br>    c,Object.getOwnPropertyDescriptors(mixin)<br>   ),object)<br> });</p>
+<p> &#x2F;&#x2F;multiple mixins example<br> let a &#x3D; {a:’a’};<br> let b &#x3D; {b:’b’};<br> let c &#x3D; {c:’c’};<br> let d &#x3D; min(c).with(a,b);<br>对象a和b被混入了c对象</p>
+<p>处于完成性的考虑，Obejct.getOwnPropertyDescriptors进入标准以后，还会有Reflect.getOwnPropertyDescriptors方法。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ES6/" class="category-chain-item">ES6</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ES6/">#ES6</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ES6第九章 对象的扩展</div>
+      <div>http://example.com/2022/06/14/ECAMScript-nine-chart/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年6月14日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/06/22/ECAMScript-thirteenfourteen-chart/" title="ES6 第十三章 Set和Map数据结构">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ES6 第十三章 Set和Map数据结构</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/06/13/ECAMScript-eight-chart/" title="ES6第八章 函数的扩展">
+                        <span class="hidden-mobile">ES6第八章 函数的扩展</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

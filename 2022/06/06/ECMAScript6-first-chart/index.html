@@ -1,0 +1,759 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="es6新增let命令，用来声明变量。它的用法类似于var，但是所声明的变量,只有在let命令所在的代码块内有效,同时也新增了Const，用于声明常量">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6第一章 ES6简介和Babel转码">
+<meta property="og:url" content="http://example.com/2022/06/06/ECMAScript6-first-chart/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="es6新增let命令，用来声明变量。它的用法类似于var，但是所声明的变量,只有在let命令所在的代码块内有效,同时也新增了Const，用于声明常量">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-06T23:40:54.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.570Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="ES6">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ES6第一章 ES6简介和Babel转码 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ES6第一章 ES6简介和Babel转码"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-06-06 23:40" pubdate>
+          2022年6月6日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          52 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ES6第一章 ES6简介和Babel转码</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="什么是ES6"><a href="#什么是ES6" class="headerlink" title="什么是ES6"></a>什么是ES6</h2><p>ECMAScript 6.0是JavaScript语言的下一代标准，在2015年6月正式发布，它的目标是，是的JavaScript语言<br>可以用来编写复杂的大型应用程序，成为企业级开发语言。</p>
+<h2 id="ECMAScript和JavaScript的关系"><a href="#ECMAScript和JavaScript的关系" class="headerlink" title="ECMAScript和JavaScript的关系"></a>ECMAScript和JavaScript的关系</h2><p>1996年11月，JavaScript的创建者Netscape公司，决定将JavaScript提交给国际标准化组织ECMA,<br>希望JavaScript能成为国际标准，为什么不叫JavaScript，有两个原因，一个是商标，Java是Sun公司<br>的商标，根据授权协议，只有Netscape公司可以合法使用JavaScript这个名字，二是，想体现这门语言<br>制定者是ECMA,不是Netscape，这样有利于保证这门语言的开放性和中立性<br>ECMAScript是JavaScript的规格，JavaScript是ECMAScript的实现。（另外的还有Jscript<br>和ActionScript）<br>ES6从开始定知道最后发布，用了整整15年</p>
+<p>ES1.0 是1997年发布<br>ES2.0 是1998年<br>ES3.0 是1999年<br>3.0版本是一个巨大的成功，在业界得到了广泛的支持，成为通行标准，奠定了JavaScript的基本语法<br>ES4.0 从2000年开始酝酿，但最后没有通过，因为版本太激进了，对ES3做了彻底的升级<br>负责制定ECMAScript标准的成员，包括Microsoft、Mozilla、Goggle等大公司驳回了<br>ES4.0 2007年10月，以Yahoo、Microsoft、Google为首的大公司，反对JavaScript的大幅升级<br>ES3.1 2008年7月 终止了ES4.0的开发，只涉及部分功能改善，发布成了ES3.1<br>ES5.0 2009年12月，发布<br>ES5.1 2011年6月发布<br>ES6.0 2013年2月草案被冻结<br>ES6.0 2013年12月 发布<br>ES6.0 2015年6月 ECMAScript 6正是通过</p>
+<h2 id="部署进度"><a href="#部署进度" class="headerlink" title="部署进度"></a>部署进度</h2><p>各大浏览器的最新版本，对ES6的支持可以看kangax.github.io&#x2F;es5-compat-table&#x2F;es6&#x2F;。<br>随着时间的推移，支持度已经越来越高了，ES6的大部分特性都已经实现了</p>
+<p>Node.js是JavaScript语言的服务器运行环境，对ES6的支持度比浏览器更高。通过Node，可以<br>体验更多的ES6的特性，建议使用版本工具nvm，来安装Node，以为可以自由切换版本。</p>
+<h2 id="第一章-Babel转码器"><a href="#第一章-Babel转码器" class="headerlink" title="第一章 Babel转码器"></a>第一章 Babel转码器</h2><p>Babel是一个广泛使用的ES6转码器，可以将ES6转为ES5代码，从而在现有环境执行，这意味着，你可以用<br>ES6的方式编写程序，又不用担心现有环境是否支持</p>
+<p> &#x2F;&#x2F;转码前<br> input.map(item &#x3D;&gt; item +1);</p>
+<p> &#x2F;&#x2F;转码后<br> input,map(function(item){<br>  return item +1;<br> })</p>
+<h2 id="配置文件-babelrc"><a href="#配置文件-babelrc" class="headerlink" title="配置文件**.babelrc**"></a>配置文件**.babelrc**</h2><p>Babel的配置文件是**.babelrc**,存放在项目的根目录下。<br>使用Babel的第一步，就是配置这个文件，该文件用来设置转码规则和插件，基本格式如下</p>
+<p> {<br>    “presets”:[],<br>    “plugins”:[]<br> }</p>
+<p>presets字段设定转码规则，官方提供一下的规则集，你可以根据需要安装</p>
+<p>plugins字段设定转码插件</p>
+<h4 id="ES2015转码规则"><a href="#ES2015转码规则" class="headerlink" title="ES2015转码规则"></a>ES2015转码规则</h4><p> npm  install  –save-dev babel-preset-es2015</p>
+<h4 id="react转码规则"><a href="#react转码规则" class="headerlink" title="react转码规则"></a>react转码规则</h4><p> $npm install –save-dev babel-preset-react</p>
+<h4 id="ES7不同阶段语法天的转码规则（共四个阶段），选装其中一个"><a href="#ES7不同阶段语法天的转码规则（共四个阶段），选装其中一个" class="headerlink" title="ES7不同阶段语法天的转码规则（共四个阶段），选装其中一个"></a>ES7不同阶段语法天的转码规则（共四个阶段），选装其中一个</h4><p> $npm install –save-dev babel-preset-stage-0<br> $npm install –save-dev babel-preset-stage-1<br> $npm install –save-dev babel-preset-stage-2<br> $npm install –save-dev babel-preset-stage-3</p>
+<p>然后，将这些规则加入到 .babelrc</p>
+<p> {<br>   “presets”:[<br>  “es2015”,<br>  “react”,<br>  “stage-2”<br>   ],<br>   “plugins”:[]<br> }</p>
+<p>注意，一下所有的Babel工具和模块的应用都必须先写好.babelrc。</p>
+<h3 id="命令行转码babel-cli"><a href="#命令行转码babel-cli" class="headerlink" title="命令行转码babel-cli"></a>命令行转码babel-cli</h3><p>Babel提供babel-cli工具，用于命令行转码</p>
+<p>它的安装命令如下</p>
+<p> $npm install –global babel-cli</p>
+<p>基本用法如下</p>
+<p> #转码结果输出到标准输出<br> $babel example.js</p>
+<p> #转码结果写入一个文件</p>
+<h1 id="–out-file-或-o-参数指定输出文件"><a href="#–out-file-或-o-参数指定输出文件" class="headerlink" title="–out-file 或-o 参数指定输出文件"></a>–out-file 或-o 参数指定输出文件</h1><p> $ babel example.js -o compiled.js</p>
+<p> #整个目录转码</p>
+<h1 id="–out-dir-或-d参数指定输出目录"><a href="#–out-dir-或-d参数指定输出目录" class="headerlink" title="–out-dir 或 -d参数指定输出目录"></a>–out-dir 或 -d参数指定输出目录</h1><p> $ babel src –out-dir lib<br> #或者<br> $ babel src -d lib</p>
+<h1 id="s参数生成-source-map文件"><a href="#s参数生成-source-map文件" class="headerlink" title="-s参数生成 source map文件"></a>-s参数生成 source map文件</h1><p> $babel src -d lib  -s</p>
+<p>上面代码是在全局环境下，进行Babel转码。意味着，如果项目要运行，全局环境必须要有Babel，<br>这也就是说项目产生了对环境的依赖。<br>另一方面，这样做也无法支持不同项目使用不同版本的Babel</p>
+<p>一个解决办法就是将babel-cli安装在项目之中</p>
+<p> #安装<br> $ npm install –save-dev babel-cli</p>
+<p>然后改写package.json</p>
+<p> {<br>  &#x2F;&#x2F;…<br>  “devDependencies”:{<br>   “babel-cli”:”^6.0.0”<br>  },<br>  “scripts”:{<br>   “bulid”:”babel src -d lib”<br>  },<br> }</p>
+<p>转码的时候，就执行下面的命令</p>
+<p> npm run build</p>
+<h3 id="babel-node"><a href="#babel-node" class="headerlink" title="babel-node"></a>babel-node</h3><p>babel-cli工具自带一个babel-node命令，提供一个支持ES6的REPL环境，它还支持Node的<br>REPL环境的所有功能，而且可以直接运行ES6代码</p>
+<p>它不用单独安装，而是随着babel-cli一起安装，然后执行babel-node就进入了REPL环境</p>
+<p> $ babel-node</p>
+<blockquote>
+<p>(x &#x3D;&gt; x *2)(1)<br> 2</p>
+</blockquote>
+<p>babel-node命令可以直接运行ES6脚本，将上面的代码放入脚本文件es6.js,然后直接运行</p>
+<p> $ babel-node es6.js<br> 2</p>
+<p>babel-node也可以安装在项目中</p>
+<p> npm install –save-dev babel-cli</p>
+<p>然后改写package.json</p>
+<p> {<br>  “scripts”:[<br>   “script-name”:”babel-node script.js”<br>  ]<br> }</p>
+<p>解释：使用babel-node替代node,这样script.js本身就不用做任何转码处理</p>
+<h3 id="babel-register"><a href="#babel-register" class="headerlink" title="babel-register"></a>babel-register</h3><p>babel-register模块改写require命令，为它加上一个钩子。此后，每当使用require加载<br>.js、.jsx、.es和.es6后缀名的文件，就会先用Babel进行转码</p>
+<p> $npm install –save-dev babel-register</p>
+<p>使用时，必须首先加载babel-register。</p>
+<p> require(“babel-register”);<br> require(“.&#x2F;index.js”);</p>
+<p>然后，就不需要手动对index.js进行转码了<br>需要注意的是，babel-register只会对require命令加载的文件转码，而不会对大年文件转码。另外，由于它是<br>实时转码，所以只适合在开发环境使用</p>
+<h3 id="babel-core"><a href="#babel-core" class="headerlink" title="babel-core"></a>babel-core</h3><p>如果某些代码需要调用Babel的API进行转码，就要使用babel-core模块<br>安装命令如下</p>
+<p> npm install babel-core –save</p>
+<p>然后，在项目中就可以调用babel-core</p>
+<p> var babel &#x3D; require(‘babel-core’);</p>
+<p> &#x2F;&#x2F;字符串转码<br> babel.transform(‘code();’,optins);<br> &#x2F;&#x2F;&#x3D;&gt;{code,map,ast}</p>
+<p> &#x2F;&#x2F;文件转码(异步)<br> babel.transformFile(‘filename.js’,options,function(err,result){<br>  result;&#x2F;&#x2F;&#x3D;&gt;{code,map,ast}<br> })</p>
+<p> &#x2F;&#x2F;文件转码(同步)<br> babel.transforFileSync(‘filename.js’,options);<br> &#x2F;&#x2F;&#x3D;&gt;{code,map,ast}</p>
+<p> &#x2F;&#x2F;Babel AST转码<br> babel.transformFromAst(ast,code,options);<br> &#x2F;&#x2F;&#x3D;&gt;{code,map,ast}</p>
+<p>例子：</p>
+<p> var es6Code &#x3D; ‘let x &#x3D; n &#x3D;&gt; n +1’;<br> var es5Code &#x3D; require(‘babel-core’).transform(es6Code,{<br>   presets:[‘es2015’]<br>  }).code;<br> &#x2F;&#x2F;‘“use strict”;\n\n var x &#x3D;function x(n){\n return n +1;\n}’</p>
+<p>解释：transform方法的第一个参数是一个字符串，表示需要被转换的ES6代码，第二个参数<br>是转换的配置对象。</p>
+<h3 id="babel-polyfill"><a href="#babel-polyfill" class="headerlink" title="babel-polyfill"></a>babel-polyfill</h3><p>Babel默认只转换新的JavaScript句法(syntax),而不是转换新的API，比如Iterator、Generator<br>、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法<br>（比如object.assign）都不会转码。</p>
+<p>举例来说，ES6在Array对象上新增了Array.from方法，Babel就不会转码这个方法。如果想让这个方法<br>运行，必须使用babel-polyfill,为当前环境提供一个垫片。<br>安装命令如下</p>
+<p> npm install –save babel-polyfill</p>
+<p>然后，在脚本头部，加入如下一行代码。</p>
+<p> import ‘babel-polyfill’;<br> &#x2F;&#x2F;或者<br> require(‘babel-polyfill’);<br> Babel默认不转码的API非常多，详细清单可以查看babel-plugin-transform-runtime模块的<br> definitions.js文件。</p>
+<h3 id="浏览器换将"><a href="#浏览器换将" class="headerlink" title="浏览器换将"></a>浏览器换将</h3><p>Babel也可以用于浏览器环境。但是从Babel6.0开始，不再直接提供浏览器版本，而是要构建工具构建<br>出来。如果你没有或不想使用构建工具，可以通过安装5.x版本的babel-core模块获取。</p>
+<p> npm install babel-core@5</p>
+<p>运行上面的命令以后，就可以在当前目录的node_mpdules&#x2F;babel-core&#x2F;子目录里面，找到<br>babel的浏览器版本browser.js（未精简）和browser.min.js(已经精简)</p>
+<p>然后，将下面的代码插入网页<br> <script src="node_modules/babel-core/browser.js"><scrpit><br> <script type="text/babel"><br> //your ES6 CODE<br> </script></p>
+<p>上面代码中，browser.js是Babel提供的转换脚本，可以在浏览器运行。用户的ES6脚本放在<br>script标签中，弹药注明type&#x3D;”text&#x2F;babel”。另一种方法是使用babel-standalone模块提供的<br>浏览器版本，将其插入网页</p>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.4.4/babel,min,js"></scrip>
+ <script type="text/babel">
+ //your ES6 CODE
+ </script>
+
+<p>注意，网页中实时将ES6代码转为ES5，对性能会有影响。生产环境需要加载转码完成的脚本。</p>
+<p>下面是如何将代码打包成浏览器可以使用的脚本，一Babel配合Browserify为例。首先，安装<br> babelify模块。<br> $ npm install –save-dev babelify babel-preset-es2015</p>
+<p>然后，再用命令行转换ES6脚本。</p>
+<p> $ browserif script.js -o bundle.js <br> -t [ babelify –presets [es2015]]<br>上面代码将ES6脚本script.js，转为bundle.js，浏览器直接加载后者就可以了。<br>在package.json设置下面的代码，就不用每次命令行都输入参数了</p>
+<p> {<br>  “browserify”:{<br>   “transform”:[[“babelify”,{“presets”:[“es2015”]}]]<br>  }<br> }</p>
+<h3 id="与其他工具的配合"><a href="#与其他工具的配合" class="headerlink" title="与其他工具的配合"></a>与其他工具的配合</h3><p>许多工具需要Babel进行前置转码，这里有两个例子：ESLint和Mocha。<br>ESLint用于静态检查代码语法和风格，安装命令如下。</p>
+<p> npm install –save-dev selint babel-eslint</p>
+<p>然后，在项目根目录下，新建一个配置文件 .eslintrc,在其中加入parser字段。</p>
+<p> {<br>  “parser”:”babel-eslint”,<br>  “rules”:{<br>   …<br>  }<br> }</p>
+<p>再在package.json之中，加入响应的scripts脚本</p>
+<p> {<br>  “name”:”my-module”,<br>  “scripts”:{<br>   “lint”:”eslint myfiles.js”<br>  },<br>  “devDependencies”:{<br>   “babel-eslint”:”…”,<br>   “eslint”:”…”,<br>  }<br> }</p>
+<h3 id="Traceur转码器"><a href="#Traceur转码器" class="headerlink" title="Traceur转码器"></a>Traceur转码器</h3><p>Google公司的Traceur转码器，也可以将ES6代码转为ES5代码。</p>
+<h4 id="直接插入网页"><a href="#直接插入网页" class="headerlink" title="直接插入网页"></a>直接插入网页</h4><p>Traceur允许将ES6代码直接插入网页，首先必须在网页头部加载Traceur库文件</p>
+ <script src="https://google.github.io/traceur-compiler/bin/traceur.js"></script>
+ <script src="https://google.github.io/traceur-compiler/bin/BrowserSystem.js"></script>
+ <script src="https://google.github.io/traceur-compiler/bin/bootstrap.js"></script>
+ <script type="module">
+ import './Greeter.js';
+ </script>
+
+<p>上面代码一共有4个script标签，第一个是加载Trcaeur的库文件，第二个和第三个是将这个库文件<br>用于浏览器环境，第四个则是加载用户脚本，这脚本里面可以使用ES6代码。<br>注意，第四个script标签的type属性的值是module,而不是text&#x2F;javascript。这是Traceur编译器识别<br>ES6代码的标志，编译器会自动将所有type&#x3D;module的代码编译为ES5，然后再交给浏览器执行<br>除了外部ES6脚本，也可以直接在网页中放置ES6代码</p>
+<h4 id="在线转换"><a href="#在线转换" class="headerlink" title="在线转换"></a>在线转换</h4><p>Traceur也提供一个在线编辑器，可以在线将ES6代码转为ES5代码，可以直接作为ES5代码插入网页运行</p>
+<h3 id="命令行转换"><a href="#命令行转换" class="headerlink" title="命令行转换"></a>命令行转换</h3><p>作为命令行工具使用时，Traceur是一个Node的模块，首先需要用npm安装</p>
+<p> npm install -g traceur</p>
+<p>安装成功后，就可以在命令行下使用Traceur了。</p>
+<p>Traceur直接运行es6脚本文件，会在标准输出显示运算结果，以前的calc.js为例。</p>
+<p> $ traceur calc.js<br> Calc constructor<br> 9</p>
+<p>如果要将ES6脚本转为ES5保存，要采用下面的写法。</p>
+<p> traceur –script cal.es6.js –out cale.es5.js</p>
+<p>上面代码的–script选项表示指定输入文件，–out选项表示指定输出文件</p>
+<p>为了防止编译不成功，可以加上–experimental选项</p>
+<p> traceur –script calc.es6.js –out calc.es5.js –experimental</p>
+<p>命令行下转换生成的文件，就可以直接放到浏览器中运行</p>
+<h3 id="ES7"><a href="#ES7" class="headerlink" title="ES7"></a>ES7</h3><p>2013年3月，ES6草案封闭，不再接受新功能了，新的功能将被列入ES7</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ES6/" class="category-chain-item">ES6</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ES6/">#ES6</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ES6第一章 ES6简介和Babel转码</div>
+      <div>http://example.com/2022/06/06/ECMAScript6-first-chart/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年6月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/06/07/ECMAScript6-second-chart/" title="ES6第二章 let和const">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ES6第二章 let和const</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/02/20/webpack-first/" title="Webpack">
+                        <span class="hidden-mobile">Webpack</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

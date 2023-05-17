@@ -1,0 +1,844 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一直想系统性整理一下CSS，关于CSS的层叠和继承，就是开发者CSS的三种引入方式，还有一些CSS的选择去需要拿出来重新整理一下">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS基础">
+<meta property="og:url" content="http://example.com/2020/05/18/CSS-Base/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="一直想系统性整理一下CSS，关于CSS的层叠和继承，就是开发者CSS的三种引入方式，还有一些CSS的选择去需要拿出来重新整理一下">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitee.com/youlan_lan/md_image/raw/master/20210607012255.png">
+<meta property="article:published_time" content="2020-05-18T15:14:54.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.474Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="CSS3">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitee.com/youlan_lan/md_image/raw/master/20210607012255.png">
+  
+  
+  
+  <title>CSS基础 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="CSS基础"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2020-05-18 15:14" pubdate>
+          2020年5月18日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          35 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">CSS基础</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="CSS基础"><a href="#CSS基础" class="headerlink" title="CSS基础"></a>CSS基础</h1><h2 id="打好CSS布局的基础"><a href="#打好CSS布局的基础" class="headerlink" title="打好CSS布局的基础"></a>打好CSS布局的基础</h2><p>基于CSS进行设计的最主要的优势就是，只要HTML文档结构良好，那么很容易通过添加一层CSS作为修饰，让文档样式变得非常漂亮。把HTML结构看做书一样持久不变，就像把html刻在石头上一样。这样，提交代码后，尽量不要修改html结构，因为修改了html结构会使得css样式错乱。</p>
+<h2 id="css层叠与继承"><a href="#css层叠与继承" class="headerlink" title="css层叠与继承"></a>css层叠与继承</h2><h3 id="层叠"><a href="#层叠" class="headerlink" title="层叠"></a>层叠</h3><p>一个元素的样式，可以通过多种方式来定义，而多种定义方式之间通过复杂的影响关系决定了元素的最终样式。这种复杂既造就了CSS的强大，也导致CSS显得如此“混乱”而难以调试。</p>
+<p>对于层叠来说，共有三种主要的样式来源：</p>
+<ul>
+<li><p>浏览器对HTML定义的默认样式</p>
+</li>
+<li><p>用户定义的样式</p>
+</li>
+<li><p>开发者定义的样式，可以有三种形式：</p>
+<ul>
+<li>定义在外部文件(外链样式)：通过<link>引入的样式</li>
+<li>在页面的头部定义（内部样式，也叫内联样式）：通过&lt;style&gt;定义的样式，只在本页面内生效</li>
+<li>定义在特定元素上（内嵌样式，也叫行内样式）：这种形式多用于测试，可维护性差</li>
+</ul>
+</li>
+</ul>
+<p>注：（css层叠样式的三种优先级比较）</p>
+<p>外链样式 &lt; 内联样式 &lt; 内嵌样式</p>
+<p>记忆方法：就近原则(谁靠近元素最近，谁的优先级最高)</p>
+<p>特殊情况：<br>就是如果外部样式放在内部样式的后面，则外部样式将覆盖内部样式。<br>如：</p>
+ <head>
+     <style type="text/css">
+       /*内部样式*/
+       h3{color:green;}
+     </style>
+  
+<pre><code class="hljs"> &lt;!-- 外部样式 style.css --&gt;
+ &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;style.css&quot;/&gt;
+ &lt;!-- 设置：h3&#123;color:blue;&#125; --&gt;
+</code></pre>
+ </head>
+ <body>
+     <h3>测试！</h3>
+ </body>
+
+<h3 id="优先级附加（IE-中奇怪的应用–CSS的BUG）"><a href="#优先级附加（IE-中奇怪的应用–CSS的BUG）" class="headerlink" title="优先级附加（IE 中奇怪的应用–CSS的BUG）"></a>优先级附加（IE 中奇怪的应用–CSS的BUG）</h3><p>IE浏览器下载或者渲染的顺序可能如下</p>
+<ul>
+<li>IE下载的顺序是从上到下的</li>
+<li>JavaScript函数的执行会阻塞IE的下载</li>
+<li>IE渲染的顺序是同时进行的</li>
+<li>在渲染到页面的某一部分时，其上面的所有部分都已经瞎子完成（但并不是说所有相关联的元素都已经下载完了）</li>
+<li>解析过程中，停止页面所有往下元素的下载，样式文件比较特殊，在其下载完成后，将和以前下载的所有样式表一起进行解析，解析完成后，将对此前所有元素（含以前渲染的）重新进行样式渲染。并以此方式一直渲染下去，直到渲染页面完成</li>
+<li>Firefox处理下载和渲染的顺序大体相同，除了iframe的渲染。</li>
+</ul>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><p>当页面一个元素被另一个元素包裹时，我们称被包裹的元素叫子元素，包裹元素叫父元素。如：</p>
+ <p style="color:red">
+  这是一个<strong>测试</strong>的p标签
+ </p>
+
+<p>当给p添加样式color为red时，此时a的颜色样式被stong继承了，当然也不是所有的css属性都会被子类继承，例如border属性。继续利用上面的一段代码。我们为p元素添加border属性</p>
+ <p style="border:1px solid red">
+  这是一个<strong>测试</strong>的p标签
+ </p>
+
+<p>执行之后会发现，只有一个框而不是测试两个字也有边框,同样css的继承也不是所有元素都能主动继承的，有的并不能直接继承父元素的css属性。当子元素不能能直接继承父元素的属性的时候，我们可以在样式中使用inherit来声明子元素的该属性继承父的子元素。</p>
+ <p style="border:1px solid red">
+  这是一个<strong style="border:inherit">测试</strong>的p标签
+ </p>
+
+<p>这时，我们会发现这个strong元素的border属性跟父元素p一样也有红色边框</p>
+<h2 id="CSS的选择器"><a href="#CSS的选择器" class="headerlink" title="CSS的选择器"></a>CSS的选择器</h2><h3 id="基础选择器"><a href="#基础选择器" class="headerlink" title="基础选择器"></a>基础选择器</h3><ol>
+<li>标签选择器</li>
+</ol>
+<p> *{}     指定通用元素选择器，匹配任何元素</p>
+<p>  *{margin:0 auto;padding:0 auto;}</p>
+<p> element  标签选择器，匹配标签的元素</p>
+<ol start="2">
+<li>类选择器</li>
+</ol>
+<p> .class   指定元素中包含该class类的元素</p>
+<ol start="3">
+<li>id选择器</li>
+</ol>
+<p>  #id  指定元素的id值是id的元素</p>
+<p>选择器的优先级</p>
+<p>内嵌样式(行内样式) &gt; id选择器 &gt; Class选择器 &gt; 标签选择器</p>
+<p>权重:1000 &gt; 100 &gt; 10 &gt; 1</p>
+<p>解释：首先同css优先级一样内嵌（行内）是最高级别的，id选择器次之，因为html中id的定义是有且仅有一个同名id，类选择第三因为，多个元素可以拥有相同的class类名，而标签选择器排在最后是因为，元素标签是html的底层的东西，即不能单独指定某一个元素，也不能指定某一类元素。仅仅表示元素总的标签类。</p>
+<h3 id="关系选择器（组合选择器）"><a href="#关系选择器（组合选择器）" class="headerlink" title="关系选择器（组合选择器）"></a>关系选择器（组合选择器）</h3><ol>
+<li>E,F</li>
+</ol>
+<p> 多元素选择器，同时匹配所有E元素和F元素，中间用，分隔<br>2. E F</p>
+<p> 后代选择器，匹配E元素后代元素中的F元素<br>3. E&gt;F</p>
+<p> 子元素选择器，匹配E元素子元素中的F元素<br>4.  E+F</p>
+<p> 组合选择器，元素B的任一下一个兄弟元素E</p>
+<ol start="5">
+<li>E:first-child，E:nth-child(n)</li>
+</ol>
+<p> 节点选择器，E元素的直系第一个后代元素</p>
+<ol start="6">
+<li>B~E</li>
+</ol>
+<p> 兄弟选择器，B元素后面的拥有共父元素的E元素</p>
+<h3 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h3><ol>
+<li>E[att]</li>
+</ol>
+<p> 匹配所有att属性的E元素，不考虑它的值</p>
+<ol start="2">
+<li>E[att &#x3D; val]</li>
+</ol>
+<p> 匹配所有att属性值等于”val”的E的元素</p>
+<ol start="3">
+<li>E[att~&#x3D;val]</li>
+</ol>
+<p> 匹配所有att属性具有多个空格分隔的值、其中一个值等于“val”的E元素</p>
+<ol start="4">
+<li>E[att &#x3D; val]</li>
+</ol>
+<p> 匹配所有att属性具有多个连字号分隔（hyphen-separated）的值、其中一个值以“val”开头的E元素，主要用于lang属性，比如“en”、“en-us”、“en-gb”等等</p>
+<h3 id="伪类选择器"><a href="#伪类选择器" class="headerlink" title="伪类选择器"></a>伪类选择器</h3><p>什么叫伪类选择器，伪就是假装的意思，和一般的DOM中的元素不一样，它并不改变任何DOM内容。只是插入了一些装饰类的元素，这些元素对于用户来说是可见的，但对于DOM来说不可见。伪类的效果可以通过添加一个实际的类来达到。</p>
+<p>伪类的分类有两种：</p>
+<p>一、动态伪类;</p>
+<p>动态伪类，因为这些伪类并不存在于HTML中,而只有当用户和网站交互的时候才能体现出来</p>
+<p> a:link {color:gray;}&#x2F;<em>链接没有被访问时，颜色为灰色</em>&#x2F;<br> a:visited{color:yellow;}&#x2F;<em>链接被访问过后，颜色为黄色</em>&#x2F;<br> a:hover{color:green;}&#x2F;<em>鼠标悬浮在链接上时，颜色为绿色</em>&#x2F;<br> a:active{color:blue;}&#x2F;<em>鼠标点中激活链接那一下，颜色为蓝色</em>&#x2F;</p>
+<p>对于这四个伪类的设置，有一点需要特别注意，Link–visited–hover–active顺序如果错了，可能会带来意想不到的效果。</p>
+<p>二、状态伪类</p>
+<ul>
+<li>“:enabled”  可点状态</li>
+<li>“:disabled” 不可点状态</li>
+<li>“:checked” 勾中状态</li>
+</ul>
+<p>三、nth伪类选择</p>
+<ul>
+<li><p>:first-child   选择某个元素的第一个子元素；</p>
+</li>
+<li><p>:last-child   选择某个元素的最后一个子元素；</p>
+</li>
+<li><p>:nth-child()   选择某个元素的一个或多个特定的子元素；</p>
+</li>
+<li><p>:nth-last-child() 选择某个元素的一个或多个特定的子元素，从这个元素的最后一个子元素开始算；</p>
+</li>
+<li><p>:nth-of-type()   选择指定的元素；</p>
+</li>
+<li><p>:nth-last-of-type() 选择指定的元素，从元素的最后一个开始计算；</p>
+</li>
+<li><p>:first-of-type   选择一个上级元素下的第一个同类子元素；</p>
+</li>
+<li><p>:last-of-type   选择一个上级元素的最后一个同类子元素；</p>
+</li>
+<li><p>:only-child   选择的元素是它的父元素的唯一一个了元素；</p>
+</li>
+<li><p>:only-of-type   选择一个元素是它的上级元素的唯一一个相同类型的子元素；</p>
+</li>
+<li><p>:empty    选择的元素里面没有任何内容。（IE 6-8不支持）</p>
+</li>
+<li><p>：not 否定选择器，常用form表单中除去submit的input样式</p>
+<p>input:not([type&#x3D;”submit”]){…}</p>
+</li>
+</ul>
+<p>四、伪元素</p>
+<p>对元素进行一些调整但又不能写在元素里面的</p>
+<ul>
+<li><p>:first-line 选择元素的第一行，用于控制第一行文本</p>
+</li>
+<li><p>:first-letter 选择元素的第一个字母，用于控制首字母下沉或上浮</p>
+</li>
+<li><p>:before 在主要元素之前插入内容，这个content配合使用，见过做多的是清除浮动</p>
+</li>
+<li><p>:after 在主要元素之后插入内容，这个content配合使用，见过做多的是清除浮动</p>
+</li>
+</ul>
+<p>之前写过一个用befor和after给页面添加小点缀的东西</p>
+ <div class="section-header">
+  <h2>页面小点缀</h2>
+ </div>
+ <style>
+ .section-header h2 {
+     margin-top: 30px;
+     margin-bottom: 30px;
+     font-size: 45px;
+     font-weight: 600;
+     color: #313131;
+     font-family: "Lora", serif;
+     text-align: center;
+     text-transform: uppercase;
+     position: relative;
+     padding-bottom: 30px;
+ }
+
+<p> &#x2F;<em>画两头的线</em>&#x2F;<br> .section-header h2:before {<br>     border-left: 50px solid #DADADA;<br>     border-right: 50px solid #DADADA;<br>     bottom: 5px;<br>     content: “”;<br>     height: 1px;<br>     left: 50%;<br>     margin-left: -70px;<br>     position: absolute;<br>     width: 40px;<br> }<br> &#x2F;<em>画菱形</em>&#x2F;<br> .section-header h2:after {<br>     background: #FF8724 none repeat scroll 0 0 padding-box content-box;<br>     border-bottom: 1px solid #DADADA;<br>     border-left: 1px solid #DADADA;<br>     bottom: -9px;<br>     content: “”;<br>     height: 22px;<br>     left: 50%;<br>     margin-left: -16px;<br>     padding: 0 0 8px 8px;<br>     position: absolute;<br>     -webkit-transform: rotate(-45deg);<br>     -ms-transform: rotate(-45deg);<br>     transform: rotate(-45deg);<br>     width: 22px;<br> }<br> </style></p>
+<p>效果图：</p>
+<p><img src="/!--swig%EF%BF%BC0--" srcset="/img/loading.gif" lazyload></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
+<li><p>选择器都有一个权值，权值越大越优先；</p>
+</li>
+<li><p>当权值相等时，后出现的样式表设置要优于先出现的样式表设置；</p>
+</li>
+<li><p>创作者的规则高于浏览者：即网页编写者设置的CSS 样式的优先权高于浏览器所设置的样式；</p>
+</li>
+<li><p>继承的CSS 样式不如后来指定的CSS 样式；</p>
+</li>
+<li><p>在同一组属性设置中标有“!important”规则的优先级最大；</p>
+</li>
+<li><p>要灵活运用好CSS的选择器的运用，很少的代码实现完美的页面展示，要勤加练习，这样才能完全掌握CSS的样式</p>
+</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/CSS3/" class="category-chain-item">CSS3</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/CSS3/">#CSS3</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>CSS基础</div>
+      <div>http://example.com/2020/05/18/CSS-Base/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2020年5月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/06/20/CSS3-stransition-and-animation/" title="CSS3的过渡和动画比较">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">CSS3的过渡和动画比较</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2020/05/18/learn-main-path/" title="理解浏览器关键渲染路径">
+                        <span class="hidden-mobile">理解浏览器关键渲染路径</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

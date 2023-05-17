@@ -1,0 +1,855 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="ES6提供了更接近传统语言的写法，引入了Class（类）这个概念，作为对象的模板。通过class关键字，可以定义类。基本上，ES6的class可以看作只是一个语法糖，它的绝大部分功能，ES5都可以做到，新的class写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。上面的代码用ES6的“类”改写，就是下面这样。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6 第十八章	Class">
+<meta property="og:url" content="http://example.com/2022/07/03/ECAMScript-eighteen-Class/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="ES6提供了更接近传统语言的写法，引入了Class（类）这个概念，作为对象的模板。通过class关键字，可以定义类。基本上，ES6的class可以看作只是一个语法糖，它的绝大部分功能，ES5都可以做到，新的class写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。上面的代码用ES6的“类”改写，就是下面这样。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-03T23:11:54.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.506Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="ES6">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ES6 第十八章	Class - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ES6 第十八章	Class"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-03 23:11" pubdate>
+          2022年7月3日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          19k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          162 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ES6 第十八章	Class</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第十八章-Class"><a href="#第十八章-Class" class="headerlink" title="第十八章 Class"></a>第十八章 Class</h1><h2 id="Class基本语法"><a href="#Class基本语法" class="headerlink" title="Class基本语法"></a>Class基本语法</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>JavaScript语言的传统方法是通过构造函数，定义并生成新对象。下面是一个例子。</p>
+<p> function Point(x, y) {<br>  this.x &#x3D; x;<br>  this.y &#x3D; y;<br> }<br> Point.prototype.toString &#x3D; function () {<br>  return ‘(‘ + this.x + ‘, ‘ + this.y + ‘)’;<br> };<br> var p &#x3D; new Point(1, 2);</p>
+<p>上面这种写法跟传统的面向对象语言（比如C++和Java）差异很大，很容易让新学习这门语言的程序员感到困惑。</p>
+<p>ES6提供了更接近传统语言的写法，引入了Class（类）这个概念，作为对象的模板。通过class关键字，可以定义类。基本上，ES6的class可以看作只是一个语法糖，它的绝大部分功能，ES5都可以做到，新的class写法只是让对象原型的写法更加清晰、更像面向对象编程的语法而已。上面的代码用ES6的“类”改写，就是下面这样。</p>
+<p> &#x2F;&#x2F;定义类<br> class Point {<br>  constructor(x, y) {<br>   this.x &#x3D; x;<br>   this.y &#x3D; y;<br>  }<br>  toString() {<br>   return ‘(‘ + this.x + ‘, ‘ + this.y + ‘)’;<br>  }<br> }</p>
+<p>上面代码定义了一个“类”，可以看到里面有一个constructor方法，这就是构造方法，而this关键字则代表实例对象。也就是说，ES5的构造函数Point，对应ES6的Point类的构造方法。</p>
+<p>Point类除了构造方法，还定义了一个toString方法。注意，定义“类”的方法的时候，前面不需要加上function这个关键字，直接把函数定义放进去了就可以了。另外，方法之间不需要逗号分隔，加了会报错。<br>ES6的类，完全可以看作构造函数的另一种写法。</p>
+<p> class Point {<br>  &#x2F;&#x2F; …<br> }<br> typeof Point &#x2F;&#x2F; “function”<br> Point &#x3D;&#x3D;&#x3D; Point.prototype.constructor &#x2F;&#x2F; true</p>
+<p>上面代码表明，类的数据类型就是函数，类本身就指向构造函数。</p>
+<p>使用的时候，也是直接对类使用new命令，跟构造函数的用法完全一致。</p>
+<p> class Bar {<br>  doStuff() {<br>   console.log(‘stuff’);<br>  }<br> }<br> var b &#x3D; new Bar();<br> b.doStuff() &#x2F;&#x2F; “stuff”</p>
+<p>构造函数的prototype属性，在ES6的“类”上面继续存在。事实上，类的所有方法都定义在类的prototype属性上面。</p>
+<p> class Point {<br>  constructor(){<br>   &#x2F;&#x2F; …<br>  }<br>  toString(){<br>   &#x2F;&#x2F; …<br>  }<br>  toValue(){<br>   &#x2F;&#x2F; …<br>  }<br> }<br> &#x2F;&#x2F; 等同于<br> Point.prototype &#x3D; {<br>  toString(){},<br>  toValue(){}<br> };</p>
+<p>在类的实例上面调用方法，其实就是调用原型上的方法。</p>
+<p> class B {}<br> let b &#x3D; new B();<br> b.constructor &#x3D;&#x3D;&#x3D; B.prototype.constructor &#x2F;&#x2F; true<br>上面代码中，b是B类的实例，它的constructor方法就是B类原型的constructor方法。</p>
+<p>由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面。</p>
+<p>Object.assign方法可以很方便地一次向类添加多个方法。</p>
+<p> class Point {<br>  constructor(){<br>   &#x2F;&#x2F; …<br>  }<br> }<br> Object.assign(Point.prototype, {<br>  toString(){},<br>  toValue(){}<br> });<br> prototype对象的constructor属性，直接指向“类”的本身，这与ES5的行为是一致的。<br> Point.prototype.constructor &#x3D;&#x3D;&#x3D; Point &#x2F;&#x2F; true’’</p>
+<p>另外，类的内部所有定义的方法，都是不可枚举的（non-enumerable）。</p>
+<p> class Point {<br>  constructor(x, y) {<br>   &#x2F;&#x2F; …<br>  }<br>  toString() {<br>   &#x2F;&#x2F; …<br>  }<br> }<br> Object.keys(Point.prototype)<br> &#x2F;&#x2F; []<br> Object.getOwnPropertyNames(Point.prototype)<br> &#x2F;&#x2F; [“constructor”,”toString”]</p>
+<p>上面代码中，toString方法是Point类内部定义的方法，它是不可枚举的。这一点与ES5的行为不一致。</p>
+<p> var Point &#x3D; function (x, y) {<br>  &#x2F;&#x2F; …<br> };<br> Point.prototype.toString &#x3D; function() {<br>  &#x2F;&#x2F; …<br> };<br> Object.keys(Point.prototype)<br> &#x2F;&#x2F; [“toString”]<br> Object.getOwnPropertyNames(Point.prototype)<br> &#x2F;&#x2F; [“constructor”,”toString”]</p>
+<p>上面代码采用ES5的写法，toString方法就是可枚举的。</p>
+<p>类的属性名，可以采用表达式。</p>
+<p> let methodName &#x3D; “getArea”;<br> class Square{<br>  constructor(length) {<br>  &#x2F;&#x2F; …<br> }<br> <a href="">methodName</a> {<br>  &#x2F;&#x2F; …<br>  }<br> }<br>上面代码中，Square类的方法名getArea，是从表达式得到的。</p>
+<h3 id="constructor方法"><a href="#constructor方法" class="headerlink" title="constructor方法"></a>constructor方法</h3><p>constructor方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有constructor方法，如果没有显式定义，一个空的constructor方法会被默认添加。</p>
+<p> constructor() {}<br> constructor方法默认返回实例对象（即this），完全可以指定返回另外一个对象。<br> class Foo {<br>  constructor() {<br>   return Object.create(null);<br>  }<br> }<br> new Foo() instanceof Foo<br> &#x2F;&#x2F; false</p>
+<p>上面代码中，constructor函数返回一个全新的对象，结果导致实例对象不是Foo类的实例。</p>
+<p>类的构造函数，不使用new是没法调用的，会报错。这是它跟普通构造函数的一个主要区别，后者不用new也可以执行。</p>
+<p> class Foo {<br>  constructor() {<br>   return Object.create(null);<br>  }<br> }<br> Foo()<br> &#x2F;&#x2F; TypeError: Class constructor Foo cannot be invoked without ‘new’</p>
+<h3 id="类的实例对象"><a href="#类的实例对象" class="headerlink" title="类的实例对象"></a>类的实例对象</h3><p>生成类的实例对象的写法，与ES5完全一样，也是使用new命令。如果忘记加上new，像函数那样调用Class，将会报错。</p>
+<p> &#x2F;&#x2F; 报错<br> var point &#x3D; Point(2, 3);<br> &#x2F;&#x2F; 正确<br> var point &#x3D; new Point(2, 3);<br> 与ES5一样，实例的属性除非显式定义在其本身（即定义在this对象上），否则都是定义在原型上（即定义在class上）。<br> &#x2F;&#x2F;定义类<br> class Point {<br>  constructor(x, y) {<br>   this.x &#x3D; x;<br>   this.y &#x3D; y;<br>  }<br>  toString() {<br>   return ‘(‘ + this.x + ‘, ‘ + this.y + ‘)’;<br>  }<br> }<br> var point &#x3D; new Point(2, 3);<br> point.toString() &#x2F;&#x2F; (2, 3)<br> point.hasOwnProperty(‘x’) &#x2F;&#x2F; true<br> point.hasOwnProperty(‘y’) &#x2F;&#x2F; true<br> point.hasOwnProperty(‘toString’) &#x2F;&#x2F; false<br> point.<strong>proto</strong>.hasOwnProperty(‘toString’) &#x2F;&#x2F; true</p>
+<p>上面代码中，x和y都是实例对象point自身的属性（因为定义在this变量上），所以hasOwnProperty方法返回true，而toString是原型对象的属性（因为定义在Point类上），所以hasOwnProperty方法返回false。这些都与ES5的行为保持一致。</p>
+<p>与ES5一样，类的所有实例共享一个原型对象。</p>
+<p> var p1 &#x3D; new Point(2,3);<br> var p2 &#x3D; new Point(3,2);<br> p1.<strong>proto</strong> &#x3D;&#x3D;&#x3D; p2.<strong>proto</strong><br> &#x2F;&#x2F;true<br> 上面代码中，p1和p2都是Point的实例，它们的原型都是Point，所以__proto__属性是相等的。<br> 这也意味着，可以通过实例的__proto__属性为Class添加方法。</p>
+<p> var p1 &#x3D; new Point(2,3);<br> var p2 &#x3D; new Point(3,2);<br> p1.<strong>proto</strong>.printName &#x3D; function () { return ‘Oops’ };<br> p1.printName() &#x2F;&#x2F; “Oops”<br> p2.printName() &#x2F;&#x2F; “Oops”<br> var p3 &#x3D; new Point(4,2);<br> p3.printName() &#x2F;&#x2F; “Oops”</p>
+<p>上面代码在p1的原型上添加了一个printName方法，由于p1的原型就是p2的原型，因此p2也可以调用这个方法。而且，此后新建的实例p3也可以调用这个方法。这意味着，使用实例的__proto__属性改写原型，必须相当谨慎，不推荐使用，因为这会改变Class的原始定义，影响到所有实例。</p>
+<h3 id="不存在变量提升"><a href="#不存在变量提升" class="headerlink" title="不存在变量提升"></a>不存在变量提升</h3><p>Class不存在变量提升（hoist），这一点与ES5完全不同。</p>
+<p> new Foo(); &#x2F;&#x2F; ReferenceError<br> class Foo {}</p>
+<p>上面代码中，Foo类使用在前，定义在后，这样会报错，因为ES6不会把类的声明提升到代码头部。这种规定的原因与下文要提到的继承有关，必须保证子类在父类之后定义。</p>
+<p> {<br>  let Foo &#x3D; class {};<br>  class Bar extends Foo {<br>  }<br> }</p>
+<p>上面的代码不会报错，因为class继承Foo的时候，Foo已经有定义了。但是，如果存在class的提升，上面代码就会报错，因为class会被提升到代码头部，而let命令是不提升的，所以导致class继承Foo的时候，Foo还没有定义。</p>
+<h3 id="Class表达式"><a href="#Class表达式" class="headerlink" title="Class表达式"></a>Class表达式</h3><p>与函数一样，类也可以使用表达式的形式定义。</p>
+<p> const MyClass &#x3D; class Me {<br>  getClassName() {<br>   return Me.name;<br>  }<br> };<br>上面代码使用表达式定义了一个类。需要注意的是，这个类的名字是MyClass而不是Me，Me只在Class的内部代码可用，指代当前类。</p>
+<p> let inst &#x3D; new MyClass();<br> inst.getClassName() &#x2F;&#x2F; Me<br> Me.name &#x2F;&#x2F; ReferenceError: Me is not defined</p>
+<p>上面代码表示，Me只在Class内部有定义。</p>
+<p>如果类的内部没用到的话，可以省略Me，也就是可以写成下面的形式。</p>
+<p> const MyClass &#x3D; class { &#x2F;<em>…</em>&#x2F; };<br>采用Class表达式，可以写出立即执行的Class。<br> let person &#x3D; new class {<br>  constructor(name) {<br>   this.name &#x3D; name;<br>  }<br>  sayName() {<br>   console.log(this.name);<br>  }<br> }(‘张三’);<br> person.sayName(); &#x2F;&#x2F; “张三”</p>
+<p>上面代码中，person是一个立即执行的类的实例。</p>
+<h3 id="私有方法"><a href="#私有方法" class="headerlink" title="私有方法"></a>私有方法</h3><p>私有方法是常见需求，但ES6不提供，只能通过变通方法模拟实现。</p>
+<p>一种做法是在命名上加以区别。</p>
+<p> class Widget {<br>  &#x2F;&#x2F; 公有方法<br>  foo (baz) {<br>   this._bar(baz);<br>  }<br>  &#x2F;&#x2F; 私有方法<br>  _bar(baz) {<br>   return this.snaf &#x3D; baz;<br>  }<br>  &#x2F;&#x2F; …<br> }<br>上面代码中，_bar方法前面的下划线，表示这是一个只限于内部使用的私有方法。但是，这种命名是不保险的，在类的外部，还是可以调用到这个方法。</p>
+<p>另一种方法就是索性将私有方法移出模块，因为模块内部的所有方法都是对外可见的。</p>
+<p> class Widget {<br>  foo (baz) {<br>   bar.call(this, baz);<br>  }<br>  &#x2F;&#x2F; …<br> }<br> function bar(baz) {<br>  return this.snaf &#x3D; baz;<br> }</p>
+<p>上面代码中，foo是公有方法，内部调用了bar.call(this, baz)。这使得bar实际上成为了当前模块的私有方法。</p>
+<p>还有一种方法是利用Symbol值的唯一性，将私有方法的名字命名为一个Symbol值。</p>
+<p> const bar &#x3D; Symbol(‘bar’);<br> const snaf &#x3D; Symbol(‘snaf’);<br> export default class myClass{<br>  &#x2F;&#x2F; 公有方法<br>  foo(baz) {<br>   this<a href="baz">bar</a>;<br>  }<br>  &#x2F;&#x2F; 私有方法<br>  <a href="baz">bar</a> {<br>   return this[snaf] &#x3D; baz;<br>  }<br>  &#x2F;&#x2F; …<br> };</p>
+<p>上面代码中，bar和snaf都是Symbol值，导致第三方无法获取到它们，因此达到了私有方法和私有属性的效果。</p>
+<h3 id="this的指向"><a href="#this的指向" class="headerlink" title="this的指向"></a>this的指向</h3><p>类的方法内部如果含有this，它默认指向类的实例。但是，必须非常小心，一旦单独使用该方法，很可能报错。</p>
+<p> class Logger {<br>  printName(name &#x3D; ‘there’) {<br>   this.print(<code>Hello $&#123;name&#125;</code>);<br>  }<br>  print(text) {<br>   console.log(text);<br>  }<br> }<br> const logger &#x3D; new Logger();<br> const { printName } &#x3D; logger;<br> printName(); &#x2F;&#x2F; TypeError: Cannot read property ‘print’ of undefined</p>
+<p>上面代码中，printName方法中的this，默认指向Logger类的实例。但是，如果将这个方法提取出来单独使用，this会指向该方法运行时所在的环境，因为找不到print方法而导致报错。</p>
+<p>一个比较简单的解决方法是，在构造方法中绑定this，这样就不会找不到print方法了。</p>
+<p> class Logger {<br>  constructor() {<br>   this.printName &#x3D; this.printName.bind(this);<br>  }<br>  &#x2F;&#x2F; …<br> }<br>另一种解决方法是使用箭头函数。</p>
+<p> class Logger {<br>  constructor() {<br>   this.printName &#x3D; (name &#x3D; ‘there’) &#x3D;&gt; {<br>   this.print(<code>Hello $&#123;name&#125;</code>);<br>   };<br>  }<br>  &#x2F;&#x2F; …<br> }<br>还有一种解决方法是使用Proxy，获取方法的时候，自动绑定this。</p>
+<p> function selfish (target) {<br>  const cache &#x3D; new WeakMap();<br>  const handler &#x3D; {<br>   get (target, key) {<br>    const value &#x3D; Reflect.get(target, key);<br>    if (typeof value !&#x3D;&#x3D; ‘function’) {<br>     return value;<br>    }<br>    if (!cache.has(value)) {<br>     cache.set(value, value.bind(target));<br>    }<br>    return cache.get(value);<br>   }<br>  };<br>  const proxy &#x3D; new Proxy(target, handler);<br>  return proxy;<br> }<br> const logger &#x3D; selfish(new Logger());</p>
+<h3 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h3><p>类和模块的内部，默认就是严格模式，所以不需要使用use strict指定运行模式。只要你的代码写在类或模块之中，就只有严格模式可用。</p>
+<p>考虑到未来所有的代码，其实都是运行在模块之中，所以ES6实际上把整个语言升级到了严格模式。</p>
+<h3 id="name属性"><a href="#name属性" class="headerlink" title="name属性"></a>name属性</h3><p>由于本质上，ES6的类只是ES5的构造函数的一层包装，所以函数的许多特性都被Class继承，包括name属性。</p>
+<p> class Point {}<br> Point.name &#x2F;&#x2F; “Point”<br> Point.name &#x2F;&#x2F; “Point”<br> name属性总是返回紧跟在class关键字后面的类名。</p>
+<h2 id="Class的继承"><a href="#Class的继承" class="headerlink" title="Class的继承"></a>Class的继承</h2><h3 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h3><p>Class之间可以通过extends关键字实现继承，这比ES5的通过修改原型链实现继承，要清晰和方便很多。</p>
+<p>class ColorPoint extends Point {}</p>
+<p>上面代码定义了一个ColorPoint类，该类通过extends关键字，继承了Point类的所有属性和方法。但是由于没有部署任何代码，所以这两个类完全一样，等于复制了一个Point类。下面，我们在ColorPoint内部加上代码。</p>
+<p> class ColorPoint extends Point {<br>  constructor(x, y, color) {<br>   super(x, y); &#x2F;&#x2F; 调用父类的constructor(x, y)<br>   this.color &#x3D; color;<br>  }<br>  toString() {<br>   return this.color + ‘ ‘ + super.toString(); &#x2F;&#x2F; 调用父类的toString()<br>  }<br> }</p>
+<p>上面代码中，constructor方法和toString方法之中，都出现了super关键字，它在这里表示父类的构造函数，用来新建父类的this对象。</p>
+<p>子类必须在constructor方法中调用super方法，否则新建实例时会报错。这是因为子类没有自己的this对象，而是继承父类的this对象，然后对其进行加工。如果不调用super方法，子类就得不到this对象。</p>
+<p> class Point { &#x2F;<em>…</em>&#x2F; }<br> class ColorPoint extends Point {<br>  constructor() {<br>  }<br> }<br> let cp &#x3D; new ColorPoint(); &#x2F;&#x2F; ReferenceError</p>
+<p>上面代码中，ColorPoint继承了父类Point，但是它的构造函数没有调用super方法，导致新建实例时报错。<br>ES5的继承，实质是先创造子类的实例对象this，然后再将父类的方法添加到this上面（Parent.apply(this)）。ES6的继承机制完全不同，实质是先创造父类的实例对象this（所以必须先调用super方法），然后再用子类的构造函数修改this。</p>
+<p>如果子类没有定义constructor方法，这个方法会被默认添加，代码如下。也就是说，不管有没有显式定义，任何一个子类都有constructor方法。</p>
+<p> constructor(…args) {<br>  super(…args);<br> }</p>
+<p>另一个需要注意的地方是，在子类的构造函数中，只有调用super之后，才可以使用this关键字，否则会报错。这是因为子类实例的构建，是基于对父类实例加工，只有super方法才能返回父类实例。</p>
+<p> class Point {<br>  constructor(x, y) {<br>   this.x &#x3D; x;<br>   this.y &#x3D; y;<br>   }<br> }<br> class ColorPoint extends Point {<br>  constructor(x, y, color) {<br>   this.color &#x3D; color; &#x2F;&#x2F; ReferenceError<br>   super(x, y);<br>   this.color &#x3D; color; &#x2F;&#x2F; 正确<br>  }<br> }</p>
+<p>上面代码中，子类的constructor方法没有调用super之前，就使用this关键字，结果报错，而放在super方法之后就是正确的。</p>
+<p>下面是生成子类实例的代码。</p>
+<p> let cp &#x3D; new ColorPoint(25, 8, ‘green’);<br> cp instanceof ColorPoint &#x2F;&#x2F; true<br> cp instanceof Point &#x2F;&#x2F; true</p>
+<p>上面代码中，实例对象cp同时是ColorPoint和Point两个类的实例，这与ES5的行为完全一致。</p>
+<h3 id="类的prototype属性和-proto-属性"><a href="#类的prototype属性和-proto-属性" class="headerlink" title="类的prototype属性和__proto__属性"></a>类的prototype属性和__proto__属性</h3><p>大多数浏览器的ES5实现之中，每一个对象都有__proto__属性，指向对应的构造函数的prototype属性。Class作为构造函数的语法糖，同时有prototype属性和__proto__属性，因此同时存在两条继承链。</p>
+<ol>
+<li>子类的__proto__属性，表示构造函数的继承，总是指向父类。</li>
+<li>子类prototype属性的__proto__属性，表示方法的继承，总是指向父类的prototype属性。</li>
+</ol>
+<p> class A {<br> }<br> class B extends A {<br> }<br> B.<strong>proto</strong> &#x3D;&#x3D;&#x3D; A &#x2F;&#x2F; true<br> B.prototype.<strong>proto</strong> &#x3D;&#x3D;&#x3D; A.prototype &#x2F;&#x2F; true</p>
+<p>上面代码中，子类B的__proto__属性指向父类A，子类B的prototype属性的__proto__属性指向父类A的prototype属性。</p>
+<p>这样的结果是因为，类的继承是按照下面的模式实现的。</p>
+<p> class A {<br> }<br> class B {<br> }<br> &#x2F;&#x2F; B的实例继承A的实例<br> Object.setPrototypeOf(B.prototype, A.prototype);<br> &#x2F;&#x2F; B继承A的静态属性<br> Object.setPrototypeOf(B, A);<br>《对象的扩展》一章给出过Object.setPrototypeOf方法的实现。</p>
+<p> Object.setPrototypeOf &#x3D; function (obj, proto) {<br>  obj.<strong>proto</strong> &#x3D; proto;<br>  return obj;<br> }<br>因此，就得到了上面的结果。</p>
+<p> Object.setPrototypeOf(B.prototype, A.prototype);<br> &#x2F;&#x2F; 等同于<br> B.prototype.<strong>proto</strong> &#x3D; A.prototype;</p>
+<p> Object.setPrototypeOf(B, A);<br> &#x2F;&#x2F; 等同于<br> B.<strong>proto</strong> &#x3D; A;</p>
+<p>这两条继承链，可以这样理解：作为一个对象，子类（B）的原型（__proto__属性）是父类（A）；作为一个构造函数，子类（B）的原型（prototype属性）是父类的实例。</p>
+<p> Object.create(A.prototype);<br> &#x2F;&#x2F; 等同于<br> B.prototype.<strong>proto</strong> &#x3D; A.prototype;</p>
+<h3 id="Extends-的继承目标"><a href="#Extends-的继承目标" class="headerlink" title="Extends 的继承目标"></a>Extends 的继承目标</h3><p>extends关键字后面可以跟多种类型的值。</p>
+<p> class B extends A {<br> }</p>
+<p>上面代码的A，只要是一个有prototype属性的函数，就能被B继承。由于函数都有prototype属性（除了Function.prototype函数），因此A可以是任意函数。</p>
+<p>下面，讨论三种特殊情况。</p>
+<p>第一种特殊情况，子类继承Object类。<br> class A extends Object {<br> }<br> A.<strong>proto</strong> &#x3D;&#x3D;&#x3D; Object &#x2F;&#x2F; true<br> A.prototype.<strong>proto</strong> &#x3D;&#x3D;&#x3D; Object.prototype &#x2F;&#x2F; true</p>
+<p>这种情况下，A其实就是构造函数Object的复制，A的实例就是Object的实例。</p>
+<p>第二种特殊情况，不存在任何继承。</p>
+<p> class A {<br> }<br> A.<strong>proto</strong> &#x3D;&#x3D;&#x3D; Function.prototype &#x2F;&#x2F; true<br> A.prototype.<strong>proto</strong> &#x3D;&#x3D;&#x3D; Object.prototype &#x2F;&#x2F; true<br>这种情况下，A作为一个基类（即不存在任何继承），就是一个普通函数，所以直接继承Funciton.prototype。但是，A调用后返回一个空对象（即Object实例），所以A.prototype.__proto__指向构造函数（Object）的prototype属性。</p>
+<p>第三种特殊情况，子类继承null。</p>
+<p> class A extends null {<br> }<br> A.<strong>proto</strong> &#x3D;&#x3D;&#x3D; Function.prototype &#x2F;&#x2F; true<br> A.prototype.<strong>proto</strong> &#x3D;&#x3D;&#x3D; undefined &#x2F;&#x2F; true</p>
+<p>这种情况与第二种情况非常像。A也是一个普通函数，所以直接继承Funciton.prototype。但是，A调用后返回的对象不继承任何方法，所以它的__proto__指向Function.prototype，即实质上执行了下面的代码。</p>
+<p> class C extends null {<br>  constructor() { return Object.create(null); }<br> }</p>
+<h3 id="Object-getPrototypeOf"><a href="#Object-getPrototypeOf" class="headerlink" title="Object.getPrototypeOf()"></a>Object.getPrototypeOf()</h3><p> Object.getPrototypeOf方法可以用来从子类上获取父类。<br> Object.getPrototypeOf(ColorPoint) &#x3D;&#x3D;&#x3D; Point<br> &#x2F;&#x2F; true</p>
+<p>因此，可以使用这个方法判断，一个类是否继承了另一个类。</p>
+<h3 id="super关键字"><a href="#super关键字" class="headerlink" title="super关键字"></a>super关键字</h3><p>super这个关键字，有两种用法，含义不同。</p>
+<ol>
+<li><p>作为函数调用时（即super(…args)），super代表父类的构造函数。</p>
+</li>
+<li><p>作为对象调用时（即super.prop或super.method()），super代表父类。注意，此时super即可以引用父类实例的属性和方法，也可以引用父类的静态方法。</p>
+</li>
+</ol>
+<p> class B extends A {<br>  get m() {<br>   return this._p * super._p;<br>  }<br>  set m() {<br>   throw new Error(‘该属性只读’);<br>  }<br> }<br>上面代码中，子类通过super关键字，调用父类实例的_p属性。</p>
+<p>由于，对象总是继承其他对象的，所以可以在任意一个对象中，使用super关键字。</p>
+<p> var obj &#x3D; {<br>  toString() {<br>   return “MyObject: “ + super.toString();<br>  }<br> };<br> obj.toString(); &#x2F;&#x2F; MyObject: [object Object]</p>
+<h3 id="实例的-proto-属性"><a href="#实例的-proto-属性" class="headerlink" title="实例的__proto__属性"></a>实例的__proto__属性</h3><p>子类实例的__proto__属性的__proto__属性，指向父类实例的__proto__属性。也就是说，子类的原型的原型，是父类的原型。</p>
+<p> var p1 &#x3D; new Point(2, 3);<br> var p2 &#x3D; new ColorPoint(2, 3, ‘red’);<br> p2.<strong>proto</strong> &#x3D;&#x3D;&#x3D; p1.<strong>proto</strong> &#x2F;&#x2F; false<br> p2.<strong>proto</strong>.<strong>proto</strong> &#x3D;&#x3D;&#x3D; p1.<strong>proto</strong> &#x2F;&#x2F; true</p>
+<p>上面代码中，ColorPoint继承了Point，导致前者原型的原型是后者的原型。</p>
+<p>因此，通过子类实例的__proto__.__proto__属性，可以修改父类实例的行为。</p>
+<p> p2.<strong>proto</strong>.<strong>proto</strong>.printName &#x3D; function () {<br>  console.log(‘Ha’);<br> };<br> p1.printName() &#x2F;&#x2F; “Ha”<br>上面代码在ColorPoint的实例p2上向Point类添加方法，结果影响到了Point的实例p1。</p>
+<h3 id="原生构造函数的继承"><a href="#原生构造函数的继承" class="headerlink" title="原生构造函数的继承"></a>原生构造函数的继承</h3><p>原生构造函数是指语言内置的构造函数，通常用来生成数据结构。ECMAScript的原生构造函数大致有下面这些。</p>
+<ul>
+<li>Boolean()</li>
+<li>Number()</li>
+<li>String()</li>
+<li>Array()</li>
+<li>Date()</li>
+<li>Function()</li>
+<li>RegExp()</li>
+<li>Error()</li>
+<li>Object()</li>
+</ul>
+<p>以前，这些原生构造函数是无法继承的，比如，不能自己定义一个Array的子类。</p>
+<p> function MyArray() {<br>  Array.apply(this, arguments);<br> }<br> MyArray.prototype &#x3D; Object.create(Array.prototype, {<br>  constructor: {<br>   value: MyArray,<br>   writable: true,<br>   configurable: true,<br>   enumerable: true<br>  }<br> });</p>
+<p>上面代码定义了一个继承Array的MyArray类。但是，这个类的行为与Array完全不一致。</p>
+<p> var colors &#x3D; new MyArray();<br> colors[0] &#x3D; “red”;<br> colors.length &#x2F;&#x2F; 0<br> colors.length &#x3D; 0;<br> colors[0] &#x2F;&#x2F; “red”</p>
+<p>之所以会发生这种情况，是因为子类无法获得原生构造函数的内部属性，通过Array.apply()或者分配给原型对象都不行。原生构造函数会忽略apply方法传入的this，也就是说，原生构造函数的this无法绑定，导致拿不到内部属性。</p>
+<p>ES5是先新建子类的实例对象this，再将父类的属性添加到子类上，由于父类的内部属性无法获取，导致无法继承原生的构造函数。比如，Array构造函数有一个内部属性[[DefineOwnProperty]]，用来定义新属性时，更新length属性，这个内部属性无法在子类获取，导致子类的length属性行为不正常。<br>下面的例子中，我们想让一个普通对象继承Error对象。</p>
+<p> var e &#x3D; {};<br> Object.getOwnPropertyNames(Error.call(e))<br> &#x2F;&#x2F; [ ‘stack’ ]<br> Object.getOwnPropertyNames(e)<br> &#x2F;&#x2F; []<br>上面代码中，我们想通过Error.call(e)这种写法，让普通对象e具有Error对象的实例属性。但是，Error.call()完全忽略传入的第一个参数，而是 返回一个新对象，e本身没有任何变化。这证明了Error.call(e)这种写法，无法继承原生构造函数。</p>
+<p>ES6允许继承原生构造函数定义子类，因为ES6是先新建父类的实例对象this，然后再用子类的构造函数修饰this，使得父类的所有行为都可以继承。下面是一个继承Array的例子。</p>
+<p> class MyArray extends Array {<br>  constructor(…args) {<br>   super(…args);<br>  }<br> }<br> var arr &#x3D; new MyArray();<br> arr[0] &#x3D; 12;<br> arr.length &#x2F;&#x2F; 1<br> arr.length &#x3D; 0;<br> arr[0] &#x2F;&#x2F; undefined</p>
+<p>上面代码定义了一个MyArray类，继承了Array构造函数，因此就可以从MyArray生成数组的实例。这意味着，ES6可以自定义原生数据结构（比如Array、String等）的子类，这是ES5无法做到的。</p>
+<p>上面这个例子也说明，extends关键字不仅可以用来继承类，还可以用来继承原生的构造函数。因此可以在原生数据结构的基础上，定义自己的数据结构。下面就是定义了一个带版本功能的数组。</p>
+<p> class VersionedArray extends Array {<br>  constructor() {<br>   super();<br>   this.history &#x3D; [[]];<br>  }<br>  commit() {<br>   this.history.push(this.slice());<br>  }<br>  revert() {<br>   this.splice(0, this.length, …this.history[this.history.length - 1]);<br>  }<br> }<br> var x &#x3D; new VersionedArray();<br> x.push(1);<br> x.push(2);<br> x &#x2F;&#x2F; [1, 2]<br> x.history &#x2F;&#x2F; [[]]<br> x.commit();<br> x.history &#x2F;&#x2F; [[], [1, 2]]<br> x.push(3);<br> x &#x2F;&#x2F; [1, 2, 3]<br> x.revert();<br> x &#x2F;&#x2F; [1, 2]</p>
+<p>上面代码中，VersionedArray结构会通过commit方法，将自己的当前状态存入history属性，然后通过revert方法，可以撤销当前版本，回到上一个版本。除此之外，VersionedArray依然是一个数组，所有原生的数组方法都可以在它上面调用。</p>
+<p>下面是一个自定义Error子类的例子。</p>
+<p> class ExtendableError extends Error {<br> constructor(message) {<br>  super();<br>  this.message &#x3D; message;<br>  this.stack &#x3D; (new Error()).stack;<br>  this.name &#x3D; this.constructor.name;<br>  }<br> }<br> class MyError extends ExtendableError {<br>  constructor(m) {<br>   super(m);<br>  }<br> }<br> var myerror &#x3D; new MyError(‘ll’);<br> myerror.message &#x2F;&#x2F; “ll”<br> myerror instanceof Error &#x2F;&#x2F; true<br> myerror.name &#x2F;&#x2F; “MyError”<br> myerror.stack<br> &#x2F;&#x2F; Error<br> &#x2F;&#x2F; at MyError.ExtendableError<br> &#x2F;&#x2F; …<br> 注意，继承Object的子类，有一个行为差异。<br> class NewObj extends Object{<br>  constructor(){<br>   super(…arguments);<br>  }<br> }<br> var o &#x3D; new NewObj({attr: true});<br> console.log(o.attr &#x3D;&#x3D;&#x3D; true); &#x2F;&#x2F; false</p>
+<p>上面代码中，NewObj继承了Object，但是无法通过super方法向父类Object传参。这是因为ES6改变了Object构造函数的行为，一旦发现Object方法不是通过new Object()这种形式调用，ES6规定Object构造函数会忽略参数。</p>
+<h3 id="Class的取值函数（getter）和存值函数（setter）"><a href="#Class的取值函数（getter）和存值函数（setter）" class="headerlink" title="Class的取值函数（getter）和存值函数（setter）"></a>Class的取值函数（getter）和存值函数（setter）</h3><p>与ES5一样，在Class内部可以使用get和set关键字，对某个属性设置存值函数和取值函数，拦截该属性的存取行为。</p>
+<p> class MyClass {<br>  constructor() {<br>   &#x2F;&#x2F; …<br>  }<br>  get prop() {<br>   return ‘getter’;<br>  }<br>  set prop(value) {<br>   console.log(‘setter: ‘+value);<br>  }<br> }<br> let inst &#x3D; new MyClass();<br> inst.prop &#x3D; 123;<br> &#x2F;&#x2F; setter: 123<br> inst.prop<br> &#x2F;&#x2F; ‘getter’</p>
+<p>上面代码中，prop属性有对应的存值函数和取值函数，因此赋值和读取行为都被自定义了。<br>存值函数和取值函数是设置在属性的descriptor对象上的。</p>
+<p> class CustomHTMLElement {<br>  constructor(element) {<br>   this.element &#x3D; element;<br>  }<br>  get html() {<br>   return this.element.innerHTML;<br>  }<br>  set html(value) {<br>   this.element.innerHTML &#x3D; value;<br>  }<br> }<br> var descriptor &#x3D; Object.getOwnPropertyDescriptor(<br> CustomHTMLElement.prototype, “html”);<br> “get” in descriptor &#x2F;&#x2F; true<br> “set” in descriptor &#x2F;&#x2F; true</p>
+<p>上面代码中，存值函数和取值函数是定义在html属性的描述对象上面，这与ES5完全一致。</p>
+<h2 id="Class的Generator方法"><a href="#Class的Generator方法" class="headerlink" title="Class的Generator方法"></a>Class的Generator方法</h2><p>如果某个方法之前加上星号（*），就表示该方法是一个Generator函数。</p>
+<p> class Foo {<br>  constructor(…args) {<br>   this.args &#x3D; args;<br>  }</p>
+<ul>
+<li><a href="">Symbol.iterator</a> {<br> for (let arg of this.args) {<br>  yield arg;<br> }<br>}<br> }<br> for (let x of new Foo(‘hello’, ‘world’)) {<br>console.log(x);<br> }<br> &#x2F;&#x2F; hello<br> &#x2F;&#x2F; world</li>
+</ul>
+<p>上面代码中，Foo类的Symbol.iterator方法前有一个星号，表示该方法是一个Generator函数。Symbol.iterator方法返回一个Foo类的默认遍历器，for…of循环会自动调用这个遍历器。</p>
+<h2 id="Class的静态方法"><a href="#Class的静态方法" class="headerlink" title="Class的静态方法"></a>Class的静态方法</h2><p>类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。</p>
+<p> class Foo {<br>  static classMethod() {<br>   return ‘hello’;<br>  }<br> }<br> Foo.classMethod() &#x2F;&#x2F; ‘hello’<br> var foo &#x3D; new Foo();<br> foo.classMethod()<br> &#x2F;&#x2F; TypeError: foo.classMethod is not a function</p>
+<p>上面代码中，Foo类的classMethod方法前有static关键字，表明该方法是一个静态方法，可以直接在Foo类上调用（Foo.classMethod()），而不是在Foo类的实例上调用。如果在实例上调用静态方法，会抛出一个错误，表示不存在该方法。</p>
+<p>父类的静态方法，可以被子类继承。</p>
+<p> class Foo {<br>  static classMethod() {<br>   return ‘hello’;<br>  }<br> }<br> class Bar extends Foo {<br> }<br> Bar.classMethod(); &#x2F;&#x2F; ‘hello’</p>
+<p>上面代码中，父类Foo有一个静态方法，子类Bar可以调用这个方法。</p>
+<p>静态方法也是可以从super对象上调用的。</p>
+<p> class Foo {<br>  static classMethod() {<br>   return ‘hello’;<br>  }<br> }<br> class Bar extends Foo {<br>  static classMethod() {<br>   return super.classMethod() + ‘, too’;<br>  }<br> }<br> Bar.classMethod();</p>
+<h2 id="Class的静态属性和实例属性"><a href="#Class的静态属性和实例属性" class="headerlink" title="Class的静态属性和实例属性"></a>Class的静态属性和实例属性</h2><p>静态属性指的是Class本身的属性，即Class.propname，而不是定义在实例对象（this）上的属性。</p>
+<p> class Foo {<br> }<br> Foo.prop &#x3D; 1;<br> Foo.prop &#x2F;&#x2F; 1</p>
+<p>上面的写法为Foo类定义了一个静态属性prop。</p>
+<p>目前，只有这种写法可行，因为ES6明确规定，Class内部只有静态方法，没有静态属性。</p>
+<p> &#x2F;&#x2F; 以下两种写法都无效<br> class Foo {<br>  &#x2F;&#x2F; 写法一<br>  prop: 2<br>  &#x2F;&#x2F; 写法二<br>  static prop: 2<br> }<br> Foo.prop &#x2F;&#x2F; undefined</p>
+<p>ES7有一个静态属性的提案，目前Babel转码器支持。</p>
+<p>这个提案对实例属性和静态属性，都规定了新的写法。</p>
+<ol>
+<li>类的实例属性</li>
+</ol>
+<p> 类的实例属性可以用等式，写入类的定义之中。</p>
+<p>  class MyClass {<br>   myProp &#x3D; 42;<br>   constructor() {<br>    console.log(this.myProp); &#x2F;&#x2F; 42<br>   }<br>  }</p>
+<p> 上面代码中，myProp就是MyClass的实例属性。在MyClass的实例上，可以读取这个属性。</p>
+<p> 以前，我们定义实例属性，只能写在类的constructor方法里面。</p>
+<p> class ReactCounter extends React.Component {<br>  constructor(props) {<br>   super(props);<br>   this.state &#x3D; {<br>    count: 0<br>   };<br>  }<br> }</p>
+<p> 上面代码中，构造方法constructor里面，定义了this.state属性。</p>
+<p> 有了新的写法以后，可以不在constructor方法里面定义。</p>
+<p>  class ReactCounter extends React.Component {<br>   state &#x3D; {<br>    count: 0<br>   };<br>  }</p>
+<p> 这种写法比以前更清晰。</p>
+<p> 为了可读性的目的，对于那些在constructor里面已经定义的实例属性，新写法允许直接列出。</p>
+<p>  class ReactCounter extends React.Component {<br>   constructor(props) {<br>    super(props);<br>    this.state &#x3D; {<br>     count: 0<br>    };<br>   }<br>   state;</p>
+<ol start="2">
+<li>类的静态属性</li>
+</ol>
+<p> 类的静态属性只要在上面的实例属性写法前面，加上static关键字就可以了。</p>
+<p>  class MyClass {<br>   static myStaticProp &#x3D; 42;<br>   constructor() {<br>    console.log(MyClass.myProp); &#x2F;&#x2F; 42<br>   }<br>  }<br> 同样的，这个新写法大大方便了静态属性的表达。<br>  &#x2F;&#x2F; 老写法<br>  class Foo {<br>  }<br>  Foo.prop &#x3D; 1;<br>  &#x2F;&#x2F; 新写法<br>  class Foo {<br>   static prop &#x3D; 1;<br>  }</p>
+<p> 上面代码中，老写法的静态属性定义在类的外部。整个类生成以后，再生成静态属性。这样让人很容易忽略这个静态属性，也不符合相关代码应该放在一起的代码组织原则。另外，新写法是显式声明（declarative），而不是赋值处理，语义更好。</p>
+<h2 id="new-target属性"><a href="#new-target属性" class="headerlink" title="new.target属性"></a>new.target属性</h2><p>new是从构造函数生成实例的命令。ES6为new命令引入了一个new.target属性，（在构造函数中）返回new命令作用于的那个构造函数。如果构造函数不是通过new命令调用的，new.target会返回undefined，因此这个属性可以用来确定构造函数是怎么调用的。</p>
+<p> function Person(name) {<br>  if (new.target !&#x3D;&#x3D; undefined) {<br>   this.name &#x3D; name;<br>  } else {<br>   throw new Error(‘必须使用new生成实例’);<br>  }<br> }<br> &#x2F;&#x2F; 另一种写法<br> function Person(name) {<br>  if (new.target &#x3D;&#x3D;&#x3D; Person) {<br>   this.name &#x3D; name;<br>  } else {<br>   throw new Error(‘必须使用new生成实例’);<br>  }<br> }<br> var person &#x3D; new Person(‘张三’); &#x2F;&#x2F; 正确<br> var notAPerson &#x3D; Person.call(person, ‘张三’); &#x2F;&#x2F; 报错<br> 上面代码确保构造函数只能通过new命令调用。<br> Class内部调用new.target，返回当前Class。<br> class Rectangle {<br>  constructor(length, width) {<br>   console.log(new.target &#x3D;&#x3D;&#x3D; Rectangle);<br>   this.length &#x3D; length;<br>   this.width &#x3D; width;<br>  }<br> }<br> var obj &#x3D; new Rectangle(3, 4); &#x2F;&#x2F; 输出 true<br> 需要注意的是，子类继承父类时，new.target会返回子类。<br> class Rectangle {<br>  constructor(length, width) {<br>   console.log(new.target &#x3D;&#x3D;&#x3D; Rectangle);<br>   &#x2F;&#x2F; …<br>  }<br> }<br> class Square extends Rectangle {<br>  constructor(length) {<br>   super(length, length);<br>  }<br> }<br> var obj &#x3D; new Square(3); &#x2F;&#x2F; 输出 false<br> 上面代码中，new.target会返回子类。<br> 利用这个特点，可以写出不能独立使用、必须继承后才能使用的类。<br> class Shape {<br>  constructor() {<br>   if (new.target &#x3D;&#x3D;&#x3D; Shape) {<br>    throw new Error(‘本类不能实例化’);<br>   }<br>  }<br> }<br> class Rectangle extends Shape {<br>  constructor(length, width) {<br>   super();<br>   &#x2F;&#x2F; …<br>  }<br> }<br> var x &#x3D; new Shape(); &#x2F;&#x2F; 报错<br> var y &#x3D; new Rectangle(3, 4); &#x2F;&#x2F; 正确</p>
+<p>上面代码中，Shape类不能被实例化，只能用于继承。</p>
+<p>注意，在函数外部，使用new.target会报错。</p>
+<h2 id="Mixin模式的实现"><a href="#Mixin模式的实现" class="headerlink" title="Mixin模式的实现"></a>Mixin模式的实现</h2><p>Mixin模式指的是，将多个类的接口“混入”（mix in）另一个类。它在ES6的实现如下。</p>
+<p> function mix(…mixins) {<br>  class Mix {}<br>  for (let mixin of mixins) {<br>   copyProperties(Mix, mixin);<br>   copyProperties(Mix.prototype, mixin.prototype);<br>  }<br>  return Mix;<br> }<br> function copyProperties(target, source) {<br>  for (let key of Reflect.ownKeys(source)) {<br>   if ( key !&#x3D;&#x3D; “constructor”&amp;&amp; key !&#x3D;&#x3D; “prototype”&amp;&amp; key !&#x3D;&#x3D; “name”) {<br>    let desc &#x3D; Object.getOwnPropertyDescriptor(source, key);<br>    Object.defineProperty(target, key, desc);<br>   }<br>  }<br> }<br>上面代码的mix函数，可以将多个对象合成为一个类。使用的时候，只要继承这个类即可。</p>
+<p> class DistributedEdit extends mix(Loggable,Serializable) {<br>  &#x2F;&#x2F; …<br> }</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ES6/" class="category-chain-item">ES6</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ES6/">#ES6</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ES6 第十八章	Class</div>
+      <div>http://example.com/2022/07/03/ECAMScript-eighteen-Class/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月3日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/04/ECMAScript-nineTeen-fix/" title="ES6 第十九章 修饰器">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ES6 第十九章 修饰器</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/01/ECMAScript-seventeen-AsyncFunction/" title="ES6 第十七章 异步操作和Async函数">
+                        <span class="hidden-mobile">ES6 第十七章 异步操作和Async函数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,869 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="js判断是否是电脑端还是手机端，改变url中某一个参数，js判断浏览器类型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript常用的方法">
+<meta property="og:url" content="http://example.com/2021/02/12/JavaScript-normal-functions/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="js判断是否是电脑端还是手机端，改变url中某一个参数，js判断浏览器类型">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-12T23:35:54.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.594Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>JavaScript常用的方法 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JavaScript常用的方法"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-02-12 23:35" pubdate>
+          2021年2月12日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          17k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          144 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JavaScript常用的方法</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="常用的js方法"><a href="#常用的js方法" class="headerlink" title="常用的js方法"></a>常用的js方法</h1><h2 id="判断是否是电脑端"><a href="#判断是否是电脑端" class="headerlink" title="判断是否是电脑端"></a>判断是否是电脑端</h2><p> function isPC() {<br>     var userAgentInfo &#x3D; navigator.userAgent,<br>         Agents &#x3D; [“Android”, “iPhone”, “SymbianOS”, “Windows Phone”, “iPad”, “iPod”],<br>         flag &#x3D; true;<br>     for (var v &#x3D; 0; v &lt; Agents.length; v++) {<br>         if (userAgentInfo.indexOf(Agents[v]) &gt; 0) {<br>             flag &#x3D; false;<br>             break;<br>         }<br>     }<br>     return flag;<br> }</p>
+<h2 id="改变url中的某一个参数"><a href="#改变url中的某一个参数" class="headerlink" title="改变url中的某一个参数"></a>改变url中的某一个参数</h2><p> &#x2F;*</p>
+<ul>
+<li>url 目标url</li>
+<li>arg 需要替换的参数名称</li>
+<li>arg_val 替换后的参数的值</li>
+<li>return url 参数替换后的url<br><em>&#x2F;<br> function changeURLArg(url,arg,arg_val){<br>var pattern&#x3D;arg+’&#x3D;([^&amp;]</em>)’;<br>var replaceText&#x3D;arg+’&#x3D;’+arg_val;<br>if(url.match(pattern)){<br> var tmp&#x3D;’&#x2F;(‘+ arg+’&#x3D;)([^&amp;]*)&#x2F;gi’;<br> tmp&#x3D;url.replace(eval(tmp),replaceText);<br> return tmp;<br>}else{<br> if(url.match(‘[?]’)){<br>return url+’&amp;’+replaceText;<br> }else{<br>return url+’?’+replaceText;<br> }<br>}<br>return url+’\n’+arg+’\n’+arg_val;<br> }</li>
+</ul>
+<h2 id="判断当前浏览器类型"><a href="#判断当前浏览器类型" class="headerlink" title="判断当前浏览器类型"></a>判断当前浏览器类型</h2><p> function myBrowser(){</p>
+<pre><code class="hljs">var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串
+var isOpera = userAgent.indexOf(&quot;Opera&quot;) &gt; -1; //判断是否Opera浏览器
+var isIE = userAgent.indexOf(&quot;compatible&quot;) &gt; -1 &amp;&amp; userAgent.indexOf(&quot;MSIE&quot;) &gt; -1 &amp;&amp; !isOpera; //判断是否IE浏览器
+var isFF = userAgent.indexOf(&quot;Firefox&quot;) &gt; -1; //判断是否Firefox浏览器
+var isSafari = userAgent.indexOf(&quot;Safari&quot;) &gt; -1; //判断是否Safari浏览器
+if (isIE) &#123;
+    var IE5 = IE55 = IE6 = IE7 = IE8 = false;
+    var reIE = new RegExp(&quot;MSIE (\\d+\\.\\d+);&quot;);
+    reIE.test(userAgent);
+    var fIEVersion = parseFloat(RegExp[&quot;$1&quot;]);
+    IE55 = fIEVersion == 5.5;
+    IE6 = fIEVersion == 6.0;
+    IE7 = fIEVersion == 7.0;
+    IE8 = fIEVersion == 8.0;
+    if (IE55) &#123;
+        return &quot;IE55&quot;;
+    &#125;
+    if (IE6) &#123;
+        return &quot;IE6&quot;;
+    &#125;
+    if (IE7) &#123;
+        return &quot;IE7&quot;;
+    &#125;
+    if (IE8) &#123;
+        return &quot;IE8&quot;;
+    &#125;
+&#125;//isIE end
+if (isFF) &#123;
+    return &quot;FF&quot;;
+&#125;
+if (isOpera) &#123;
+    return &quot;Opera&quot;;
+&#125;
+</code></pre>
+<p> }&#x2F;&#x2F;myBrowser() end<br> &#x2F;&#x2F;以下是调用上面的函数<br> if (myBrowser() &#x3D;&#x3D; “FF”) {<br>     alert(“我是 Firefox”);<br> }<br> if (myBrowser() &#x3D;&#x3D; “Opera”) {<br>     alert(“我是 Opera”);<br> }<br> if (myBrowser() &#x3D;&#x3D; “Safari”) {<br>     alert(“我是 Safari”);<br> }<br> if (myBrowser() &#x3D;&#x3D; “IE55”) {<br>     alert(“我是 IE5.5”);<br> }<br> if (myBrowser() &#x3D;&#x3D; “IE6”) {<br>     alert(“我是 IE6”);<br> }<br> if (myBrowser() &#x3D;&#x3D; “IE7”) {<br>     alert(“我是 IE7”);<br> }<br> if (myBrowser() &#x3D;&#x3D; “IE8”) {<br>     alert(“我是 IE8”);<br> }</p>
+<h2 id="Array相关"><a href="#Array相关" class="headerlink" title="Array相关"></a>Array相关</h2><h3 id="arrayEqual判断两个数组是否相等"><a href="#arrayEqual判断两个数组是否相等" class="headerlink" title="arrayEqual判断两个数组是否相等"></a>arrayEqual判断两个数组是否相等</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc 判断两个数组是否相等</li>
+<li>@param {Array} arr1</li>
+<li>@param {Array} arr2</li>
+<li>@return {Boolean}<br>*&#x2F;<br> function arrayEqual(arr1, arr2) {<br>   if (arr1 &#x3D;&#x3D;&#x3D; arr2) return true;<br>   if (arr1.length !&#x3D; arr2.length) return false;<br>   for (var i &#x3D; 0; i &lt; arr1.length; ++i) {<br>   if (arr1[i] !&#x3D;&#x3D; arr2[i]) return false;<br>   }<br>   return true;<br> }</li>
+</ul>
+<h2 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h2><h3 id="hasClass判断元素是否有某个class"><a href="#hasClass判断元素是否有某个class" class="headerlink" title="hasClass判断元素是否有某个class"></a>hasClass判断元素是否有某个class</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc 判断元素是否有某个class</li>
+<li>@param {HTMLElement} ele</li>
+<li>@param {String} cls</li>
+<li>@return {Boolean}<br>*&#x2F;<br> function hasClass(ele, cls) {<br>   return (new RegExp(‘(\s|^)’ + cls + ‘(\s|$)’)).test(ele.className);<br> }</li>
+</ul>
+<h3 id="addClass为元素添加class"><a href="#addClass为元素添加class" class="headerlink" title="addClass为元素添加class"></a>addClass为元素添加class</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc   为元素添加class</li>
+<li>@param  {HTMLElement} ele</li>
+<li>@param  {String} cls<br>*&#x2F;<br> function addClass(ele, cls) {<br>   if (!hasClass(ele, cls)) {<br>   ele.className +&#x3D; ‘ ‘ + cls;<br>   }<br> }</li>
+</ul>
+<h3 id="removeClass为元素移除class"><a href="#removeClass为元素移除class" class="headerlink" title="removeClass为元素移除class"></a>removeClass为元素移除class</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc 为元素移除class</li>
+<li>@param {HTMLElement} ele</li>
+<li>@param {String} cls<br>*&#x2F;<br> var hasClass &#x3D; require(‘.&#x2F;hasClass’);<br> function removeClass(ele, cls) {<br>   if (hasClass(ele, cls)) {<br>   var reg &#x3D; new RegExp(‘(\s|^)’ + cls + ‘(\s|$)’);<br>   ele.className &#x3D; ele.className.replace(reg, ‘ ‘);<br>   }<br> }</li>
+</ul>
+<h2 id="Cookie操作"><a href="#Cookie操作" class="headerlink" title="Cookie操作"></a>Cookie操作</h2><h3 id="getCookie根据name读取cookie"><a href="#getCookie根据name读取cookie" class="headerlink" title="getCookie根据name读取cookie"></a>getCookie根据name读取cookie</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc 根据name读取cookie</li>
+<li>@param  {String} name</li>
+<li>@return {String}<br>*&#x2F;<br> function getCookie(name) {<br>   var arr &#x3D; document.cookie.replace(&#x2F;\s&#x2F;g, “”).split(‘;’);<br>   for (var i &#x3D; 0; i &lt; arr.length; i++) {<br>   var tempArr &#x3D; arr[i].split(‘&#x3D;’);<br>   if (tempArr[0] &#x3D;&#x3D; name) {<br>       return decodeURIComponent(tempArr[1]);<br>   }<br>   }<br>   return ‘’;<br> }</li>
+</ul>
+<h3 id="setCookie-设置Cookie"><a href="#setCookie-设置Cookie" class="headerlink" title="setCookie 设置Cookie"></a>setCookie 设置Cookie</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc  设置Cookie</li>
+<li>@param {String} name</li>
+<li>@param {String} value</li>
+<li>@param {Number} days<br>*&#x2F;<br> function setCookie(name, value, days) {<br>   var date &#x3D; new Date();<br>   date.setDate(date.getDate() + days);<br>   document.cookie &#x3D; name + ‘&#x3D;’ + value + ‘;expires&#x3D;’ + date;<br> }</li>
+</ul>
+<h3 id="removeCookie根据name删除cookie"><a href="#removeCookie根据name删除cookie" class="headerlink" title="removeCookie根据name删除cookie"></a>removeCookie根据name删除cookie</h3><p> var setCookie &#x3D; require(‘.&#x2F;setCookie’);<br> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc 根据name删除cookie</li>
+<li>@param  {String} name<br>*&#x2F;<br> function removeCookie(name) {<br>   &#x2F;&#x2F; 设置已过期，系统会立刻删除cookie<br>   setCookie(name, ‘1’, -1);<br> }</li>
+</ul>
+<h2 id="Device设备相关"><a href="#Device设备相关" class="headerlink" title="Device设备相关"></a>Device设备相关</h2><h3 id="getExplore获取浏览器类型和版本"><a href="#getExplore获取浏览器类型和版本" class="headerlink" title="getExplore获取浏览器类型和版本"></a>getExplore获取浏览器类型和版本</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc 获取浏览器类型和版本</li>
+<li>@return {String}<br>*&#x2F;<br> function getExplore() {<br>   var sys &#x3D; {},<br>   ua &#x3D; navigator.userAgent.toLowerCase(),<br>   s;<br>   (s &#x3D; ua.match(&#x2F;rv:([\d.]+)) like gecko&#x2F;)) ? sys.ie &#x3D; s[1]:<br>   (s &#x3D; ua.match(&#x2F;msie ([\d.]+)&#x2F;)) ? sys.ie &#x3D; s[1] :<br>   (s &#x3D; ua.match(&#x2F;edge/([\d.]+)&#x2F;)) ? sys.edge &#x3D; s[1] :<br>   (s &#x3D; ua.match(&#x2F;firefox/([\d.]+)&#x2F;)) ? sys.firefox &#x3D; s[1] :<br>   (s &#x3D; ua.match(&#x2F;(?:opera|opr).([\d.]+)&#x2F;)) ? sys.opera &#x3D; s[1] :<br>   (s &#x3D; ua.match(&#x2F;chrome/([\d.]+)&#x2F;)) ? sys.chrome &#x3D; s[1] :<br>   (s &#x3D; ua.match(&#x2F;version/([\d.]+).*safari&#x2F;)) ? sys.safari &#x3D; s[1] : 0;<br>   &#x2F;&#x2F; 根据关系进行判断<br>   if (sys.ie) return (‘IE: ‘ + sys.ie)<br>   if (sys.edge) return (‘EDGE: ‘ + sys.edge)<br>   if (sys.firefox) return (‘Firefox: ‘ + sys.firefox)<br>   if (sys.chrome) return (‘Chrome: ‘ + sys.chrome)<br>   if (sys.opera) return (‘Opera: ‘ + sys.opera)<br>   if (sys.safari) return (‘Safari: ‘ + sys.safari)<br>   return ‘Unkonwn’<br> }</li>
+</ul>
+<h3 id="getOS获取操作系统类型"><a href="#getOS获取操作系统类型" class="headerlink" title="getOS获取操作系统类型"></a>getOS获取操作系统类型</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc 获取操作系统类型</li>
+<li>@return {String}<br>*&#x2F;<br> function getOS() {<br>   var userAgent &#x3D; ‘navigator’ in window &amp;&amp; ‘userAgent’ in navigator &amp;&amp; navigator.userAgent.toLowerCase() || ‘’;<br>   var vendor &#x3D; ‘navigator’ in window &amp;&amp; ‘vendor’ in navigator &amp;&amp; navigator.vendor.toLowerCase() || ‘’;<br>   var appVersion &#x3D; ‘navigator’ in window &amp;&amp; ‘appVersion’ in navigator &amp;&amp; navigator.appVersion.toLowerCase() || ‘’;<br>   if (&#x2F;mac&#x2F;i.test(appVersion)) return ‘MacOSX’<br>   if (&#x2F;win&#x2F;i.test(appVersion)) return ‘windows’<br>   if (&#x2F;linux&#x2F;i.test(appVersion)) return ‘linux’<br>   if (&#x2F;iphone&#x2F;i.test(userAgent) || &#x2F;ipad&#x2F;i.test(userAgent) || &#x2F;ipod&#x2F;i.test(userAgent)) ‘ios’<br>   if (&#x2F;android&#x2F;i.test(userAgent)) return ‘android’<br>   if (&#x2F;win&#x2F;i.test(appVersion) &amp;&amp; &#x2F;phone&#x2F;i.test(userAgent)) return ‘windowsPhone’<br> }</li>
+</ul>
+<h2 id="Dom操作"><a href="#Dom操作" class="headerlink" title="Dom操作"></a>Dom操作</h2><h3 id="getScrollTop-获取滚动条距顶部的距离"><a href="#getScrollTop-获取滚动条距顶部的距离" class="headerlink" title="getScrollTop 获取滚动条距顶部的距离"></a>getScrollTop 获取滚动条距顶部的距离</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc 获取滚动条距顶部的距离<br>*&#x2F;<br> function getScrollTop() {<br>   return (document.documentElement &amp;&amp; document.documentElement.scrollTop) || document.body.scrollTop;<br> }</li>
+</ul>
+<h3 id="setScrollTop设置滚动条距顶部的距离"><a href="#setScrollTop设置滚动条距顶部的距离" class="headerlink" title="setScrollTop设置滚动条距顶部的距离"></a>setScrollTop设置滚动条距顶部的距离</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc 设置滚动条距顶部的距离<br>*&#x2F;<br> function setScrollTop(value) {<br>   window.scrollTo(0, value);<br>   return value;<br> }</li>
+</ul>
+<h3 id="offset获取一个元素的距离文档-document-的位置，类似jQ中的offset"><a href="#offset获取一个元素的距离文档-document-的位置，类似jQ中的offset" class="headerlink" title="offset获取一个元素的距离文档(document)的位置，类似jQ中的offset()"></a>offset获取一个元素的距离文档(document)的位置，类似jQ中的offset()</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc  获取一个元素的距离文档(document)的位置，类似jQ中的offset()</li>
+<li>@param {HTMLElement} ele</li>
+<li>@returns { {left: number, top: number} }<br>*&#x2F;<br> function offset(ele) {<br>   var pos &#x3D; {<br>   left: 0,<br>   top: 0<br>   };<br>   while (ele) {<br>   pos.left +&#x3D; ele.offsetLeft;<br>   pos.top +&#x3D; ele.offsetTop;<br>   ele &#x3D; ele.offsetParent;<br>   };<br>   return pos;<br> }</li>
+</ul>
+<h3 id="scrollTo-滚动条平滑滚动到-to-指定位置"><a href="#scrollTo-滚动条平滑滚动到-to-指定位置" class="headerlink" title="scrollTo 滚动条平滑滚动到${to}指定位置"></a>scrollTo 滚动条平滑滚动到${to}指定位置</h3><p> var getScrollTop &#x3D; require(‘.&#x2F;getScrollTop’);<br> var setScrollTop &#x3D; require(‘.&#x2F;setScrollTop’);<br> var requestAnimFrame &#x3D; (function () {<br>     return window.requestAnimationFrame ||<br>         window.webkitRequestAnimationFrame ||<br>         window.mozRequestAnimationFrame ||<br>         function (callback) {<br>             window.setTimeout(callback, 1000 &#x2F; 60);<br>         };<br> })();<br> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc  在${duration}时间内，滚动条平滑滚动到${to}指定位置</li>
+<li>@param {Number} to</li>
+<li>@param {Number} duration<br>*&#x2F;<br> function scrollTo(to, duration) {<br>   if (duration &lt; 0) {<br>   setScrollTop(to);<br>   return<br>   }<br>   var diff &#x3D; to - getScrollTop();<br>   if (diff &#x3D;&#x3D;&#x3D; 0) return<br>var step &#x3D; diff &#x2F; duration* 10;<br>   requestAnimationFrame(<br>   function () {<br>       if (Math.abs(step) &gt; Math.abs(diff)) {<br>           setScrollTop(getScrollTop() + diff);<br>           return;<br>       }<br>       setScrollTop(getScrollTop() + step);<br>       if (diff &gt; 0 &amp;&amp; getScrollTop() &gt;&#x3D; to || diff &lt; 0 &amp;&amp; getScrollTop() &lt;&#x3D; to) {<br>           return;<br>       }<br>       scrollTo(to, duration - 16);<br>   });</li>
+</ul>
+<p> }</p>
+<h2 id="Keycode键盘相关"><a href="#Keycode键盘相关" class="headerlink" title="Keycode键盘相关"></a>Keycode键盘相关</h2><p> var keyCodeMap &#x3D; {<br>     8: ‘Backspace’,<br>     9: ‘Tab’,<br>     13: ‘Enter’,<br>     16: ‘Shift’,<br>     17: ‘Ctrl’,<br>     18: ‘Alt’,<br>     19: ‘Pause’,<br>     20: ‘Caps Lock’,<br>     27: ‘Escape’,<br>     32: ‘Space’,<br>     33: ‘Page Up’,<br>     34: ‘Page Down’,<br>     35: ‘End’,<br>     36: ‘Home’,<br>     37: ‘Left’,<br>     38: ‘Up’,<br>     39: ‘Right’,<br>     40: ‘Down’,<br>     42: ‘Print Screen’,<br>     45: ‘Insert’,<br>     46: ‘Delete’,<br>     48: ‘0’,<br>     49: ‘1’,<br>     50: ‘2’,<br>     51: ‘3’,<br>     52: ‘4’,<br>     53: ‘5’,<br>     54: ‘6’,<br>     55: ‘7’,<br>     56: ‘8’,<br>     57: ‘9’,<br>     65: ‘A’,<br>     66: ‘B’,<br>     67: ‘C’,<br>     68: ‘D’,<br>     69: ‘E’,<br>     70: ‘F’,<br>     71: ‘G’,<br>     72: ‘H’,<br>     73: ‘I’,<br>     74: ‘J’,<br>     75: ‘K’,<br>     76: ‘L’,<br>     77: ‘M’,<br>     78: ‘N’,<br>     79: ‘O’,<br>     80: ‘P’,<br>     81: ‘Q’,<br>     82: ‘R’,<br>     83: ‘S’,<br>     84: ‘T’,<br>     85: ‘U’,<br>     86: ‘V’,<br>     87: ‘W’,<br>     88: ‘X’,<br>     89: ‘Y’,<br>     90: ‘Z’,<br>     91: ‘Windows’,<br>     93: ‘Right Click’,<br>     96: ‘Numpad 0’,<br>     97: ‘Numpad 1’,<br>     98: ‘Numpad 2’,<br>     99: ‘Numpad 3’,<br>     100: ‘Numpad 4’,<br>     101: ‘Numpad 5’,<br>     102: ‘Numpad 6’,<br>     103: ‘Numpad 7’,<br>     104: ‘Numpad 8’,<br>     105: ‘Numpad 9’,<br>     106: ‘Numpad <em>‘,<br>     107: ‘Numpad +’,<br>     109: ‘Numpad -‘,<br>     110: ‘Numpad .’,<br>     111: ‘Numpad &#x2F;‘,<br>     112: ‘F1’,<br>     113: ‘F2’,<br>     114: ‘F3’,<br>     115: ‘F4’,<br>     116: ‘F5’,<br>     117: ‘F6’,<br>     118: ‘F7’,<br>     119: ‘F8’,<br>     120: ‘F9’,<br>     121: ‘F10’,<br>     122: ‘F11’,<br>     123: ‘F12’,<br>     144: ‘Num Lock’,<br>     145: ‘Scroll Lock’,<br>     182: ‘My Computer’,<br>     183: ‘My Calculator’,<br>     186: ‘;’,<br>     187: ‘&#x3D;’,<br>     188: ‘,’,<br>     189: ‘-‘,<br>     190: ‘.’,<br>     191: ‘&#x2F;‘,<br>     192: ‘&#96;’,<br>     219: ‘[‘,<br>     220: ‘\‘,<br>     221: ‘]’,<br>     222: ‘&#39;‘<br> };<br> &#x2F;</em>*</p>
+<ul>
+<li>@desc 根据keycode获得键名</li>
+<li>@param  {Number} keycode</li>
+<li>@return {String}<br>*&#x2F;<br> function getKeyName(keycode) {<br>   if (keyCodeMap[keycode]) {<br>   return keyCodeMap[keycode];<br>   } else {<br>   console.log(‘Unknow Key(Key Code:’ + keycode + ‘)’);<br>   return ‘’;<br>   }<br> };</li>
+</ul>
+<h2 id="Object对象操作"><a href="#Object对象操作" class="headerlink" title="Object对象操作"></a>Object对象操作</h2><h3 id="deepClone深拷贝"><a href="#deepClone深拷贝" class="headerlink" title="deepClone深拷贝"></a>deepClone深拷贝</h3><p> &#x2F;**</p>
+<ul>
+<li>@desc 深拷贝，支持常见类型</li>
+<li>@param {Any} values<br>*&#x2F;<br> function deepClone(values) {<br>   var copy;<br>   &#x2F;&#x2F; 处理3个简单类型，null或未定义<br>   if (null &#x3D;&#x3D; values || “object” !&#x3D; typeof values) return values;<br>   &#x2F;&#x2F; 处理日期类型<br>   if (values instanceof Date) {<br>   copy &#x3D; new Date();<br>   copy.setTime(values.getTime());<br>   return copy;<br>   }<br>   &#x2F;&#x2F; 处理数组<br>   if (values instanceof Array) {<br>   copy &#x3D; [];<br>   for (var i &#x3D; 0, len &#x3D; values.length; i &lt; len; i++) {<br>       copy[i] &#x3D; deepClone(values[i]);<br>   }<br>   return copy;<br>   }<br>   &#x2F;&#x2F; 处理对象<br>   if (values instanceof Object) {<br>   copy &#x3D; {};<br>   for (var attr in values) {<br>       if (values.hasOwnProperty(attr)) copy[attr] &#x3D; deepClone(values[attr]);<br>   }<br>   return copy;<br>   }<br>   throw new Error(“Unable to copy values! Its type isn’t supported.”);<br> }</li>
+</ul>
+<h3 id="isEmptyObject-对象判空"><a href="#isEmptyObject-对象判空" class="headerlink" title="isEmptyObject 对象判空"></a>isEmptyObject 对象判空</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc   判断<code>obj</code>是否为空</li>
+<li>@param  {Object} obj</li>
+<li>@return {Boolean}<br>*&#x2F;<br> function isEmptyObject(obj) {<br>   if (!obj || typeof obj !&#x3D;&#x3D; ‘object’ || Array.isArray(obj))<br>   return false<br>   return !Object.keys(obj).length<br> }</li>
+</ul>
+<h2 id="Random随机函数的应用"><a href="#Random随机函数的应用" class="headerlink" title="Random随机函数的应用"></a>Random随机函数的应用</h2><h3 id="randomColor随机生成颜色"><a href="#randomColor随机生成颜色" class="headerlink" title="randomColor随机生成颜色"></a>randomColor随机生成颜色</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc 随机生成颜色</li>
+<li>@return {String}<br><em>&#x2F;<br> function randomColor() {<br>return ‘#’ + (‘00000’ + (Math.random()</em> 0x1000000 &lt;&lt; 0).toString(16)).slice(-6);<br> }</li>
+</ul>
+<h3 id="randomNum-生成指定范随机数"><a href="#randomNum-生成指定范随机数" class="headerlink" title="randomNum 生成指定范随机数"></a>randomNum 生成指定范随机数</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc 生成指定范围随机数</li>
+<li>@param  {Number} min</li>
+<li>@param  {Number} max</li>
+<li>@return {Number}<br><em>&#x2F;<br> function randomNum(min, max) {<br>return Math.floor(min + Math.random()</em> (max - min));<br> }</li>
+</ul>
+<h2 id="Regexp正则对象"><a href="#Regexp正则对象" class="headerlink" title="Regexp正则对象"></a>Regexp正则对象</h2><h3 id="isEmail"><a href="#isEmail" class="headerlink" title="isEmail"></a>isEmail</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc   判断是否为邮箱地址</li>
+<li>@param  {String}  str</li>
+<li>@return {Boolean}<br><em>&#x2F;<br> function isEmail(str) {<br>   return &#x2F;\w+([-+.]\w+)</em>@\w+([-.]\w+)<em>.\w+([-.]\w+)</em>&#x2F;.test(str);<br> }</li>
+</ul>
+<h3 id="isIdCard是否为身份证号"><a href="#isIdCard是否为身份证号" class="headerlink" title="isIdCard是否为身份证号"></a>isIdCard是否为身份证号</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc  判断是否为身份证号</li>
+<li>@param  {String|Number} str</li>
+<li>@return {Boolean}<br>*&#x2F;<br> function isIdCard(str) {<br>   return &#x2F;^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$&#x2F;.test(str)<br> }</li>
+</ul>
+<h3 id="isUrl是否为URL地址"><a href="#isUrl是否为URL地址" class="headerlink" title="isUrl是否为URL地址"></a>isUrl是否为URL地址</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc   判断是否为URL地址</li>
+<li>@param  {String} str</li>
+<li>@return {Boolean}<br><em>&#x2F;<br> function isUrl(str) {<br>   return &#x2F;[-a-zA-Z0-9@:%._+<del>#&#x3D;]{2,256}.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.</del>#?&amp;&#x2F;&#x2F;&#x3D;]</em>)&#x2F;i.test(str);<br> }</li>
+</ul>
+<h2 id="String字符串相关"><a href="#String字符串相关" class="headerlink" title="String字符串相关"></a>String字符串相关</h2><h3 id="digitUppercase现金额转大写"><a href="#digitUppercase现金额转大写" class="headerlink" title="digitUppercase现金额转大写"></a>digitUppercase现金额转大写</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc   现金额转大写</li>
+<li>@param  {Number} n</li>
+<li>@return {String}<br>*&#x2F;<br> function digitUppercase(n) {<br>   var fraction &#x3D; [‘角’, ‘分’];<br>   var digit &#x3D; [<br>   ‘零’, ‘壹’, ‘贰’, ‘叁’, ‘肆’,<br>   ‘伍’, ‘陆’, ‘柒’, ‘捌’, ‘玖’<br>   ];<br>   var unit &#x3D; [<br>   [‘元’, ‘万’, ‘亿’],<br>   [‘’, ‘拾’, ‘佰’, ‘仟’]<br>   ];<br>   var head &#x3D; n &lt; 0 ? ‘欠’ : ‘’;<br>   n &#x3D; Math.abs(n);<br>   var s &#x3D; ‘’;<br>   for (var i &#x3D; 0; i &lt; fraction.length; i++) {<br>   s +&#x3D; (digit[Math.floor(n * 10 * Math.pow(10, i)) % 10] + fraction[i]).replace(&#x2F;零.&#x2F;, ‘’);<br>   }<br>   s &#x3D; s || ‘整’;<br>   n &#x3D; Math.floor(n);<br>   for (var i &#x3D; 0; i &lt; unit[0].length &amp;&amp; n &gt; 0; i++) {<br>   var p &#x3D; ‘’;<br>   for (var j &#x3D; 0; j &lt; unit[1].length &amp;&amp; n &gt; 0; j++) {<br>       p &#x3D; digit[n % 10] + unit[1][j] + p;<br>       n &#x3D; Math.floor(n &#x2F; 10);<br>   }<br>   s &#x3D; p.replace(&#x2F;(零.)*零$&#x2F;, ‘’).replace(&#x2F;^$&#x2F;, ‘零’) + unit[0][i] + s;<br>   }<br>   return head + s.replace(&#x2F;(零.)*零元&#x2F;, ‘元’)<br>   .replace(&#x2F;(零.)+&#x2F;g, ‘零’)<br>   .replace(&#x2F;^整$&#x2F;, ‘零元整’);</li>
+</ul>
+<p> };</p>
+<h2 id="Support浏览器支持类型判断"><a href="#Support浏览器支持类型判断" class="headerlink" title="Support浏览器支持类型判断"></a>Support浏览器支持类型判断</h2><h2 id="isSupportWebP-判断浏览器是否支持webP格式图片"><a href="#isSupportWebP-判断浏览器是否支持webP格式图片" class="headerlink" title="isSupportWebP 判断浏览器是否支持webP格式图片"></a>isSupportWebP 判断浏览器是否支持webP格式图片</h2><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc 判断浏览器是否支持webP格式图片</li>
+<li>@return {Boolean}<br>*&#x2F;<br> function isSupportWebP() {<br>   return !![].map &amp;&amp; document.createElement(‘canvas’).toDataURL(‘image&#x2F;webp’).indexOf(‘data:image&#x2F;webp’) &#x3D;&#x3D; 0;<br> }</li>
+</ul>
+<h2 id="Time时间处理"><a href="#Time时间处理" class="headerlink" title="Time时间处理"></a>Time时间处理</h2><h3 id="formatPassTime距现在的已过时间"><a href="#formatPassTime距现在的已过时间" class="headerlink" title="formatPassTime距现在的已过时间"></a>formatPassTime距现在的已过时间</h3><p> &#x2F;**</p>
+<ul>
+<li>@desc   格式化${startTime}距现在的已过时间</li>
+<li>@param  {Date} startTime</li>
+<li>@return {String}<br>*&#x2F;<br> function formatPassTime(startTime) {<br>   var currentTime &#x3D; Date.parse(new Date()),<br>   time &#x3D; currentTime - startTime,</li>
+</ul>
+<p>day &#x3D; parseInt(time &#x2F; (1000* 60 <em>60</em> 24)),<br>         hour &#x3D; parseInt(time &#x2F; (1000 <em>60</em> 60)),<br>         min &#x3D; parseInt(time &#x2F; (1000 * 60)),<br>         month &#x3D; parseInt(day &#x2F; 30),<br>         year &#x3D; parseInt(month &#x2F; 12);<br>     if (year) return year + “年前”<br>     if (month) return month + “个月前”<br>     if (day) return day + “天前”<br>     if (hour) return hour + “小时前”<br>     if (min) return min + “分钟前”<br>     else return ‘刚刚’<br> }</p>
+<h3 id="formatRemainTime距xxx的剩余时间"><a href="#formatRemainTime距xxx的剩余时间" class="headerlink" title="formatRemainTime距xxx的剩余时间"></a>formatRemainTime距xxx的剩余时间</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc   格式化现在距${endTime}的剩余时间</li>
+<li>@param  {Date} endTime  </li>
+<li>@return {String}<br>*&#x2F;<br> function formatRemainTime(endTime) {<br>   var startDate &#x3D; new Date(); &#x2F;&#x2F;开始时间<br>   var endDate &#x3D; new Date(endTime); &#x2F;&#x2F;结束时间<br>   var t &#x3D; endDate.getTime() - startDate.getTime(); &#x2F;&#x2F;时间差<br>   var d &#x3D; 0,<br>   h &#x3D; 0,<br>   m &#x3D; 0,<br>   s &#x3D; 0;<br>   if (t &gt;&#x3D; 0) {<br>   d &#x3D; Math.floor(t &#x2F; 1000 &#x2F; 3600 &#x2F; 24);<br>   h &#x3D; Math.floor(t &#x2F; 1000 &#x2F; 60 &#x2F; 60 % 24);<br>   m &#x3D; Math.floor(t &#x2F; 1000 &#x2F; 60 % 60);<br>   s &#x3D; Math.floor(t &#x2F; 1000 % 60);<br>   }<br>   return d + “天 “ + h + “小时 “ + m + “分钟 “ + s + “秒”;<br> }</li>
+</ul>
+<h3 id="Format：格式化"><a href="#Format：格式化" class="headerlink" title="Format：格式化"></a>Format：格式化</h3><p> var d &#x3D; new Date(2013, 0, 1);</p>
+<p> d.toString()<br> &#x2F;&#x2F; “Tue Jan 01 2013 00:00:00 GMT+0800 (CST)”</p>
+<p> d.toUTCString()<br> &#x2F;&#x2F; “Mon, 31 Dec 2012 16:00:00 GMT”</p>
+<p> d.toISOString()<br> &#x2F;&#x2F; “2012-12-31T16:00:00.000Z”</p>
+<p> d.toJSON()<br> &#x2F;&#x2F; “2012-12-31T16:00:00.000Z”</p>
+<p> d.toDateString() &#x2F;&#x2F; “Tue Jan 01 2013”</p>
+<p> d.toTimeString() &#x2F;&#x2F; “00:00:00 GMT+0800 (CST)”</p>
+<p> d.toLocaleDateString()<br> &#x2F;&#x2F; 中文版浏览器为”2013年1月1日”<br> &#x2F;&#x2F; 英文版浏览器为”1&#x2F;1&#x2F;2013”</p>
+<p> d.toLocaleTimeString()<br> &#x2F;&#x2F; 中文版浏览器为”上午12:00:00”<br> &#x2F;&#x2F; 英文版浏览器为”12:00:00 AM”</p>
+<h3 id="Date-Format-fmt"><a href="#Date-Format-fmt" class="headerlink" title="Date.Format(fmt)"></a>Date.Format(fmt)</h3><p> &#x2F;&#x2F; 对Date的扩展，将 Date 转化为指定格式的String<br> &#x2F;&#x2F; 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，<br> &#x2F;&#x2F; 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)<br> &#x2F;&#x2F; 例子：<br> &#x2F;&#x2F; (new Date()).Format(“yyyy-MM-dd hh:mm:ss.S”) &#x3D;&#x3D;&gt; 2006-07-02 08:09:04.423<br> &#x2F;&#x2F; (new Date()).Format(“yyyy-M-d h:m:s.S”)      &#x3D;&#x3D;&gt; 2006-7-2 8:9:4.18<br> &#x2F;&#x2F;(new Date()).Format(“yyyy&#x2F;M&#x2F;d h:m:s.S”)      &#x3D;&#x3D;&gt; 2006&#x2F;7&#x2F;2 8:9:4.18<br> Date.prototype.Format &#x3D; function (fmt) { &#x2F;&#x2F;author: meizz<br>     var o &#x3D; {<br>         “M+”: this.getMonth() + 1, &#x2F;&#x2F;月份<br>         “d+”: this.getDate(), &#x2F;&#x2F;日<br>         “h+”: this.getHours(), &#x2F;&#x2F;小时<br>         “m+”: this.getMinutes(), &#x2F;&#x2F;分<br>         “s+”: this.getSeconds(), &#x2F;&#x2F;秒<br>         “q+”: Math.floor((this.getMonth() + 3) &#x2F; 3), &#x2F;&#x2F;季度<br>         “S”: this.getMilliseconds() &#x2F;&#x2F;毫秒<br>     };<br>     if (&#x2F;(y+)&#x2F;.test(fmt)) fmt &#x3D; fmt.replace(RegExp.$1, (this.getFullYear() + “”).substr(4 - RegExp.$1.length));<br>     for (var k in o)<br>     if (new RegExp(“(“ + k + “)”).test(fmt)) fmt &#x3D; fmt.replace(RegExp.$1, (RegExp.$1.length &#x3D;&#x3D; 1) ? (o[k]) : ((“00” + o[k]).substr((“” + o[k]).length)));<br>     return fmt;<br> }</p>
+<p> &#x2F;&#x2F;调用：<br> &#x2F;&#x2F;var time1 &#x3D; new Date().Format(“yyyy-MM-dd”);<br> &#x2F;&#x2F;var time2 &#x3D; new Date().Format(“yyyy-MM-dd hh:mm:ss”);</p>
+<h3 id="Date-pattern年月日季度星期时分秒毫秒"><a href="#Date-pattern年月日季度星期时分秒毫秒" class="headerlink" title="Date.pattern年月日季度星期时分秒毫秒"></a>Date.pattern年月日季度星期时分秒毫秒</h3><p> &#x2F;**</p>
+<ul>
+<li>对Date的扩展，将 Date 转化为指定格式的String <em>月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q)<br>可以用 1-2 个占位符</em> 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) <em>eg:</em> (new<br>   Date()).pattern(“yyyy-MM-dd hh:mm:ss.S”)&#x3D;&#x3D;&gt; 2006-07-02 08:09:04.423</li>
+<li>(new Date()).pattern(“yyyy-MM-dd E HH:mm:ss”) &#x3D;&#x3D;&gt; 2009-03-10 二 20:09:04</li>
+<li>(new Date()).pattern(“yyyy-MM-dd EE hh:mm:ss”) &#x3D;&#x3D;&gt; 2009-03-10 周二 08:09:04</li>
+<li>(new Date()).pattern(“yyyy-MM-dd EEE hh:mm:ss”) &#x3D;&#x3D;&gt; 2009-03-10 星期二 08:09:04</li>
+<li>(new Date()).pattern(“yyyy-M-d h:m:s.S”) &#x3D;&#x3D;&gt; 2006-7-2 8:9:4.18<br>**&#x2F;<br> Date.prototype.pattern&#x3D;function(fmt) {<br>   var o &#x3D; {<br>   “M+” : this.getMonth()+1, &#x2F;&#x2F;月份<br>   “d+” : this.getDate(), &#x2F;&#x2F;日<br>   “h+” : this.getHours()%12 &#x3D;&#x3D; 0 ? 12 : this.getHours()%12, &#x2F;&#x2F;小时<br>   “H+” : this.getHours(), &#x2F;&#x2F;小时<br>   “m+” : this.getMinutes(), &#x2F;&#x2F;分<br>   “s+” : this.getSeconds(), &#x2F;&#x2F;秒<br>   “q+” : Math.floor((this.getMonth()+3)&#x2F;3), &#x2F;&#x2F;季度<br>   “S” : this.getMilliseconds() &#x2F;&#x2F;毫秒<br>   };<br>   &#x2F;&#x2F; var week &#x3D; {<br>   &#x2F;&#x2F; “0” : “&#x2F;u65e5”,<br>   &#x2F;&#x2F; “1” : “&#x2F;u4e00”,<br>   &#x2F;&#x2F; “2” : “&#x2F;u4e8c”,<br>   &#x2F;&#x2F; “3” : “&#x2F;u4e09”,<br>   &#x2F;&#x2F; “4” : “&#x2F;u56db”,<br>   &#x2F;&#x2F; “5” : “&#x2F;u4e94”,<br>   &#x2F;&#x2F; “6” : “&#x2F;u516d”<br>   &#x2F;&#x2F; };<br>   var week &#x3D; {<br>   “0” : “日”,<br>   “1” : “一”,<br>   “2” : “二”,<br>   “3” : “三”,<br>   “4” : “四”,<br>   “5” : “五”,<br>   “6” : “六”<br>   };<br>   if(&#x2F;(y+)&#x2F;.test(fmt)){<br>   fmt&#x3D;fmt.replace(RegExp.$1, (this.getFullYear()+””).substr(4 - RegExp.$1.length));<br>   }<br>   if(&#x2F;(E+)&#x2F;.test(fmt)){<br>   fmt&#x3D;fmt.replace(RegExp.$1, ((RegExp.$1.length&gt;1) ? (RegExp.$1.length&gt;2 ? “星期” : “周”) : “”)+week[this.getDay()+””]);<br>   }<br>   for(var k in o){<br>   if(new RegExp(“(“+ k +”)”).test(fmt)){<br>       fmt &#x3D; fmt.replace(RegExp.$1, (RegExp.$1.length&#x3D;&#x3D;1) ? (o[k]) : ((“00”+ o[k]).substr((“”+ o[k]).length)));<br>   }<br>   }<br>   return fmt;<br> }</li>
+</ul>
+<p> &#x2F;&#x2F;var date &#x3D; new Date();<br> &#x2F;&#x2F;console.log(date.pattern(“yyyy-MM-dd hh:mm:ss”))<br> &#x2F;&#x2F;console.log(date.pattern(“yyyy-MM-dd E HH:mm:ss”))<br> &#x2F;&#x2F;console.log(date.pattern(“yyyy-MM-dd EE hh:mm:ss”))<br> &#x2F;&#x2F;console.log(date.pattern(“yyyy-MM-dd EEE hh:mm:ss”))<br> &#x2F;&#x2F;console.log(date.pattern(“yyyy-MM-dd hh:mm:ss”))<br> &#x2F;&#x2F;console.log(date.pattern(“q”))</p>
+<h2 id="URL操作"><a href="#URL操作" class="headerlink" title="URL操作"></a>URL操作</h2><h3 id="parseQueryString参数转对象"><a href="#parseQueryString参数转对象" class="headerlink" title="parseQueryString参数转对象"></a>parseQueryString参数转对象</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc   url参数转对象</li>
+<li>@param  {String} url  default: window.location.href</li>
+<li>@return {Object}<br>*&#x2F;<br> function parseQueryString(url) {<br>   url &#x3D; url &#x3D;&#x3D; null ? window.location.href : url<br>   var search &#x3D; url.substring(url.lastIndexOf(‘?’) + 1)<br>   if (!search) {<br>   return {}<br>   }<br>   return JSON.parse(‘{“‘ + decodeURIComponent(search).replace(&#x2F;“&#x2F;g, ‘\“‘).replace(&#x2F;&amp;&#x2F;g, ‘“,”‘).replace(&#x2F;&#x3D;&#x2F;g, ‘“:”‘) + ‘“}’)<br> }</li>
+</ul>
+<h3 id="stringfyQueryString对象序列化"><a href="#stringfyQueryString对象序列化" class="headerlink" title="stringfyQueryString对象序列化"></a>stringfyQueryString对象序列化</h3><p> &#x2F;**<br>  *</p>
+<ul>
+<li>@desc   对象序列化</li>
+<li>@param  {Object} obj</li>
+<li>@return {String}<br>*&#x2F;<br> function stringfyQueryString(obj) {<br>   if (!obj) return ‘’;<br>   var pairs &#x3D; [];<br>   for (var key in obj) {<br>   var value &#x3D; obj[key];<br>   if (value instanceof Array) {<br>       for (var i &#x3D; 0; i &lt; value.length; ++i) {<br>           pairs.push(encodeURIComponent(key + ‘[‘ + i + ‘]’) + ‘&#x3D;’ + encodeURIComponent(value[i]));<br>       }<br>       continue;<br>   }<br>   pairs.push(encodeURIComponent(key) + ‘&#x3D;’ + encodeURIComponent(obj[key]));<br>   }<br>   return pairs.join(‘&amp;’);<br> }</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JavaScript/" class="category-chain-item">JavaScript</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaScript/">#JavaScript</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>JavaScript常用的方法</div>
+      <div>http://example.com/2021/02/12/JavaScript-normal-functions/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年2月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/03/05/HTML-Length-px/" title="HTML中常见的长度单位">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">HTML中常见的长度单位</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/01/05/browser-bug-and-solution-two/" title="常见的浏览器兼容性问题及解决办法二">
+                        <span class="hidden-mobile">常见的浏览器兼容性问题及解决办法二</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

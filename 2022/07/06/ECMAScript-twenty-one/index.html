@@ -1,0 +1,728 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="将ES6的新语法，运用到编码实践之中，与传统的JavaScript语法结合在一起，写出合理的、易于阅读和维护的代码。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6 第二十一章	编程风格">
+<meta property="og:url" content="http://example.com/2022/07/06/ECMAScript-twenty-one/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="将ES6的新语法，运用到编码实践之中，与传统的JavaScript语法结合在一起，写出合理的、易于阅读和维护的代码。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-07-06T22:22:54.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.570Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="ES6">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ES6 第二十一章	编程风格 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ES6 第二十一章	编程风格"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-07-06 22:22" pubdate>
+          2022年7月6日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          58 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ES6 第二十一章	编程风格</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第二十一章-编程风格"><a href="#第二十一章-编程风格" class="headerlink" title="第二十一章 编程风格"></a>第二十一章 编程风格</h1><p>本章探讨如何将ES6的新语法，运用到编码实践之中，与传统的JavaScript语法结合在一起，写出合理的、易于阅读和维护的代码。</p>
+<p>多家公司和组织已经公开了它们的风格规范，具体可参阅jscs.info，下面的内容主要参考了Airbnb的</p>
+<p>JavaScript风格规范。</p>
+<h2 id="块级作用域"><a href="#块级作用域" class="headerlink" title="块级作用域"></a>块级作用域</h2><ol>
+<li>let取代var</li>
+</ol>
+<p> ES6提出了两个新的声明变量的命令：let和const。其中，let完全可以取代var，因为两者语义相同，而且let没有副作用。</p>
+<p>  ‘use strict’;<br>  if (true) {<br>   let x &#x3D; ‘hello’;<br>  }<br>  for (let i &#x3D; 0; i &lt; 10; i++) {<br>   console.log(i);<br>  }</p>
+<p> 上面代码如果用var替代let，实际上就声明了两个全局变量，这显然不是本意。变量应该只在其声明的代码块内有效，var命令做不到这一点。</p>
+<p> var命令存在变量提升效用，let命令没有这个问题。</p>
+<p>  ‘use strict’;<br>  if(true) {<br>   console.log(x); &#x2F;&#x2F; ReferenceError<br>   let x &#x3D; ‘hello’;<br>  }</p>
+<p> 上面代码如果使用var替代let，console.log那一行就不会报错，而是会输出undefined，因为变量声明提升到代码块的头部。这违反了变量先声明后使用的原则。</p>
+<p> 所以，建议不再使用var命令，而是使用let命令取代。</p>
+<ol start="2">
+<li>全局常量和线程安全</li>
+</ol>
+<p> 在let和const之间，建议优先使用const，尤其是在全局环境，不应该设置变量，只应设置常量。这符合函数式编程思想，有利于将来的分布式运算。</p>
+<p>  &#x2F;&#x2F; bad<br>  var a &#x3D; 1, b &#x3D; 2, c &#x3D; 3;<br>  &#x2F;&#x2F; good<br>  const a &#x3D; 1;<br>  const b &#x3D; 2;<br>  const c &#x3D; 3;<br>  &#x2F;&#x2F; best<br>  const [a, b, c] &#x3D; [1, 2, 3];</p>
+<p> const声明常量还有两个好处，一是阅读代码的人立刻会意识到不应该修改这个值，二是防止了无意间修改变量值所导致的错误。</p>
+<p> 所有的函数都应该设置为常量。</p>
+<p> 长远来看，JavaScript可能会有多线程的实现（比如Intel的River Trail那一类的项目），这时let表示的变量，只应出现在单线程运行的代码中，不能是多线程共享的，这样有利于保证线程安全。</p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>静态字符串一律使用单引号或反引号，不使用双引号。动态字符串使用反引号。</p>
+<p> &#x2F;&#x2F; bad<br> const a &#x3D; “foobar”;<br> const b &#x3D; ‘foo’ + a + ‘bar’;<br> &#x2F;&#x2F; acceptable<br> const c &#x3D; <code>foobar</code>;<br> &#x2F;&#x2F; good<br> const a &#x3D; ‘foobar’;<br> const b &#x3D; <code>foo$&#123;a&#125;bar</code>;<br> const c &#x3D; ‘foobar’;</p>
+<h2 id="解构赋值"><a href="#解构赋值" class="headerlink" title="解构赋值"></a>解构赋值</h2><p>使用数组成员对变量赋值时，优先使用解构赋值。</p>
+<p> const arr &#x3D; [1, 2, 3, 4];<br> &#x2F;&#x2F; bad<br> const first &#x3D; arr[0];<br> const second &#x3D; arr[1];<br> &#x2F;&#x2F; good<br> const [first, second] &#x3D; arr;</p>
+<p>函数的参数如果是对象的成员，优先使用解构赋值。</p>
+<p> &#x2F;&#x2F; bad<br> function getFullName(user) {<br>  const firstName &#x3D; user.firstName;<br>  const lastName &#x3D; user.lastName;<br> }<br> &#x2F;&#x2F; good<br> function getFullName(obj) {<br>  const { firstName, lastName } &#x3D; obj;<br> }<br> &#x2F;&#x2F; best<br> function getFullName({ firstName, lastName }) {<br> }</p>
+<p>如果函数返回多个值，优先使用对象的解构赋值，而不是数组的解构赋值。这样便于以后添加返回值，以及更改返回值的顺序。</p>
+<p> &#x2F;&#x2F; bad<br> function processInput(input) {<br>  return [left, right, top, bottom];<br> }<br> &#x2F;&#x2F; good<br> function processInput(input) {<br>  return { left, right, top, bottom };<br> }<br> const { left, right } &#x3D; processInput(input);</p>
+<h2 id="对象"><a href="#对象" class="headerlink" title="对象"></a>对象</h2><p>单行定义的对象，最后一个成员不以逗号结尾。多行定义的对象，最后一个成员以逗号结尾。</p>
+<p> &#x2F;&#x2F; bad<br> const a &#x3D; { k1: v1, k2: v2, };<br> const b &#x3D; {<br>  k1: v1,<br>  k2: v2<br> };<br> &#x2F;&#x2F; good<br> const a &#x3D; { k1: v1, k2: v2 };<br> const b &#x3D; {<br>  k1: v1,<br>  k2: v2,<br> };<br>对象尽量静态化，一旦定义，就不得随意添加新的属性。如果添加属性不可避免，要使用Object.assign方法。</p>
+<p> &#x2F;&#x2F; bad<br> const a &#x3D; {};<br> a.x &#x3D; 3;<br> &#x2F;&#x2F; if reshape unavoidable<br> const a &#x3D; {};<br> Object.assign(a, { x: 3 });<br> &#x2F;&#x2F; good<br> const a &#x3D; { x: null };<br> a.x &#x3D; 3;</p>
+<p>如果对象的属性名是动态的，可以在创造对象的时候，使用属性表达式定义。</p>
+<p> &#x2F;&#x2F; bad<br> const obj &#x3D; {<br>  id: 5,<br>  name: ‘San Francisco’,<br> };<br> obj[getKey(‘enabled’)] &#x3D; true;<br> &#x2F;&#x2F; good<br> const obj &#x3D; {<br>  id: 5,<br>  name: ‘San Francisco’,<br>  [getKey(‘enabled’)]: true,<br> };</p>
+<p>上面代码中，对象obj的最后一个属性名，需要计算得到。这时最好采用属性表达式，在新建obj的时候，将该属性与其他属性定义在一起。这样一来，所有属性就在一个地方定义了。</p>
+<p>另外，对象的属性和方法，尽量采用简洁表达法，这样易于描述和书写。</p>
+<p> var ref &#x3D; ‘some value’;<br> &#x2F;&#x2F; bad<br> const atom &#x3D; {<br>  ref: ref,<br>  value: 1,<br>  addValue: function (value) {<br>   return atom.value + value;<br>  },<br> };<br> &#x2F;&#x2F; good<br> const atom &#x3D; {<br>  ref,<br>  value: 1,<br>  addValue(value) {<br>   return atom.value + value;<br>  },<br> };</p>
+<h2 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h2><p>使用扩展运算符（…）拷贝数组。</p>
+<p> &#x2F;&#x2F; bad<br> const len &#x3D; items.length;<br> const itemsCopy &#x3D; [];<br> let i;<br> for (i &#x3D; 0; i &lt; len; i++) {<br>  itemsCopy[i] &#x3D; items[i];<br> }<br> &#x2F;&#x2F; good<br> const itemsCopy &#x3D; […items];</p>
+<p>使用Array.from方法，将类似数组的对象转为数组。<br> const foo &#x3D; document.querySelectorAll(‘.foo’);<br> const nodes &#x3D; Array.from(foo);</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>立即执行函数可以写成箭头函数的形式。</p>
+<p> (() &#x3D;&gt; {<br>  console.log(‘Welcome to the Internet.’);<br> })();</p>
+<p>那些需要使用函数表达式的场合，尽量用箭头函数代替。因为这样更简洁，而且绑定了this。</p>
+<p> &#x2F;&#x2F; bad<br> [1, 2, 3].map(function (x) {<br>  return x <em>x;<br> });<br> &#x2F;&#x2F; good<br> [1, 2, 3].map((x) &#x3D;&gt; {<br>return x</em> x;<br> });<br> &#x2F;&#x2F; best<br> [1, 2, 3].map(x &#x3D;&gt; x * x);</p>
+<p>箭头函数取代Function.prototype.bind，不应再用self&#x2F;_this&#x2F;that绑定 this。</p>
+<p> &#x2F;&#x2F; bad<br> const self &#x3D; this;<br> const boundMethod &#x3D; function(…params) {<br>  return method.apply(self, params);<br> }<br> &#x2F;&#x2F; acceptable<br> const boundMethod &#x3D; method.bind(this);<br> &#x2F;&#x2F; best<br> const boundMethod &#x3D; (…params) &#x3D;&gt; method.apply(this, params);</p>
+<p>简单的、单行的、不会复用的函数，建议采用箭头函数。如果函数体较为复杂，行数较多，还是应该采用传统的函数写法。</p>
+<p>所有配置项都应该集中在一个对象，放在最后一个参数，布尔值不可以直接作为参数。</p>
+<p> &#x2F;&#x2F; bad<br> function divide(a, b, option &#x3D; false ) {<br> }<br> &#x2F;&#x2F; good<br> function divide(a, b, { option &#x3D; false } &#x3D; {}) {<br> }</p>
+<p>不要在函数体内使用arguments变量，使用rest运算符（…）代替。因为rest运算符显式表明你想要获取参数，而且arguments是一个类似数组的对象，而rest运算符可以提供一个真正的数组。</p>
+<p> &#x2F;&#x2F; bad<br> function concatenateAll() {<br>  const args &#x3D; Array.prototype.slice.call(arguments);<br>  return args.join(‘’);<br> }<br> &#x2F;&#x2F; good<br> function concatenateAll(…args) {<br>  return args.join(‘’);<br> }</p>
+<p>使用默认值语法设置函数参数的默认值。</p>
+<p> &#x2F;&#x2F; bad<br> function handleThings(opts) {<br>  opts &#x3D; opts || {};<br> }<br> &#x2F;&#x2F; good<br> function handleThings(opts &#x3D; {}) {<br>  &#x2F;&#x2F; …<br> }</p>
+<h2 id="Map结构"><a href="#Map结构" class="headerlink" title="Map结构"></a>Map结构</h2><p>注意区分Object和Map，只有模拟现实世界的实体对象时，才使用Object。如果只是需要key: value的数据结构，使用Map结构。因为Map有内建的遍历机制。</p>
+<p> let map &#x3D; new Map(arr);<br> for (let key of map.keys()) {<br>  console.log(key);<br> }<br> for (let value of map.values()) {<br>  console.log(value);<br> }<br> for (let item of map.entries()) {<br>  console.log(item[0], item[1]);<br> }</p>
+<h2 id="Class"><a href="#Class" class="headerlink" title="Class"></a>Class</h2><p>总是用Class，取代需要prototype的操作。因为Class的写法更简洁，更易于理解。<br> &#x2F;&#x2F; bad<br> function Queue(contents &#x3D; []) {<br>  this._queue &#x3D; […contents];<br> }<br> Queue.prototype.pop &#x3D; function() {<br>  const value &#x3D; this._queue[0];<br>  this._queue.splice(0, 1);<br>  return value;<br> }<br> &#x2F;&#x2F; good<br> class Queue {<br>  constructor(contents &#x3D; []) {<br>   this._queue &#x3D; […contents];<br>  }<br>  pop() {<br>   const value &#x3D; this._queue[0];<br>   this._queue.splice(0, 1);<br>   return value;<br>  }<br> }</p>
+<p>使用extends实现继承，因为这样更简单，不会有破坏instanceof运算的危险。</p>
+<p> &#x2F;&#x2F; bad<br> const inherits &#x3D; require(‘inherits’);<br> function PeekableQueue(contents) {<br>  Queue.apply(this, contents);<br> }<br> inherits(PeekableQueue, Queue);<br> PeekableQueue.prototype.peek &#x3D; function() {<br>  return this._queue[0];<br> }<br> &#x2F;&#x2F; good<br> class PeekableQueue extends Queue {<br>  peek() {<br>   return this._queue[0];<br>  }<br> }</p>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>首先，Module语法是JavaScript模块的标准写法，坚持使用这种写法。使用import取代require。</p>
+<p> &#x2F;&#x2F; bad<br> const moduleA &#x3D; require(‘moduleA’);<br> const func1 &#x3D; moduleA.func1;<br> const func2 &#x3D; moduleA.func2;<br> &#x2F;&#x2F; good<br> import { func1, func2 } from ‘moduleA’;</p>
+<p>使用export取代module.exports。</p>
+<p> &#x2F;&#x2F; commonJS的写法<br> var React &#x3D; require(‘react’);<br> var Breadcrumbs &#x3D; React.createClass({<br>  render() {<br>   return <nav />;<br>  }<br> });<br> module.exports &#x3D; Breadcrumbs;<br> &#x2F;&#x2F; ES6的写法<br> import React from ‘react’;<br> const Breadcrumbs &#x3D; React.createClass({<br>  render() {<br>   return <nav />;<br>  }<br> });<br> export default Breadcrumbs</p>
+<p>如果模块只有一个输出值，就使用export default，如果模块有多个输出值，就不使用export default，不要export default与普通的export同时使用。</p>
+<p>不要在模块输入中使用通配符。因为这样可以确保你的模块之中，有一个默认输出（export default）。</p>
+<p> &#x2F;&#x2F; bad<br> import * as myObject ‘.&#x2F;importModule’;<br> &#x2F;&#x2F; good<br> import myObject from ‘.&#x2F;importModule’;</p>
+<p>如果模块默认输出一个函数，函数名的首字母应该小写。</p>
+<p> function makeStyleGuide() {<br> }<br> export default makeStyleGuide;</p>
+<p>如果模块默认输出一个对象，对象名的首字母应该大写。</p>
+<p> const StyleGuide &#x3D; {<br>  es6: {<br>  }<br> };<br> export default StyleGuide;</p>
+<h2 id="ESLint的使用"><a href="#ESLint的使用" class="headerlink" title="ESLint的使用"></a>ESLint的使用</h2><p>ESLint是一个语法规则和代码风格的检查工具，可以用来保证写出语法正确、风格统一的代码。</p>
+<p>首先，安装ESLint。</p>
+<p> npm i -g eslint</p>
+<p>然后，安装Airbnb语法规则。</p>
+<p> npm i -g eslint-config-airbnb</p>
+<p>最后，在项目的根目录下新建一个.eslintrc文件，配置ESLint。</p>
+<p> {<br> “extends”: “eslint-config-airbnb”<br> }</p>
+<p>现在就可以检查，当前项目的代码是否符合预设的规则。</p>
+<p>index.js文件的代码如下。</p>
+<p> var unusued &#x3D; ‘I have no purpose!’;<br> function greet() {<br> var message &#x3D; ‘Hello, World!’;<br>  alert(message);<br> }<br> greet();</p>
+<p>使用ESLint检查这个文件。</p>
+<p> $ eslint index.js<br> index.js<br> 1:5 error unusued is defined but never used no-unused-vars<br> 4:5 error Expected indentation of 2 characters but found 4 indent<br> 5:5 error Expected indentation of 2 characters but found 4 indent<br> ✖ 3 problems (3 errors, 0 warnings)</p>
+<p>上面代码说明，原文件有三个错误，一个是定义了变量，却没有使用，另外两个是行首缩进为4个空格，而不是规定的2个空格。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ES6/" class="category-chain-item">ES6</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/ES6/">#ES6</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ES6 第二十一章	编程风格</div>
+      <div>http://example.com/2022/07/06/ECMAScript-twenty-one/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年7月6日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/07/07/ECMAScript-twenty-two/" title="ES6 第二十二章 读懂 ECMAScript 规格">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ES6 第二十二章 读懂 ECMAScript 规格</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/05/ECMAScript-twenty-Module/" title="ES6 第二十章	Module">
+                        <span class="hidden-mobile">ES6 第二十章	Module</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

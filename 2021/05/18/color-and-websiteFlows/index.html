@@ -1,0 +1,664 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="身为一个前端工程师，必须对颜色敏感，于是随便找了一些关于色彩的进行了一些了解。附属一些常见的网站布局。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅谈颜色的分类和含义以及网页结构">
+<meta property="og:url" content="http://example.com/2021/05/18/color-and-websiteFlows/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="身为一个前端工程师，必须对颜色敏感，于是随便找了一些关于色彩的进行了一些了解。附属一些常见的网站布局。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-18T23:00:54.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.430Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="UI">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>浅谈颜色的分类和含义以及网页结构 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="浅谈颜色的分类和含义以及网页结构"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-05-18 23:00" pubdate>
+          2021年5月18日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">浅谈颜色的分类和含义以及网页结构</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="颜色的分类和含义"><a href="#颜色的分类和含义" class="headerlink" title="颜色的分类和含义"></a>颜色的分类和含义</h2><h3 id="暖色"><a href="#暖色" class="headerlink" title="暖色"></a>暖色</h3><p>暖色可以创造温暖的感觉，暖色通常会让人联想起太阳、火焰和爱情。红色是血的颜色，感觉是温暖的。橙色和黄色会给人夏天的感觉。给图像添加一个橙色的滤镜，图像看起来就会有温馨快乐的感觉。</p>
+<h3 id="冷色"><a href="#冷色" class="headerlink" title="冷色"></a>冷色</h3><p>冷色也有其独特的含义，通常会让人联想起凉爽的气候、冬季、死亡、悲伤、冰、夜晚和水这些事物。冷色可以给人平静、安宁、新人、干净的感觉。紫色与尊贵经常联系在一起，看起来十分内敛。</p>
+<h3 id="红色"><a href="#红色" class="headerlink" title="红色"></a>红色</h3><p>红色是代表爱情和激情的颜色。 红色也表示危险，所以很多表示停止的标识牌都是红色的，红色是很强势的颜色，当它和其他颜色相遇时，比如搭配黑色，可以创建非常强势的感觉。 红色可以搭配一些严肃的语气和强硬的命令。</p>
+<h3 id="橙色"><a href="#橙色" class="headerlink" title="橙色"></a>橙色</h3><p>橙色代表了温暖，但是并不像红色那样咄咄逼人。橙色能够创建一个有趣的氛围，因为它充满了活力，而且橙色创造出的活跃气氛并没有危险的感觉。橙色可以与一些健康产品搭上关系，比如维生素C，毕竟橙子里也有很多维生素C。</p>
+<h3 id="黄色"><a href="#黄色" class="headerlink" title="黄色"></a>黄色</h3><p>提到黄色，经常可以联想到太阳和温暖。使用橙色的时候，可以创造出一种夏天的好玩的感觉，黄色则带给人口渴的感觉，所以经常可以在卖饮料的地方看到黄色的装饰。黄色也可以和懦弱与恐惧联系起来,当黄色与黑色搭配在一起时，十分吸引人的注意力,一个绝佳的例子就是出租车都采用这种配色</p>
+<h3 id="绿色"><a href="#绿色" class="headerlink" title="绿色"></a>绿色</h3><p>在西方国家，绿色是钱的颜色，这与他们的文化和财富有关。因为大多数植物都是绿色的。绿色也代表着经济增长和健康。绿色经常用作一些保健食品的LOGO，因为看起来就十分贴近自然。绿色还意味着利润和收益。如果搭配上蓝色，通常会给人健康、清洁、生活和自然的感觉。</p>
+<h3 id="蓝色"><a href="#蓝色" class="headerlink" title="蓝色"></a>蓝色</h3><p>蓝色是一个神奇的颜色，因为不同明度的蓝色会给人不同的感受、想法和情绪。深蓝色可以给人一种悲伤的感觉，让人联想起伤心时怎么听都不够的蓝调音乐。浅蓝色则通常会让人联想起天空和水，给人以提神、自由和平静的感觉。蓝天永远都是平静的，水流可以冲走泥土，清洗伤口，所以蓝色也代表着新鲜和更新。蓝色给人冷静的感觉，会帮助人放松下来。</p>
+<h3 id="紫色"><a href="#紫色" class="headerlink" title="紫色"></a>紫色</h3><p>紫色总是让人不禁想起皇室成员的长袍。紫色可以更多地与浪漫、亲密、柔软舒适的质感产生联系。紫色给人一种奢华的感觉，也有一种神秘感。下面这个葡萄酒网站就是极好的例子。</p>
+<h3 id="白色"><a href="#白色" class="headerlink" title="白色"></a>白色</h3><p>白色通常与医院联系在一起,宗教绘画有时候也是没有色彩的，白色也代表着圣洁。白色通常给人干净的感觉，比如白色的床单和衣服都让人感觉很干净。也可以代表棉花和柔软的云朵。心理健康相关的事物也可以选用白色，白色也同样适用于卫生、清洁相关的设计。</p>
+<h3 id="黑色"><a href="#黑色" class="headerlink" title="黑色"></a>黑色</h3><p>黑色通常与死亡有关，尤其是在美国。它可以代表腐坏，因为很多食物腐坏变质以后就是黑色的。黑色也代表邪恶，因为是白色的对立颜色，而白色通常代表着纯洁美好善良。黑暗和未知也会给人焦虑的感觉。很多图像中，黑色表达了抑郁、绝望和孤独。虽然黑色有很多负面的含义，但是黑色也是一个万能色彩，当黑色遇上其他颜色的时候会产生其他的意义。比如当黑色邂逅金黄色，就可以给人一种奢华、高档的感觉；当黑色偶遇银灰色，则会给人一种成熟稳重的感觉。</p>
+<h2 id="颜色总结"><a href="#颜色总结" class="headerlink" title="颜色总结"></a>颜色总结</h2><p>作为一名前端工程师，了解色彩是一件必不可少的事儿，在设计的时候应该慎重地考虑和选用颜色。通过不同的颜色可以创造出不同感觉的图像。合适的组合可以获得关注，通过视觉传达设计师所想，进一步拉近设计师与观众的距离，让图像更具力量。如果之前并不考虑用色，现在开始，应该培养对于色彩的感觉，相信客户会看到不一样的你，你的设计作品将会通过颜色建立联想，更好地传达信息。</p>
+<h2 id="网站是一个个页面构成的。七大经典网页布局类型"><a href="#网站是一个个页面构成的。七大经典网页布局类型" class="headerlink" title="网站是一个个页面构成的。七大经典网页布局类型"></a>网站是一个个页面构成的。七大经典网页布局类型</h2><h3 id="1、国字型"><a href="#1、国字型" class="headerlink" title="1、国字型"></a>1、国字型</h3><p>是大型网站所喜欢的类型，即最上面是网站的标题以及横幅广告，接下来就是网站的主要内容。左右分列一些小条内容，中间是主要部分，与左右一起罗列到底。最下面是网站的一些基本信息、联系方式、版权声明等。这种结构差不多是最多见的一种结构类型。</p>
+<h3 id="2、拐角型"><a href="#2、拐角型" class="headerlink" title="2、拐角型"></a>2、拐角型</h3><p>这种结构与国字型只是形式上的区别，其实是很近的，上面是标题以及广告横幅，接下来的左侧是一窄列连接等，右列是很宽的正文，下面也是一些网站的辅助信息。在这种类型中，一种很常见的类型是最上面是标题以及广告，左侧是导航链接</p>
+<h3 id="3、标题正文型"><a href="#3、标题正文型" class="headerlink" title="3、标题正文型"></a>3、标题正文型</h3><p>这种类型即最上面是标题或类似的一些东西，下面是正文，比如一些文章或注册页面等就是这种类</p>
+<h3 id="4、左右框架型"><a href="#4、左右框架型" class="headerlink" title="4、左右框架型"></a>4、左右框架型</h3><p>这是一种左右为分别两页的框架结构，一般左面是导航链接，有时做上面会有一些小的标题或标志。右面是正文。我们见到的大部分的大型论坛都是这种结构的，有一些网站也喜欢采用。这种类型结构非常清晰，一目了然。</p>
+<h3 id="5、上下框架型"><a href="#5、上下框架型" class="headerlink" title="5、上下框架型"></a>5、上下框架型</h3><p>与上面类似，区别仅仅在于是一种上下分为两页的框架。</p>
+<h3 id="6、综合框架型"><a href="#6、综合框架型" class="headerlink" title="6、综合框架型"></a>6、综合框架型</h3><p>上页两种结构的结合，相对复杂的一种结构框架，较为常见的是类似“拐角型”结构。</p>
+<h3 id="7、封面型"><a href="#7、封面型" class="headerlink" title="7、封面型"></a>7、封面型</h3><p>这种类型基本上是出现在一些网站的首页，大部分为一些精彩的平面设计结合一些小的动画，放上几个简单的链接或者仅是一个“进入”的链接甚至直接在首页的图片上做链接而没有任何提示。这种类型大部分出现在企业网站和个人主页，如果说处理的好，会给人赏心悦目的感觉</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/UI/" class="category-chain-item">UI</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/UI/">#UI</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>浅谈颜色的分类和含义以及网页结构</div>
+      <div>http://example.com/2021/05/18/color-and-websiteFlows/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年5月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/12/13/jquery-plus/" title="jQuery插件封装规则">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">jQuery插件封装规则</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/16/javascript-jquery/" title="jquery类库">
+                        <span class="hidden-mobile">jquery类库</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

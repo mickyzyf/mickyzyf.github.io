@@ -1,0 +1,754 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="打算系统的学一下js的MVVM框架，官方推荐使用 Webpack + vue-loader构建这些单文件 Vue 组件，于是就开始了webpack的学习之旅。 因为原来没有用过任何的构建工具与模块化工具，所以本系列会比较基础。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Webpack">
+<meta property="og:url" content="http://example.com/2022/02/20/webpack-first/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="打算系统的学一下js的MVVM框架，官方推荐使用 Webpack + vue-loader构建这些单文件 Vue 组件，于是就开始了webpack的学习之旅。 因为原来没有用过任何的构建工具与模块化工具，所以本系列会比较基础。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-20T23:14:54.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.638Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="Webpack">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>Webpack - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Webpack"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-02-20 23:14" pubdate>
+          2022年2月20日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          46 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Webpack</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="Webpack学习第一部分"><a href="#Webpack学习第一部分" class="headerlink" title="Webpack学习第一部分"></a>Webpack学习第一部分</h2><p>最近学习js的框架，选择了vue，然后接触到了vue中的单文件组件，官方推荐使用 Webpack + vue-loader构建这些单文件 Vue 组件，于是就开始了webpack的学习之旅。 因为原来没有用过任何的构建工具与模块化工具，所以本系列会比较基础。</p>
+<h3 id="什么是webpack"><a href="#什么是webpack" class="headerlink" title="什么是webpack"></a>什么是webpack</h3><p>Webpack 是德国开发者 Tobias Koppers 开发的模块加载器兼打包工具，在webpack中，它能把各种资源，例如JS（含JSX）、coffee、样式（含less&#x2F;sass）、图片等都作为模块来使用和处理。因此, Webpack 当中 js 可以引用 css, css 中可以嵌入图片 dataUrl。 对应各种不同文件类型的资源, Webpack 有对应的模块 loader比如vue用的是vue-loader。</p>
+<h3 id="环境安装"><a href="#环境安装" class="headerlink" title="环境安装"></a>环境安装</h3><p>因为webpack是一个基于node的项目，所以首先需要确保你的电脑里面已经安装了node.js，以及npm。在这里我使用的版本是：<br>node：v6.10.0 ，npm：3.10.10,若是版本问题，请更新到最新版。 若是有出现npm安装过慢的情况，可以使用nrm这个项目来进行npm源地址的切换。</p>
+<p>首先我们直接进行全局的安装，运行如下命令：npm install webpack -g，可能需要一点时间。</p>
+<p>安装成功后，在命令行输入webpack -h即可查看当前安装的版本信息。以及可以使用的指令。</p>
+<p>当然，我们都应该将webapck安装到当前的项目依赖中，此时就可以使用项目的本这样就可以使用项目本地版本的 Webpack。</p>
+<p>通过cd&#x2F;dir确保已经进入项目目录</p>
+<p>确定已经有 package.json，没有就通过</p>
+<p>npm init</p>
+<p>创建，直接一路回车就好，后面再来详细说里面的内容。</p>
+<p>安装 webpack 依赖</p>
+<p>npm install webpack –save-dev</p>
+<p>简单的写法：缩写形式</p>
+<p>npm i webpack -D</p>
+<p>save：模块名将被添加到dependencies，可以简化为参数-S。</p>
+<p>–save-dev: 模块名将被添加到devDependencies，可以简化为参数-D。</p>
+<p> {<br>   “name”: “first-demo”,<br>   “version”: “1.0.0”,<br>   “description”: “this is my first-demo”,<br>   “main”: “index.js”,<br>   “scripts”: {<br>     “test”: “echo &quot;Error: no test specified&quot; &amp;&amp; exit 1”<br>   },<br>   “author”: “minchao”,<br>   “license”: “MIT”,<br>   “dependencies”: {},<br>   “devDependencies”: {<br>     “webpack”: “^1.12.14”<br>   }<br> }</p>
+<p>既然环境都已经安装好了，那么我们就开始来用webpack进行我们的第一个打包运行程序吧！</p>
+<h3 id="开始创建我们第一个打包程序"><a href="#开始创建我们第一个打包程序" class="headerlink" title="开始创建我们第一个打包程序"></a>开始创建我们第一个打包程序</h3><p>首先创建一个静态页面 index.html 和一个 JS 入口文件 entry.js,（这里你想用什么名字都可以，只需要在打包的时候读取文件为该名字就好，不过，到时候就知道这个名字的含义啦！）：</p>
+ <!-- index.html -->
+ <html>
+ <head>
+     <meta charset="utf-8">
+ </head>
+ <body>
+     <h1 id="app"></h1>
+     <script src="bundle.js"></script>
+     <!-- 注意这里引入的不是我们创建的文件，而是用webpack生成的文件 -->
+ </body>
+ </html>
+
+<p>下面是js部分</p>
+<p> &#x2F;<em><strong>entry.js</strong></em>&#x2F;<br> document.getElementById(‘app’).innerHTML&#x3D;”这是我第一个打包成功的程序”;</p>
+<p>文件都已经创建成功了，那么就开始我们的打包吧！</p>
+<p>执行这一句: webpack entry.js bundle.js</p>
+<p>在浏览器中打开index.html，就能看到我们设置的文字了！：这是我第一个打包成功的程序</p>
+<p>这么简单的功能直接在html中引入不就好了吗？确实是这样的，不过我们这才刚刚开始，不要急。</p>
+<p>下面我们再来增加一个文件，名为first.js内容如下：</p>
+<p> var h2&#x3D; document.createElement(“h2”)<br> h2.innerHTML&#x3D;”这就是我的第二个打包程序啦！”;<br> document.body.appendChild(h2);</p>
+<p>更改 entry.js:</p>
+<p> document.getElementById(‘app’).innerHTML&#x3D;”这是我第一个打包成功的程序”;</p>
+<p>&#x2F;&#x2F;添加</p>
+<p> require(“.&#x2F;first.js”);</p>
+<p>再来进行一次重复的工作，再打包一次。webpack entry.js bundle.js，如果成功，打包过程会显示日志：</p>
+<p> Hash: b1cfe7ff9d75ce235dc9<br> Version: webpack 1.12.14<br> Time: 54ms<br>     Asset     Size  Chunks             Chunk Names<br> bundle.js  1.82 kB       0  [emitted]  main<br>    [0] .&#x2F;entry.js 208 bytes {0} [built]<br>    [1] .&#x2F;first.js 145 bytes {0} [built]</p>
+<p>总结：Webpack 会分析入口文件，解析包含依赖关系的各个文件。这些文件（模块）都打包到 bundle.js 。Webpack 会给每个模块分配一个唯一的 id 并通过这个 id 索引和访问模块。在页面启动时，会先执行 entry.js 中的代码，其它模块会在运行 require 的时候再执行。</p>
+<p>刷新浏览器，可以发现我们的刚刚的代码已经生效，又有了新的文字出现。</p>
+<p>我们已经成功的把简单的事情变得复杂了，把我们的只有几行代码的两个文件first.js、entry.js使用webpack进行文件打包生成了bundle.js。</p>
+<h3 id="Webpack-能做的就是这样，只能处理-JavaScript-模块"><a href="#Webpack-能做的就是这样，只能处理-JavaScript-模块" class="headerlink" title="Webpack 能做的就是这样，只能处理 JavaScript 模块"></a>Webpack 能做的就是这样，只能处理 JavaScript 模块</h3><p>当然它如果能做的仅仅是这样，那它也就不可能这么火了。所以它可以通过引入其他的loader，进而可以处理其它类型的文件。</p>
+<h4 id="loader介绍"><a href="#loader介绍" class="headerlink" title="loader介绍"></a>loader介绍</h4><p>Loader可以理解为是模块和资源的转换器，它本身是一个函数，接受源文件作为参数，返回转换的结果。这样，我们就可以通过require来加载任何类型的模块或文件，比如VUE、JSX、SASS 或图片。</p>
+<p>先来看看 loader 有哪些特性？</p>
+<ol>
+<li>Loader可以通过管道方式链式调用，每个loader可以把资源转换成任意格式并传递给下一个loader，但是最后一个loader必须返回JavaScript。</li>
+<li>Loader可以同步或异步执行。</li>
+<li>Loader运行在node.js环境中，所以可以做任何可能的事情。</li>
+<li>Loader可以接受参数，以此来传递配置项给loader。</li>
+<li>Loader可以通过文件扩展名（或正则表达式）绑定给不同类型的文件。</li>
+<li>Loader可以通过npm发布和安装。除了通过package.json的main指定，通常的模块也可以导出一个loader来使用。</li>
+<li>Loader可以访问配置。</li>
+<li>插件可以让loader拥有更多特性。</li>
+<li>Loader可以分发出附加的任意文件。</li>
+</ol>
+<h4 id="loader使用"><a href="#loader使用" class="headerlink" title="loader使用"></a>loader使用</h4><p>安装</p>
+<p>根据上面说的loader的知识，就这样编译是肯定不行的，所以我们安装用来读取css文件的css-loader，再用 style-loader 把它插入到页面中。</p>
+<p>在命令行中输入：npm install css-loader style-loader –save-dev</p>
+<p>在package.json中，主要是devDependencies这个字段有了改变：</p>
+<p> “devDependencies”: {<br>     “css-loader”: “^0.23.1”,<br>     “style-loader”: “^0.13.0”,<br>     “webpack”: “^1.12.2”<br> }</p>
+<p>当然你可以用一个更加方便的方式进行安装，可以直接在package.json中，添加相应的依赖（如上面的代码），之后的命令行中运行npm intall，它会自动帮我们安装相应的依赖。</p>
+<p>安装完毕。</p>
+<p>加载 CSS 文件</p>
+<p>在之前的first-demo中来添加一个css文件。style.css,在里面添加</p>
+<p> body {<br>     background: red;<br> }</p>
+<p>修改我们的entry.js，原文件不变，添加require(“!style!css!.&#x2F;style.css”);,用来引入我们的css文件。</p>
+<p>我们继续编译:</p>
+<p>webpack entry.js bundle.js</p>
+<p>完成后，刷新我们的页面，背景颜色是不是已经变成了红色了呢？</p>
+<p>扩展名自动绑定loader</p>
+<p>这就是我们的loader的使用方式了。如果每次 require CSS 文件的时候都要写 loader 前缀!style!css!这样的东西，显然是一件很麻烦的事情。我们需要它可以根据模块类型（扩展名）来自动绑定需要的 loader。</p>
+<p>来看看更简便的方式，将 entry.js 中的 require(“!style!css!.&#x2F;style.css”)修改为require(“.&#x2F;style.css”)，可以改变一个背景颜色让你更明显的查看到变化！然后执行：</p>
+<p>webpack entry.js bundle.js –module-bind “css&#x3D;style!css”</p>
+<p>没成功对吧! 因为!在命令行中具有特殊的含义，所以我们需要对它进行转义操作。再来试试：</p>
+<p> webpack .&#x2F;entry.js bundle.js –module-bind “css&#x3D;style!css”</p>
+<p>成功的话，应该能再次看到背景的变化。</p>
+<p>虽然这样可以将多个css文件进行编译打包，但是总感觉很是繁琐，我不想每次都运行那么一长串的命令怎么办？</p>
+<p>在上面我们已经尝试过了两种对于loader的使用方式，无论是在require的时候编写我们loader的前缀，还是在我们的命令行中进根据扩展名来自动绑定我们的loader，显然都不够自动化，在需要编译的语言继续增加的情况下，显然会是一个噩梦。 所以webapck实际上为我们提供了一个简单的方法，下面就一起来看看。</p>
+<h3 id="了解webpack配置"><a href="#了解webpack配置" class="headerlink" title="了解webpack配置"></a>了解webpack配置</h3><p>Webpack在执行的时候，除了在命令行传入参数，还可以通过指定的配置文件来执行。默认情况下，会搜索当前目录的webpack.config.js文件，这个文件是一个 node.js 模块，返回一个 json 格式的配置信息对象，或者通过 –config 选项来指定配置文件。</p>
+<p>所以现在我们就来新建一个webpack.config.js，在里面填写进下面的内容：</p>
+<p> var Webpack &#x3D; require(“webpack”);<br> module.exports &#x3D; {<br>     entry: [“.&#x2F;entry.js”],<br>     output: {<br>         path: __dirname,<br>         filename: “bundle.js”<br>     },<br>     module: {<br>         loaders: [{<br>             test: &#x2F;.css$&#x2F;,<br>             loader: “style!css”<br>         }]<br>     }<br> }</p>
+<p>我们现在仅仅需要运行:webpack，如果你的配置没有问题的话，可以在命令行中看到正确的输出，因为这个命令会自动在当前目录中查找webpack.config.js的配置文件，并按照里面定义的规则来进行执行。</p>
+<p>修改css文件感受一下。</p>
+<p>上面我们仅仅是使用了这个配置文件，我们肯定想在实际的工作环境中，自我对于项目进行针对性的配置。下面我们就先来简单的了解一下里面参数的意义：</p>
+<ul>
+<li><p>entry：指入口文件的配置项，它是一个数组的原因是webpack允许多个入口点。 当然如果你只有一个入口的话，也可以直接使用双引号”.&#x2F;entry.js”</p>
+</li>
+<li><p>output：配置打包结果，path定义了输出的文件夹，filename则定义了打包结果文件的名称</p>
+</li>
+<li><p>module：定义了对模块的处理逻辑，这里可以用loaders定义了一系列的加载器，以及一些正则。当需要加载的文件匹配test的正则时，就会调用后面的loader对文件进行处理，这正是webpack强大的原因。</p>
+</li>
+</ul>
+<p>在这里仅仅能做一些很简单的介绍，如果想要真正做到在项目中的实际应用，还需要大量的练习与尝试。在等真正用到了再记录下来。</p>
+<h3 id="了解webpack插件"><a href="#了解webpack插件" class="headerlink" title="了解webpack插件"></a>了解webpack插件</h3><p>下面就来看看webpack中的插件：</p>
+<p>插件可以完成更多loader不能完成的功能。插件的使用一般是在webpack.config.js中的plugins 选项中指定。</p>
+<p>Webpack本身内置了一些常用的插件，还可以通过npm安装第三方插件。</p>
+<p>接下来，我们从一个最简单的，用来给输出的文件头部添加注释信息BannerPlugin的内置插件来实践插件的配置和运行。</p>
+<p>修改webpack.config.js，添加 plugins配置项：</p>
+<p> var Webpack &#x3D; require(“webpack”);&#x2F;&#x2F;必须引入<br> module:{<br> },<br> plugins: [<br>     new webpack.BannerPlugin(“这里是打包文件头部注释！”)&#x2F;&#x2F;注意这是一个数组..<br> ]<br>运行正确的话应该是这样的，打开bundle.js，会发现在文件头部已经有了我们添加的注释：</p>
+<p> &#x2F;<em>! 这里是打包文件头部注释</em>&#x2F;<br> &#x2F;<strong><strong><strong>&#x2F; (function(modules) { &#x2F;&#x2F; webpackBootstrap<br> &#x2F;</strong></strong></strong>&#x2F;    &#x2F;&#x2F; The module cache<br> &#x2F;******&#x2F;    var installedModules &#x3D; {};<br>         &#x2F;***  省略 ***&#x2F;<br>         })<br>最简单的插件使用方式就是这样的了</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/guowenfh/vue-webpack/tree/master/webpack">文章出处</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Webpack/" class="category-chain-item">Webpack</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Webpack/">#Webpack</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Webpack</div>
+      <div>http://example.com/2022/02/20/webpack-first/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年2月20日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/06/06/ECMAScript6-first-chart/" title="ES6第一章 ES6简介和Babel转码">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ES6第一章 ES6简介和Babel转码</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/12/13/jquery-plus/" title="jQuery插件封装规则">
+                        <span class="hidden-mobile">jQuery插件封装规则</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

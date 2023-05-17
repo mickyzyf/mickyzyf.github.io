@@ -1,0 +1,960 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="朱羽飞">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="JavaScript语言核心——表达式、对象、数组、函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript语言核心——表达式、对象、数组、函数">
+<meta property="og:url" content="http://example.com/2021/04/02/JavaScript-authority-guiade2/index.html">
+<meta property="og:site_name" content="micky 朱羽飞的博客">
+<meta property="og:description" content="JavaScript语言核心——表达式、对象、数组、函数">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-04-02T23:22:54.000Z">
+<meta property="article:modified_time" content="2023-05-17T07:15:56.586Z">
+<meta property="article:author" content="micky">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>JavaScript语言核心——表达式、对象、数组、函数 - micky 朱羽飞的博客</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Micky-朱羽飞</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="JavaScript语言核心——表达式、对象、数组、函数"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2021-04-02 23:22" pubdate>
+          2021年4月2日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          11k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          92 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">JavaScript语言核心——表达式、对象、数组、函数</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="JavaScript语言核心——表达式、对象、数组、函数"><a href="#JavaScript语言核心——表达式、对象、数组、函数" class="headerlink" title="JavaScript语言核心——表达式、对象、数组、函数"></a>JavaScript语言核心——表达式、对象、数组、函数</h2><p>上一篇文章讲了类型、值和变量，这一篇，我们接着上面的讲，既然讲到了变量，不得不提一下变量的作用域问题</p>
+<h3 id="JavaScript变量作用域-scope"><a href="#JavaScript变量作用域-scope" class="headerlink" title="JavaScript变量作用域(scope)"></a>JavaScript变量作用域(scope)</h3><p>一个变量的作用域是程序源码中定义这个变量的区域。</p>
+<p>全局变量拥有全局作用域，在js中，任何地方都是有定义的。</p>
+<p>在函数内声明的变量只在函数体有定义，它们是局部变量，作用域是局部性的。<br>函数参数也是局部变量，他们只在函数体内有定义，在函数体内，局部变量的优先级高于同名的全局变量，如果在函数内声明一个局部变量或者函数参数中带有的变量和全局变量重名，那么全局变量就被局部变量所覆盖。</p>
+<p>意思是说，全局变量是全局性的，即在JavaScript代码中，它处处都有定义。局部变量的作用域是局部性的，只在函数体内起作用，在函数体内，局部变量优先级高于同名的全局变量，在函数体内对局部变量赋值，会覆盖同名的全局变量。</p>
+<h3 id="JavaScript的表达式与运算符"><a href="#JavaScript的表达式与运算符" class="headerlink" title="JavaScript的表达式与运算符"></a>JavaScript的表达式与运算符</h3><ol>
+<li>表达式是JS的一个短语，js解释器会将表达式计算出一个结果</li>
+</ol>
+<ul>
+<li><p>原始表达式</p>
+</li>
+<li><p>JavaScript原始表达式包含常量、关键字和变量</p>
+</li>
+<li><p>1,1.2,null,aa等</p>
+</li>
+<li><p>对象和数组的初始化表达式</p>
+</li>
+<li><p>由方括号或者大括号和其中逗号隔开的列表构成</p>
+</li>
+<li><p>[1,2,3] ,{x:1,y:2}等</p>
+</li>
+<li><p>函数定义表达式</p>
+</li>
+<li><p>由function跟随一对圆括号再接一对大括号</p>
+</li>
+<li><p>属性访问表达式</p>
+</li>
+<li><p>由点来运算得到一个对象或数组元素的值</p>
+</li>
+<li><p>调用表达式</p>
+</li>
+<li><p>调用函数或方法来得到计算值</p>
+</li>
+<li><p>f(0),Math.max(x,y,z);s.sort()</p>
+</li>
+<li><p>对象创建表达式</p>
+</li>
+<li><p>用new来创建一个对象来得到一个对象</p>
+</li>
+</ul>
+<ol start="2">
+<li>运算符是用于完成操作的符号</li>
+</ol>
+<ul>
+<li><p>算术运算</p>
+</li>
+<li><p>+、-、×、÷</p>
+</li>
+<li><p>关系运算</p>
+</li>
+<li><p>&lt;、&gt;、&#x3D;、!&#x3D;</p>
+</li>
+<li><p>逻辑运算</p>
+</li>
+<li><p>&amp;&amp;、||、！</p>
+</li>
+<li><p>赋值运算</p>
+</li>
+<li><p>用&#x3D;来江右边的值赋值给左边的变量或对象属性（数组属性）</p>
+</li>
+<li><p>表达式运算</p>
+</li>
+<li><p>eval()</p>
+</li>
+<li><p>eval（）是一个函数，但由于它已经被当成运算符来对待了</p>
+</li>
+<li><p>其他运算符</p>
+</li>
+<li><p>条件运算符(三目运算符) ?   :</p>
+<p> 判断句  ?     true执行语句 :  false执行语句</p>
+</li>
+<li><p>typeof运算符</p>
+<p> 用于返回()内的类型</p>
+</li>
+<li><p>delete运算符</p>
+<p> 一元操作符，删除对象或者数组元素</p>
+</li>
+<li><p>void运算符<br> void最常用在客户端的 URL中&lt;a href&#x3D;”javascript:void window.open():” &gt;打开一个新的窗口  </a>   );</p>
+</li>
+</ul>
+<h3 id="JavaScript的语句"><a href="#JavaScript的语句" class="headerlink" title="JavaScript的语句"></a>JavaScript的语句</h3><ol>
+<li>如果表达式是js中的短语，则语句就是js中的完整的句子或者命令。</li>
+</ol>
+<p> 语句三大类：条件(if和switch)、循环(while和for)、跳转(break、return和throw)</p>
+<ol start="2">
+<li><p>表达式语句：赋值语句是一类比较重要的表达式语句，delete运算符也是表达式语句的一部分，函数调用也是表达式语句的一大类。</p>
+</li>
+<li><p>复合语句和空语句<br> 多条语句用花括号括起来就可以形成一条复合语句</p>
+</li>
+</ol>
+<p> 语句块注意点：</p>
+<p> 第一，语句块结尾不需要分号。块中语句必须以分号结束</p>
+<p> 第二，语句块中的行都有缩进，但不是必须的。</p>
+<p> 第三，js中没有块级作用域，在语句块中声明的变量并不是语句块私有的</p>
+<ol start="4">
+<li><p>声明语句<br>  var和function都是声明语句，它们声明或定义变量或函数。</p>
+</li>
+<li><p>条件语句</p>
+</li>
+</ol>
+<ul>
+<li>if是基本的控制语句，它让js程序可以选择执行路径</li>
+<li>switch,if是创建一条分支，并且使用else if来处理多条分支，当所有分支都依赖同一个表达式时，可以用switch和case来创建多条分支，注意switch语句的执行非常高效，没一个case后的执行语句后要加上break来终止case语句块，switch结尾要用default,来保证switch的整个语句块不被跳过。</li>
+</ul>
+<ol start="6">
+<li>循环语句</li>
+</ol>
+<p> 如果说条件语句是代码的一条条分支路径，则循环语句是程序路径的一条回路。</p>
+<p> (1).do&#x2F;while 与wihle循环相似，只不过它是在循环的尾部而不是顶部检测循环表达式，这就意味着循环体至少会执行一次</p>
+<p> (2). for语句提供了一种比while更方便的循环控制结构。</p>
+<p>  for(initialize;test;increment){<br>   statement<br>  }<br> initialize负责初始化操作，test负责循环条件判断， increment负责计数变量更新</p>
+<p> for&#x2F;in语句也是使用for关键字，但和for循环完全不同的一类</p>
+<p> for(variable  in  object ) {statemenet}</p>
+<p> variable通常是一个变量名，也可以是一个可以产生左值的表达式或者一个通过var语句声明的变量  object是一个表达式，这个表达式的计算结果是一个对象</p>
+<ol start="7">
+<li>跳转</li>
+</ol>
+<p> Js中的跳转语句，break语句是跳转到循环或者其他语句的结束。</p>
+<p> Continue语句是终止本次循环的执行并开始下一次循环的执行。</p>
+<p> Return语句可以让解释器跳出函数体的执行，并提供本次调用的返回值。</p>
+<p> Throw语句触发或者抛出一个异常，一般与try&#x2F;catch&#x2F;finally语句一同使用，用于捕获异常</p>
+<ol start="8">
+<li>其他语句类型</li>
+</ol>
+<p> with, debugger 和 use strict</p>
+<p> with语句用于临时扩展作用域链，with(object) statement，将object添加到作用域链的头部，注：在严格模式中禁止使用with，非严格模式中不推荐使用</p>
+<p> debugger语句通常什么也不做，只是用来打断点进行调试</p>
+<p> use strict是ECMAScript 5 引入的一条指令，指令不是语句(非常接近于语句)</p>
+<p> 目的是说明后续的代码将会解析为严格代码<br> 严格模式和非严格模式之间的区别：(前三条尤为重要)</p>
+<pre><code class="hljs">(1).严格模式禁止使用with
+(2).严格模式中所有变量都要先声明，如果一个未声明的变量、函数、函数参数、catch从句参数或者全局对象属性赋值，将会抛出引用错误异常(在非严格模式中，这种隐式声明的全局变量的方法是给全局对象新添一个新属性)
+(3)在严格模式中，调用的函数中的一个this值是undefined，非严格模式中，调用的函数中的this值总是全局对象。可以利用这种特性来判断js实现是否支持严格模式
+</code></pre>
+<h3 id="JavaScript中的对象"><a href="#JavaScript中的对象" class="headerlink" title="JavaScript中的对象"></a>JavaScript中的对象</h3><ol>
+<li>对象是js的基本数据类型</li>
+<li>对象是一种复合值，它将很多值(原始值或者其他对象)聚合在一起，通过名字访问这些值。</li>
+<li>对象也可以看成是属性的无序集合，每个属性都是一个名字</li>
+<li>对象的属性名是字符串，所以对象是从字符串到值的映射。也称为“散列”、“散列表”、“字典”、“关联数组”</li>
+<li>对象是动态的，可以添加也可以删除属性，常用来模拟静态类型语言中的“结构体”</li>
+</ol>
+<h4 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h4><p>可以通过对象直接量、关键字new和ECMAScript 5中的 Object.create()函数来创建对象</p>
+<p>（1）对象直接量是一个表达式，这个表达式每次运算都创建并初始化一个新的对象，每次计算对象直接量的时候，也都会计算它的没一个属性的值。</p>
+<p>（2）new运算符创建并初始化一个新对象。关键字new后跟随一个函数调用。这里的函数称做构造函数。构造函数用以初始化一个先创建的对象。</p>
+<p>（3）Object.create(Object)可以通过任意原型创建新的对象，也就是说可以是任意对象可继承。</p>
+<h4 id="属性的查询和设置"><a href="#属性的查询和设置" class="headerlink" title="属性的查询和设置"></a>属性的查询和设置</h4><p>可以通过.和[]运算来获取属性的值，已经有的属性可直接赋值</p>
+<p>赋值：</p>
+<p>如果o中的属性p是可读的：不能给只读属性重新赋值</p>
+<p>如果o中的属性p是继承属性，且它是只读的：不能通过同名自有属性覆盖只读的继承属性</p>
+<p>如果o中不存在自有属性p：o也没有使用setter方法继承属性p，并且o的可扩展性是false。</p>
+<p>如果o中不存在p，而且没有setter方法提供调用，则p一定会添加至o中。</p>
+<p>但如果o不是可扩展的，那么在o中不能定义新属性。</p>
+<h4 id="删除属性"><a href="#删除属性" class="headerlink" title="删除属性"></a>删除属性</h4><p>detele 语句，不能删除那些可配置性为false的属性</p>
+<p>detele  Object.prototype; &#x2F;&#x2F;不能删除，属性不可配置的<br> var  x&#x3D;1;<br> detelet  this.x;&#x2F;&#x2F;不能删除这个属性<br>  function  f(){};<br> detelet  this.f;&#x2F;&#x2F;不能删除这个全局函数</p>
+<p>只能删除自有属性，不能删除继承属性,要删除继承属性必须从定义原型对象上删除它。</p>
+<h4 id="检测属性（in、for-x2F-in）"><a href="#检测属性（in、for-x2F-in）" class="headerlink" title="检测属性（in、for&#x2F;in）"></a>检测属性（in、for&#x2F;in）</h4><ol>
+<li>in运算的左侧是属性名，右侧是对象，如果包含则返回true</li>
+</ol>
+<p>  var o &#x3D;{x:1}<br>  “x” in o&#x2F;&#x2F;true<br>  “y” in o &#x2F;&#x2F;false<br>  “toString” in o &#x2F;&#x2F;true o继承了toString属性</p>
+<ol start="2">
+<li>hasOwnProperty()方法用来检测给定的名字是否是对象的自有属性,对于继承属性返回false</li>
+</ol>
+<p>  var o &#x3D; {x:1}<br>  o.hasOwnProperty(“x”);  &#x2F;&#x2F;true：o有一个自有属性x<br>  o.hasOwnProperty(“x”); &#x2F;&#x2F;false :o中不存在属性y<br>  o.hasOwnProperty(“x”);&#x2F;&#x2F;false：toString是继承属性</p>
+<ol start="3">
+<li>propertyIsEnumerable()是hasOwnProperty()的增强版，只有检测到自有属性且是可枚举的才返回 true</li>
+</ol>
+<p>  var o &#x3D;inherit { y : 1}<br>  o.x &#x3D; 1;<br>  o.propertyIsEnumerable(“x”);&#x2F;&#x2F;true :o有一个可枚举的自有属性x<br>  o.propertyIsEnumerable(“y”);&#x2F;&#x2F;false:y是继承来的<br>  Object.prototype.propertyIsEnumerable(“toString”);&#x2F;&#x2F;false:不可枚举</p>
+<p>除了in之外，!&#x3D;&#x3D;判断一个属性是否是undefined</p>
+<p> var o &#x3D;{x:1}<br> o.x !&#x3D;&#x3D;undefined;&#x2F;&#x2F;true：o中有属性x<br> o.y !&#x3D;&#x3D;undefined;&#x2F;&#x2F;false：o中没有属性y<br> o.toString !&#x3D;&#x3D; undefined;&#x2F;&#x2F;true o 继承了toString属性</p>
+<h4 id="枚举属性"><a href="#枚举属性" class="headerlink" title="枚举属性"></a>枚举属性</h4><p>for&#x2F;in循环</p>
+<p> var o &#x3D; {x:1,y:2,z:3}<br> for(p in o){console.log(p); }</p>
+<h4 id="属性getter和setter方法"><a href="#属性getter和setter方法" class="headerlink" title="属性getter和setter方法"></a>属性getter和setter方法</h4><p>由getter和setter定义的属性称做“存取器属性”，不同于”数据属性”，数据属性只是一个简单的值<br>当有getter和setter时，说明属性是可读写的存取器属性<br>当只有getter时，说明属性是只读取的属性</p>
+<h4 id="对象的三个属性"><a href="#对象的三个属性" class="headerlink" title="对象的三个属性"></a>对象的三个属性</h4><p>每一个对象都有与之相关的原型(property)、类(class)和可扩展性(extensible attribute)</p>
+<p>原型属性：对象的原型属性是用来继承属性的。是实例对象创建之初就设置好的。</p>
+<p> var p &#x3D;{ x :1};&#x2F;&#x2F;定义一个原型对象<br> var o &#x3D; Object.create(p);&#x2F;&#x2F;使用这个原型创建一个对象<br> p.isPrototypeOf(o)&#x2F;&#x2F;true：o继承自p<br> Object.prototype.isPrototypeOf(o)&#x2F;&#x2F;true:  p继承自Object.prototype<br> isPrototypeOf()方法，检测p是否是o的原型</p>
+<p>类属性：对象的类属性是一个字符串，用以表示对象的类型信息 classof(1)&#x2F;&#x2F;Number</p>
+<p>可扩展的属性</p>
+<p>对象的可扩展属性用以表示是否可以给对象添加新属性。所以内置对象和自定义对象都是显式可扩展的</p>
+<p>Object.preventExtensions（）、Object.seal()、 Object.freeze()</p>
+<p>&#x2F;&#x2F;创建一个封闭对象，包括一个冻结的原型和一个不可枚举的属性</p>
+<p> var o &#x3D; Object.seal(Object.create(Object.freeze({ x : 1}),<br> {y: {value: 2,writable:true}}));</p>
+<h4 id="序列化对象"><a href="#序列化对象" class="headerlink" title="序列化对象"></a>序列化对象</h4><p>是指将对象的状态转换为字符串，也可将字符串还原为对象JSON.stringify()和JSON.parse()来序列化和还原js对象。这些方法都是使用JSON作为数据交换格式，它的语法和js对象和数组直接量的语法非常相近。</p>
+<h4 id="对象方法"><a href="#对象方法" class="headerlink" title="对象方法"></a>对象方法</h4><p>toString()方法：没有参数，返回表示调用这个方法的对象值的字符串</p>
+<p>toLocaleString()方法：这个方法返回一个表示这个对象的本地化字符串，可以用它对数字、日期和时间做本地化转换</p>
+<p>toJSON()方法：如果在待序列化的对象中存在这个方法，则调用它，返回值即是序列化的结果</p>
+<p>valueOf() 方法:这个方法和toString()方法非常相似，但往往当js需要将对象转换为某种原始值而非字符串的时候才会调用它，尤其是转化为数字的时候。</p>
+<h3 id="JavaScript中的数组"><a href="#JavaScript中的数组" class="headerlink" title="JavaScript中的数组"></a>JavaScript中的数组</h3><p>数组是值的有序集合</p>
+<p>每一个值叫做一个元素，而每个元素在数组中有一个位置，以数字表示，称为索引。</p>
+<p>数组是JavaScript对象的特殊形式</p>
+<p>ECMAScript  5中可以使用Array.isArray({});和Array.isArray([]);来区判定是否为数组。</p>
+<p>Typeof操作在这帮不上忙(除函数以外的所有对象都是如此)</p>
+<p>.instanceof操作只能用于简单的情形： instanceof的问题是在Web浏览器中有可能有多个窗口或窗体(frame)存在。</p>
+<p>数组也是动态的</p>
+<p>创建数组时无需声明一个固定的大小或者在数组大小变化时无需重新分配空间</p>
+<h4 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a>创建数组</h4><p>(一)方括号中用逗号将数组元素隔开即可。</p>
+<p>数组中不一定要有常量，他们可以是任意表达式。</p>
+<p>它可以包含对象直接量或者其他数组直接量。</p>
+<p>如果省略数组直接量中的某个值，省略的元素将被赋予undefined值。</p>
+<p>(二)调用构造函数Array()创建数组也是一种方法。有三种方法可以调用构造函数</p>
+<p>方法一：var   a&#x3D;new Array()，等同于直接量[];</p>
+<p>方法二： var  a &#x3D; new Array(10);创建指定长度的数组；</p>
+<p>方法三：显式指定两个或多个数组的一个非数值元素：var a &#x3D; new Array(1,2,3,”adc,aaa”);</p>
+<h4 id="数组元素的读和写"><a href="#数组元素的读和写" class="headerlink" title="数组元素的读和写"></a>数组元素的读和写</h4><p>读数组array[index]</p>
+<p>写数组 array[index]&#x3D;4;</p>
+<h4 id="稀疏数组"><a href="#稀疏数组" class="headerlink" title="稀疏数组"></a>稀疏数组</h4><p>定义：稀疏数组就是包含从0开始的不连续索引的数组。即数组的length&gt;元素个数<br>足够稀疏的数组通常在实现上比稠密数组更慢、内存利用率更高，在这样的数组中查找元素与常规对象的属性查找时间一样</p>
+<h4 id="数组长度"><a href="#数组长度" class="headerlink" title="数组长度"></a>数组长度</h4><p>每一个数组都有一个length属性[].length</p>
+<h4 id="数组元素的添加和删除"><a href="#数组元素的添加和删除" class="headerlink" title="数组元素的添加和删除"></a>数组元素的添加和删除</h4><p>添加：a.push(“1”);a.push(“1”,”2”);</p>
+<p>删除 delete a[1];注：删除后a在索引1的位置</p>
+<p>不再有元素，数组索引1并未在数组中定义，但delete操作并不影响数组的长度</p>
+<h4 id="数组遍历"><a href="#数组遍历" class="headerlink" title="数组遍历"></a>数组遍历</h4><p>for循环遍历是最常见的遍历方法</p>
+<p> for(var  i&#x3D;0;  i &lt; a.length;  i++ ){<br>  if(!a[i])<br>  continue;&#x2F;&#x2F;跳过null、undefined和不存在的情况<br> }<br> for(var  i  in  a){<br>  if(!a[i])<br>  continue;&#x2F;&#x2F;跳过null、undefined和不存在的情况<br> }</p>
+<p>ECMAScript 5中定义了新的数组遍历的方法:forEach()方法</p>
+<p> a.forEach(function(x){<br>  &#x2F;&#x2F;此处x指a[0]-a[a.length]的遍历<br> })</p>
+<h4 id="多维数组"><a href="#多维数组" class="headerlink" title="多维数组"></a>多维数组</h4><p>Js不支持真正的多维数组，但可以用数组的数组来近似多维数组。</p>
+<h4 id="数组方法"><a href="#数组方法" class="headerlink" title="数组方法"></a>数组方法</h4><ol>
+<li><p>join()方法：将数组中所有元素都转化为字符串并连接在一起，返回最后生成的字符串。并不改变原数组join(“-”)指定拼接符</p>
+</li>
+<li><p>reverse()方法：将数组中的元素颠倒顺序，返回逆序的数组，它采取了替换，原先数组改变</p>
+</li>
+<li><p>sort()方法：将数组中的元素排序并返回排序后的数组。改变了原数组</p>
+</li>
+<li><p>concat()方法：创建并返回一个新的数组，他的元素包括调用concat()原始数组的元素和concat()的每个参数。如果这些参数中的任何一个自身是数组，则连接的是数组元素，而非数组本身。例如：var a&#x3D;[1,2],a.concat(4,5)&#x2F;&#x2F;[1,2,4,5]</p>
+</li>
+<li><p>slice()方法：返回指定数组的一个片段或者子数组。</p>
+</li>
+<li><p>splice()方法：数组中插入或者删除元素的通用方法a.splice(index),a.splice(index1,index2)，第一个参数指定了插入或删除的起始位置。第二个参数指定了应该从删除元素的个数。如果第二个参数省略，则从起始位置到数组结尾的元素都将被删除。</p>
+</li>
+<li><p>push()和pop()方法：push()是在数组尾部添加一个或多个元素，并返回新数组的长度。pop()相反，删除数组的最后一个元素，减小数组的长度并返回。</p>
+</li>
+<li><p>unshift()和shift()方法：unshift()和shift()跟push()和pop()相对，从头部增加一个或多个元素，并返回数组长度。shify()删除数组第一个元素，并将其返回，然后把所有随后的元素下一个位置来填补数组头部的空缺.</p>
+</li>
+<li><p>toString()和toLocaleString()方法：toString()针对数组，该方法将每个元素庄花为字符串并输出用逗号分隔字符串列表。toLocaleString()是toString()方法的本地化版本。它调用toLocaleString()方法将每个数组元素转化为字符串，并且使用本地化或自定义分隔将这些字符串连接起来生成最终的字符串。</p>
+</li>
+</ol>
+<h4 id="ECMAScript-5中的数组方法"><a href="#ECMAScript-5中的数组方法" class="headerlink" title="ECMAScript  5中的数组方法"></a>ECMAScript  5中的数组方法</h4><p>(1)forEach()方法从头至尾遍历数组，为每个元素调用指定的函数。</p>
+<p> data.forEach(<br>  function(value){<br>   …<br> })</p>
+<p>注意：无法在所有元素都传递给调用函数之前终止遍历。也就是说，没有像for循环中使用的相应的break语句。如果要提前终止，必须把forEach()方法放在一个try块中，并抛出异常。这样才会提前终止循环。</p>
+<p>(2)map()方法：</p>
+<p>该方法将b&#x3D;a.map(function(x){x*x})&#x2F;&#x2F;调用的数组的每个元素传递给指定的函数，并返回一个数组，它包含该函数的返回值。例：x表示a[0]~a[a.length]</p>
+<p>(3)filter()方法：</p>
+<p>返回的数组元素是调用的数组的一个子集。传递的函数是用来逻辑判定的。如果逻辑判定值是true则输出该元素到一个作为返回值的数组中，false则不返回。多用于压缩空缺并删除undefined元素。</p>
+<p> 例：a&#x3D;[1,2,3,4,5];a.filter(function(x,i){return  i%2});&#x2F;&#x2F;[1,3,5]<br>  a&#x3D;a.filter(function(x){return x!&#x3D;undefined&amp;&amp;x!&#x3D;null});&#x2F;&#x2F;压缩空缺</p>
+<p>(4)every()和some()</p>
+<p>every()当且仅当针对数组中的所有元素调用判定函数都返回true，它才返回true</p>
+<p>some()当数组中至少有一个元素满足判定函数，则返回true</p>
+<p>(5)reduce() 和reduceRight()</p>
+<p>reduce()和reduceRight()方法使用指定的函数将数组元素进行组合，生成单个值，这在函数式编程中是常见的操作。</p>
+<p> 例 var a&#x3D;[1,2,3,4,5];<br> sum&#x3D;a.reduce(function (x,y){return x+y},0);  &#x2F;&#x2F;15  数组求和<br> max&#x3D;a.reduce(function(x,y){return (x&gt;y)?x:y}); &#x2F;&#x2F;5  数组求最大值</p>
+<p>reduce()需要两个参数。第一个是执行化简操作的函数。化简函数的任务是用某种方法把两个数值组合或简化为一个值，并返回化简后的值。第二个(可选)的参数是一个传递给函数的初始值。</p>
+<p>reduceRight()和reduce()的工作原理一样，不同的是它按照数组索引从高到低处理数组，而不是从低到高。</p>
+<p><strong>注意：</strong>reduce()和reduceRight()都能接收一个可选的参数，它指定了化简函数调用是的this关键字的值。<br>可选的初始值人需要占一个位置，如果想让化简函数作为一个特殊对象的方法调用，请参见Function.bind()方法。</p>
+<p>(6)indexOf()和lastIndexOf()</p>
+<p>indexOf()和lastIndexOf()搜索整个数组中具有给定值的元素，返回找到的第一个元素的索引或者如果没有找到就返回-1。indexOf()从头至尾搜索，而lastIndexOf()则是反向搜索。</p>
+<h4 id="数组类型"><a href="#数组类型" class="headerlink" title="数组类型"></a>数组类型</h4><p>数组是具有特殊行为的对象。ECMAScript  5中可以使用Array.isArray({});和Array.isArray([]);来区判定是否为数组。</p>
+<p>Typeof操作在这帮不上忙(除函数以外的所有对象都是如此).instanceof操作只能用于简单的情形：</p>
+<p>instanceof的问题是在Web浏览器中有可能有多个窗口或窗体(frame)存在。</p>
+<h4 id="类数组对象"><a href="#类数组对象" class="headerlink" title="类数组对象"></a>类数组对象</h4><p>Js中数组的一些特性是其他对象所没有的：</p>
+<p>当新元素添加到列表时，自动更新length属性。</p>
+<p>设置length为一个较小值将阶段数组。</p>
+<p>Array.prototype中继承一些有用的方法。</p>
+<p>其类属性为Array，这些可以看出数组和常规的对象有明显的区别。</p>
+<p>实践中，类数组对象实际上偶尔出现，虽然它们不能直接调用数组方法或者length属性有什么特殊的行为，但仍然可以针对真正数组遍历的代码来遍历它们。Js数组方法是特意定义为通用的，因此它们不仅应用在真正的数组而且在类数组对象上都能正确工作。</p>
+<h4 id="作为数组的字符串"><a href="#作为数组的字符串" class="headerlink" title="作为数组的字符串"></a>作为数组的字符串</h4><p>在ECMAScript 5中字符串的行为类似于只读的数组。</p>
+<h3 id="JavaScript中的函数"><a href="#JavaScript中的函数" class="headerlink" title="JavaScript中的函数"></a>JavaScript中的函数</h3><p>函数是JavaScript中只定义一次，但可被执行和调用任意次</p>
+<p>函数是参数化的：函数的定义会包括一个称为形参的标识符列表，这些参数在函数体中像局部变量一样工作<br>如果函数挂载在一个对象上，作为对象的一个属性，就称为对象的方法</p>
+<p>函数可以嵌套在其他函数中定义，这样他们就可以访问他们被定义时所处的作用域中的任何变量</p>
+<p>函数给JavaScript带来了强劲的编程能力</p>
+<h4 id="函数的定义"><a href="#函数的定义" class="headerlink" title="函数的定义"></a>函数的定义</h4><p>使用 function关键字来定义，它可以用在函数定义表达式或者函数申明语句里。两种形式，都是从function关键字开始的。function 后面跟随函数名称标识符，函数名称是函数声明语句不可或缺的部分，它的用途就像是变量的名称，这个名字是可选的，如果存在，该名字只存在于函数体中，并指代该函数本身。</p>
+<p>一对圆括号，其中包含0个多个用逗号隔开的标识符组成的列表，这些标示符是函数的参数名称，它们就像函数体中的局部变量一样。</p>
+<p>一对花括号，其中包含0条或多条js语句，这些语句构成了函数体，一旦调用函数，就会执行这些语句。</p>
+<h4 id="函数的调用"><a href="#函数的调用" class="headerlink" title="函数的调用"></a>函数的调用</h4><p>有四种方法来调用js函数:</p>
+<ol>
+<li>作为函数&#x2F;&#x2F;直接函数名a(x)</li>
+<li>作为方法&#x2F;&#x2F;o.m();</li>
+<li>作为构造函数 &#x2F;&#x2F;函数或方法调用之前带有关键词new</li>
+<li>通过call()和apply()方法间接调用 &#x2F;&#x2F;js中函数也是对象，函数对象也可以包含方法call ()和apply()可以间接的调用函数，且都允许显式指定调用所需的this值。</li>
+</ol>
+<h4 id="函数的实参和形参"><a href="#函数的实参和形参" class="headerlink" title="函数的实参和形参"></a>函数的实参和形参</h4><p>定义时就是形参，调用时就是实参</p>
+<h4 id="作为值的函数"><a href="#作为值的函数" class="headerlink" title="作为值的函数"></a>作为值的函数</h4><p>函数也可以作为值传递给一个变量</p>
+<h4 id="作为命名空间的函数"><a href="#作为命名空间的函数" class="headerlink" title="作为命名空间的函数"></a>作为命名空间的函数</h4><p> (function(){<br>   &#x2F;&#x2F;CODE<br> })();&#x2F;&#x2F;最佳的方式是使用匿名函数创建作用域。</p>
+<h4 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h4><p>Js也采用词法作用域，也就是说，函数的执行依赖变量作用域，这个作用域是在函数定义时决定的，而不是函数调用时决定的。</p>
+<p><strong>注：</strong>严格讲，闭包内的逻辑是可以使用this的，但这个this和当初定义函数时的this不是同一个，即便是同一个this，this的值是随着调用栈的变化而变化的。可以将this转存为一个变量的做法可以避免this的不确定性带来的歧义.</p>
+<h4 id="函数式编程"><a href="#函数式编程" class="headerlink" title="函数式编程"></a>函数式编程</h4><p>是指数学中的函数，即自变量的映射。也就是说一个函数的值仅决定于函数参数的值，不依赖其他状态。在js中可以操控对象一样操控函数，也就是说可以在js中应用函数式编程技术。</p>
+<h4 id="函数的属性、方法和构造函数"><a href="#函数的属性、方法和构造函数" class="headerlink" title="函数的属性、方法和构造函数"></a>函数的属性、方法和构造函数</h4><ol>
+<li>length属性</li>
+</ol>
+<p> arguments.length表示传入函数的参数的个数</p>
+<ol start="2">
+<li>portotype属性</li>
+</ol>
+<p> 每个函数都包含一个portotype属性,这个属性是指向一个对象的引用，这个对象称作”原型对象”</p>
+<ol start="3">
+<li>call()方法和apply()方法</li>
+</ol>
+<p> 我们可以将它们看做是某个对象的方法，通过调用方法的形式来间接调用函数。call()和apply()的第一个实参是要调用函数的母对象，他是调用上下文，在函数体内通过this来获得对它的引用。</p>
+<p> 要想以对象o的方法来调用函数f(),可以这样使用call()和apply():f.call(o);和f.apply(o);</p>
+<ol start="4">
+<li>bind()方法</li>
+</ol>
+<p> bind()是ECMAScript 5中新增的方法，这个方法主要作用是将函数绑定至某个对象。</p>
+<p>  function f(){return  this.x+y;}  &#x2F;&#x2F;这个是待绑定的函数<br>  var o &#x3D;{x:1};    &#x2F;&#x2F;将要绑定的对象<br>  var g&#x3D; f.bind(o);   &#x2F;&#x2F;通过调用g(x)来调用o.f(x)<br>  g(2)</p>
+<ol start="5">
+<li><p>toString()方法，和js对象一样，函数也有toString()方法，返回一个字符串没这个字符串和哈数声明的语句的语法相关</p>
+</li>
+<li><p>function()构造函数</p>
+</li>
+</ol>
+<p>  var  f&#x3D; new function(“x”,”y”,”return x*y;”);</p>
+<p>  等价于var f&#x3D;function(x,y){return x*y;}</p>
+<p>注：</p>
+<ul>
+<li>function()构造函数允许js在运行时动态创建并编译函数。</li>
+<li>每次调用function()都会解析函数体，并创建新的函数对象，如果在一个循环或者多次调用的函数中执行这个构造函数，执行效率会受影响，相比之下，循环体中的嵌套函数和函数定义表达式则不会每次执行时都重新编译</li>
+<li>function()构造函数最重要的一点，就是它所创建的函数并不是使用词法作用域，相反，函数体代码的编译总是会在顶层函数执行。因此，构造函数在实际编程过程中很少用到</li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/JavaScript/" class="category-chain-item">JavaScript</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/JavaScript/">#JavaScript</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>JavaScript语言核心——表达式、对象、数组、函数</div>
+      <div>http://example.com/2021/04/02/JavaScript-authority-guiade2/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>朱羽飞</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2021年4月2日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2021/04/04/JavaScript-Class-and-Modul/" title="JavaScript语言核心——JavaScript中的类和模块">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">JavaScript语言核心——JavaScript中的类和模块</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2021/04/01/JavaScript-authority-guiade/" title="JavaScript语言核心——数据类型">
+                        <span class="hidden-mobile">JavaScript语言核心——数据类型</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
